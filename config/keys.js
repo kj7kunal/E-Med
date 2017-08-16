@@ -1,6 +1,6 @@
 // Initialize Firebase
 
-var config = {
+export const keys = {
     apiKey: "AIzaSyAhLuisc8G_Eyouo5PrUJueukcxGa39SmQ",
     authDomain: "patient-stack.firebaseapp.com",
     databaseURL: "https://patient-stack.firebaseio.com",
@@ -8,5 +8,3 @@ var config = {
     storageBucket: "",
     messagingSenderId: "321078645548"
 };
-
-module.exports = config;
