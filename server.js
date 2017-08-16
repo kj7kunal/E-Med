@@ -1,10 +1,10 @@
-const express = require('express');
-const bodyParser = require("body-parser");
-const methodOverride = require("method-override");
-const exphbs = require("express-handlebars");
-// const routes = require("./controllers/tbd_controller.js");
-const app = express();
-const port = process.env.PORT || 3000;
+const express = require('express'),
+    bodyParser = require("body-parser"),
+    methodOverride = require("method-override"),
+    exphbs = require("express-handlebars"),
+    routes = require("./controllers/ps_controller.js"),
+    app = express(),
+    port = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 
