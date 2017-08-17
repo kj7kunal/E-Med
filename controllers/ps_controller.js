@@ -7,6 +7,9 @@ router.get("/", function(req, res) {
 router.get("/physician", function(req, res) {
     res.render("physician");
 });
+router.get("/view", function(req, res) {
+  res.render("viewPatient");
+});
 
 
 module.exports = router;
