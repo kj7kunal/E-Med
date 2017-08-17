@@ -46,7 +46,6 @@ CREATE TABLE IF NOT EXISTS `patientstack_db`.`patients` (
   `provider_name` VARCHAR(45) NULL,
   `policy_number` VARCHAR(45) NULL,
   `appointments` VARCHAR(45) NULL,
-  `patientscol` VARCHAR(45) NULL,
   `image` VARCHAR(255) NULL,
   `visits_patient_id` VARCHAR(45) NOT NULL,
   INDEX `fk_patients_visits1_idx` (`visits_patient_id` ASC),
