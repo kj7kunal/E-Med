@@ -1,15 +1,13 @@
-console.log("hello");
-// import key from "../../../config/keys";
-
 // Initialize Firebase
-const config = {
-    apiKey: keys.apiKey,
-    authDomain: keys.authDomain,
-    databaseURL: keys.databaseURL,
-    projectId: keys.projectId,
-    storageBucket: keys.storageBucket,
-    messagingSenderId: keys.messagingSenderId
+const keys = {
+    apiKey: "AIzaSyAhLuisc8G_Eyouo5PrUJueukcxGa39SmQ",
+    authDomain: "patient-stack.firebaseapp.com",
+    databaseURL: "https://patient-stack.firebaseio.com",
+    projectId: "patient-stack",
+    storageBucket: "",
+    messagingSenderId: "321078645548"
 };
+
 firebase.initializeApp(keys);
 
 let userEmail, password = "";
