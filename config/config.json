@@ -2,9 +2,12 @@
     "development": {
         "username": "root",
         "password": "",
-        "database": "database_development",
+        "database": "patientstack_db",
         "host": "localhost",
-        "dialect": "mysql"
+        "dialect": "mysql",
+        "dialectOptions": {
+            "supportBigNumbers": true
+        }
     },
     "test": {
         "username": "root",

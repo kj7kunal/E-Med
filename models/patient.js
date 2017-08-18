@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 module.exports = function(sequelize, DataTypes) {
     var Patient = sequelize.define("patient", {
         first_name: {
@@ -15,8 +17,8 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         dob: {
-            type: DataTypes.DATE,
-            allowNull: false
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         street_address: {
             type: DataTypes.STRING,
@@ -41,8 +43,8 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
         },
         telephone: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
+            type: DataTypes.STRING,
+            allowNull: false
         },
         height: {
             type: DataTypes.STRING,
@@ -66,14 +68,11 @@ module.exports = function(sequelize, DataTypes) {
         },
         emergency_contact_name: DataTypes.STRING,
         emergency_contact_number: {
-            type: DataTypes.INTEGER,
-            validate: {
-                len: [1, 10]
-            }
+            type: DataTypes.STRING,
         },
         provider_name: DataTypes.STRING,
         appointments: DataTypes.STRING,
-        image: DataTypes.STRING,
+        image: DataTypes.TEXT,
 
     });
     return Patient;

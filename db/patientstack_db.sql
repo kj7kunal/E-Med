@@ -27,7 +27,7 @@ ENGINE = InnoDB;
 -- Table `patientstack_db`.`patients`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `patientstack_db`.`patients` (
-  `primaryKey` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `dob` DATE NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `patientstack_db`.`patients` (
   `image` VARCHAR(255) NULL,
   `visits_patient_id` VARCHAR(45) NOT NULL,
   INDEX `fk_patients_visits1_idx` (`visits_patient_id` ASC),
-  PRIMARY KEY (`primaryKey`),
+  PRIMARY KEY (`id`),
   CONSTRAINT `fk_patients_visits1`
     FOREIGN KEY (`visits_patient_id`)
     REFERENCES `patientstack_db`.`visits` (`patient_id`)
@@ -72,14 +72,14 @@ ENGINE = InnoDB;
 -- Table `patientstack_db`.`patients_has_allergies`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `patientstack_db`.`patients_has_allergies` (
-  `patients_primaryKey` INT NOT NULL,
+  `patients_id` INT NOT NULL,
   `allergies_patient_id` INT NOT NULL,
-  PRIMARY KEY (`patients_primaryKey`, `allergies_patient_id`),
+  PRIMARY KEY (`patients_id`, `allergies_patient_id`),
   INDEX `fk_patients_has_allergies_allergies1_idx` (`allergies_patient_id` ASC),
-  INDEX `fk_patients_has_allergies_patients_idx` (`patients_primaryKey` ASC),
+  INDEX `fk_patients_has_allergies_patients_idx` (`patients_id` ASC),
   CONSTRAINT `fk_patients_has_allergies_patients`
-    FOREIGN KEY (`patients_primaryKey`)
-    REFERENCES `patientstack_db`.`patients` (`primaryKey`)
+    FOREIGN KEY (`patients_id`)
+    REFERENCES `patientstack_db`.`patients` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_patients_has_allergies_allergies1`
@@ -104,14 +104,14 @@ ENGINE = InnoDB;
 -- Table `patientstack_db`.`patients_has_prescriptions`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `patientstack_db`.`patients_has_prescriptions` (
-  `patients_primaryKey` INT NOT NULL,
+  `patients_id` INT NOT NULL,
   `prescriptions_name` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`patients_primaryKey`, `prescriptions_name`),
+  PRIMARY KEY (`patients_id`, `prescriptions_name`),
   INDEX `fk_patients_has_prescriptions_prescriptions1_idx` (`prescriptions_name` ASC),
-  INDEX `fk_patients_has_prescriptions_patients1_idx` (`patients_primaryKey` ASC),
+  INDEX `fk_patients_has_prescriptions_patients1_idx` (`patients_id` ASC),
   CONSTRAINT `fk_patients_has_prescriptions_patients1`
-    FOREIGN KEY (`patients_primaryKey`)
-    REFERENCES `patientstack_db`.`patients` (`primaryKey`)
+    FOREIGN KEY (`patients_id`)
+    REFERENCES `patientstack_db`.`patients` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_patients_has_prescriptions_prescriptions1`
@@ -140,14 +140,14 @@ ENGINE = InnoDB;
 -- Table `patientstack_db`.`patients_has_lab_results`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `patientstack_db`.`patients_has_lab_results` (
-  `patients_primaryKey` INT NOT NULL,
+  `patients_id` INT NOT NULL,
   `lab_results_idlab_results` INT NOT NULL,
-  PRIMARY KEY (`patients_primaryKey`, `lab_results_idlab_results`),
+  PRIMARY KEY (`patients_id`, `lab_results_idlab_results`),
   INDEX `fk_patients_has_lab_results_lab_results1_idx` (`lab_results_idlab_results` ASC),
-  INDEX `fk_patients_has_lab_results_patients1_idx` (`patients_primaryKey` ASC),
+  INDEX `fk_patients_has_lab_results_patients1_idx` (`patients_id` ASC),
   CONSTRAINT `fk_patients_has_lab_results_patients1`
-    FOREIGN KEY (`patients_primaryKey`)
-    REFERENCES `patientstack_db`.`patients` (`primaryKey`)
+    FOREIGN KEY (`patients_id`)
+    REFERENCES `patientstack_db`.`patients` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_patients_has_lab_results_lab_results1`
@@ -162,12 +162,12 @@ ENGINE = InnoDB;
 -- Table `patientstack_db`.`doctors`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `patientstack_db`.`doctors` (
-  `primaryKey` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `telephone` INT(10) NOT NULL,
   `appointments` VARCHAR(45) NULL,
-  PRIMARY KEY (`primaryKey`))
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
@@ -175,19 +175,19 @@ ENGINE = InnoDB;
 -- Table `patientstack_db`.`doctors_has_patients`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `patientstack_db`.`doctors_has_patients` (
-  `doctors_primaryKey` INT NOT NULL,
-  `patients_primaryKey` INT NOT NULL,
-  PRIMARY KEY (`doctors_primaryKey`, `patients_primaryKey`),
-  INDEX `fk_doctors_has_patients_patients1_idx` (`patients_primaryKey` ASC),
-  INDEX `fk_doctors_has_patients_doctors1_idx` (`doctors_primaryKey` ASC),
+  `doctors_id` INT NOT NULL,
+  `patients_id` INT NOT NULL,
+  PRIMARY KEY (`doctors_id`, `patients_id`),
+  INDEX `fk_doctors_has_patients_patients1_idx` (`patients_id` ASC),
+  INDEX `fk_doctors_has_patients_doctors1_idx` (`doctors_id` ASC),
   CONSTRAINT `fk_doctors_has_patients_doctors1`
-    FOREIGN KEY (`doctors_primaryKey`)
-    REFERENCES `patientstack_db`.`doctors` (`primaryKey`)
+    FOREIGN KEY (`doctors_id`)
+    REFERENCES `patientstack_db`.`doctors` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_doctors_has_patients_patients1`
-    FOREIGN KEY (`patients_primaryKey`)
-    REFERENCES `patientstack_db`.`patients` (`primaryKey`)
+    FOREIGN KEY (`patients_id`)
+    REFERENCES `patientstack_db`.`patients` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -201,12 +201,12 @@ CREATE TABLE IF NOT EXISTS `patientstack_db`.`appointments` (
   `patient_id` INT NOT NULL,
   `time` DATETIME NOT NULL,
   `location` VARCHAR(45) NOT NULL,
-  `patients_primaryKey` INT NOT NULL,
-  PRIMARY KEY (`physician_id`, `patients_primaryKey`),
-  INDEX `fk_appointments_patients_idx` (`patients_primaryKey` ASC),
+  `patients_id` INT NOT NULL,
+  PRIMARY KEY (`physician_id`, `patients_id`),
+  INDEX `fk_appointments_patients_idx` (`patients_id` ASC),
   CONSTRAINT `fk_appointments_patients`
-    FOREIGN KEY (`patients_primaryKey`)
-    REFERENCES `patientstack_db`.`patients` (`primaryKey`)
+    FOREIGN KEY (`patients_id`)
+    REFERENCES `patientstack_db`.`patients` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -216,20 +216,20 @@ ENGINE = InnoDB;
 -- Table `patientstack_db`.`doctors_has_appointments`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `patientstack_db`.`doctors_has_appointments` (
-  `doctors_primaryKey` INT NOT NULL,
+  `doctors_id` INT NOT NULL,
   `appointments_physician_id` INT NOT NULL,
-  `appointments_patients_primaryKey` INT NOT NULL,
-  PRIMARY KEY (`doctors_primaryKey`, `appointments_physician_id`, `appointments_patients_primaryKey`),
-  INDEX `fk_doctors_has_appointments_appointments1_idx` (`appointments_physician_id` ASC, `appointments_patients_primaryKey` ASC),
-  INDEX `fk_doctors_has_appointments_doctors1_idx` (`doctors_primaryKey` ASC),
+  `appointments_patients_id` INT NOT NULL,
+  PRIMARY KEY (`doctors_id`, `appointments_physician_id`, `appointments_patients_id`),
+  INDEX `fk_doctors_has_appointments_appointments1_idx` (`appointments_physician_id` ASC, `appointments_patients_id` ASC),
+  INDEX `fk_doctors_has_appointments_doctors1_idx` (`doctors_id` ASC),
   CONSTRAINT `fk_doctors_has_appointments_doctors1`
-    FOREIGN KEY (`doctors_primaryKey`)
-    REFERENCES `patientstack_db`.`doctors` (`primaryKey`)
+    FOREIGN KEY (`doctors_id`)
+    REFERENCES `patientstack_db`.`doctors` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_doctors_has_appointments_appointments1`
-    FOREIGN KEY (`appointments_physician_id` , `appointments_patients_primaryKey`)
-    REFERENCES `patientstack_db`.`appointments` (`physician_id` , `patients_primaryKey`)
+    FOREIGN KEY (`appointments_physician_id` , `appointments_patients_id`)
+    REFERENCES `patientstack_db`.`appointments` (`physician_id` , `patients_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -239,9 +239,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `patientstack_db`.`visits_has_doctors` (
   `visits_patient_id` VARCHAR(45) NOT NULL,
-  `doctors_primaryKey` INT NOT NULL,
-  PRIMARY KEY (`visits_patient_id`, `doctors_primaryKey`),
-  INDEX `fk_visits_has_doctors_doctors1_idx` (`doctors_primaryKey` ASC),
+  `doctors_id` INT NOT NULL,
+  PRIMARY KEY (`visits_patient_id`, `doctors_id`),
+  INDEX `fk_visits_has_doctors_doctors1_idx` (`doctors_id` ASC),
   INDEX `fk_visits_has_doctors_visits1_idx` (`visits_patient_id` ASC),
   CONSTRAINT `fk_visits_has_doctors_visits1`
     FOREIGN KEY (`visits_patient_id`)
@@ -249,8 +249,8 @@ CREATE TABLE IF NOT EXISTS `patientstack_db`.`visits_has_doctors` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_visits_has_doctors_doctors1`
-    FOREIGN KEY (`doctors_primaryKey`)
-    REFERENCES `patientstack_db`.`doctors` (`primaryKey`)
+    FOREIGN KEY (`doctors_id`)
+    REFERENCES `patientstack_db`.`doctors` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -261,3 +261,5 @@ SHOW TABLES;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
