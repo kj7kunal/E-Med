@@ -8,5 +8,9 @@ router.get("/physician", function(req, res) {
     res.render("physician");
 });
 
+router.get("/mypatients", function(req, res) {
+    res.render("mypatients");
+});
+
 
 module.exports = router;
