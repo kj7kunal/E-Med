@@ -1,0 +1,3 @@
+SHOW TABLES;
+
+SELECT * FROM `patients`;

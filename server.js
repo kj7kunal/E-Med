@@ -4,7 +4,9 @@ const express = require('express'),
     exphbs = require("express-handlebars"),
     routes = require("./controllers/ps_controller.js"),
     app = express(),
-    port = process.env.PORT || 3000;
+    port = process.env.PORT || 3000,
+    fixtures = require('./scripts/fixture_patient'),
+    db = require('./models');
 
 app.use(express.static("public"));
 
@@ -18,4 +20,8 @@ app.set("view engine", "handlebars");
 
 app.use("/", routes);
 
-app.listen(port);
+db.sequelize.sync({ force: true })
+    .then(fixtures)
+    .then(() => {
+        app.listen(port, () => { console.log(`App listening on PORT ${port}`) });
+    });
