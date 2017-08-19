@@ -52,5 +52,4 @@ router.post("/patients/add", (req, res) => {
         })
 })
 
-
 module.exports = router;
