@@ -64,5 +64,9 @@ router.get("/view", function(req, res) {
 router.get("/record", function(req, res) {
   res.render("healthRecord");
 });
+router.get("/login", function(req, res) {
+  res.render("login");
+});
+
 
 module.exports = router;

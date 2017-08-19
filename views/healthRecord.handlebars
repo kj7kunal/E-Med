@@ -36,17 +36,20 @@
                     <img class="image" src="../assets/images/person.png">
                 </div>
                 <div class="content">
-                    <a class="header">Erin A. Turner</a>
-                    <div class="meta">
-                        <span>Address: 42 Wallaby Way, Syndey, Australia</span>
-                    </div>
+                    <a class="header">{{patient.first_name}} {{patient.last_name}}</a>
                     <div class="description">
-                        <p>Phone Number: (888) 888-8888</p>
+                        <ul>
+                            <li>{{patient.street_address}}</li>
+                            <li>{{patient.city}}, {{patient.state}}, {{patient.zip}}</li>
+                            <li>{{patient.telephone}}</li>
+                            <li>{{patient.height}}</li>
+                            <li>{{patient.weight}}</li>
+                        </ul>
                     </div>
-                    <div class="extra">
+                    {{!-- <div class="extra">
                         Bacon ipsum dolor amet filet mignon ground round cow, brisket flank cupim sirloin capicola porchetta short ribs pastrami
                         doner venison.
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
