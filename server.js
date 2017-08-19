@@ -13,6 +13,8 @@ const express = require('express'),
 app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.static("public"));
 
 // Override with POST having ?_method=DELETE
 app.use(methodOverride("_method"));
@@ -28,5 +30,5 @@ app.use("/", routes);
 db.sequelize.sync({ force: true })
     .then(fixtures)
     .then(() => {
-        app.listen(port, () => { console.log(` 🌎 listening on PORT ${port}`) });
+        app.listen(port, () => { console.log(`==> 🌎 Listening on PORT ${port}. Visit http://localhost:${port}`) });
     });

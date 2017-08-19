@@ -12,6 +12,7 @@ $(document).ready(function() {
             email: emailInput.val().trim(),
             password: passwordInput.val().trim()
         };
+        console.log("correct? User: " + userData.email + "PW" + userData.password);
 
         if (!userData.email || !userData.password) {
             return;
