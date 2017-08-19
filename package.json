@@ -16,10 +16,12 @@
         "body-parser": "^1.17.2",
         "express": "^4.15.4",
         "express-handlebars": "^3.0.0",
+        "jquery": "^3.2.1",
         "method-override": "^2.3.9",
         "moment": "^2.18.1",
         "mysql2": "^1.4.0",
         "sequelize": "^4.4.7",
-        "sequelize-fixtures": "^0.6.0"
+        "sequelize-fixtures": "^0.6.0",
+        "socket.io": "^2.0.3"
     }
 }
