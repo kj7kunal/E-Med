@@ -27,6 +27,17 @@ router.get("/patients/:id", (req, res) => {
     })
 })
 
+router.get("/patients/:id/:record", (req, res) => {
+    db.patient.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then((result) => {
+        const hbsObject = { patient: result }
+        res.render("patients_page", hbsObject)
+    })
+})
+
 router.post("/patients/add", (req, res) => {
     db.patient.create({
             "first_name": req.body.firstName,

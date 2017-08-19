@@ -28,7 +28,7 @@
             <tbody>
 
                 {{#each patient}}
-                <tr class="sixteen wide column">
+                <tr class="sixteen wide column" id={{this.id}}>
                     <td class="two wide column"><img class="ui avatar image" src="{{this.image}}"></td>
                     <td class="four wide column">{{this.first_name}} {{this.last_name}}</td>
                     <td class="two wide column">M</td>
