@@ -30,9 +30,11 @@ $(document).ready(function() {
             email: email,
             password: password
         }).then(function(data) {
+            console.log('thened');
             window.location.replace(data);
             // If there's an error, log the error
         }).catch(function(err) {
+            console.log('catched')
             console.log(err);
         });
     }
