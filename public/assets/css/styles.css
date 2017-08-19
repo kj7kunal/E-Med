@@ -8,7 +8,7 @@ img.ui.image  {
 
 /* Mobile */
 
-/* @media only screen and (max-width: 767px) {
+ @media only screen and (max-width: 767px) {
         div.ui.visible.left.vertical.inverted.labeled.icon.sidebar.menu {
         position: fixed;
         bottom: 0;
@@ -23,4 +23,4 @@ img.ui.image  {
         bottom: 0;
     }
 
-} */
+}
