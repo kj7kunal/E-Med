@@ -1,0 +1,38 @@
+<header>
+    
+    <h1>Welcome Doctor!</h1>
+    
+</header>
+
+<h3>Here is a list of your current patients</h3>
+
+<table>
+<tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+</tr>
+{{#each patient}}
+<tr>
+<td>{{this.first_name}}</td>
+<td>{{this.last_name}}</td>
+<td>{{this.dob}}</td>
+<td>{{this.street_address}}</td>
+<td>{{this.city}}</td>
+<td>{{this.state}}</td>
+<td>{{this.zip}}</td>
+<td>{{this.telephone}}</td>
+<td>{{this.height}}</td>
+<td>{{this.weight}}</td>
+<td>{{this.allergies}}</td>
+<td>{{this.procedures}}</td>
+<td>{{this.type}}</td>
+<td>{{this.emergency_contact_name}}</td>
+<td>{{this.emergency_contact_numbertd}}
+<td>{{this.provider_name}}</td>
+<td>{{this.appointments}}</td>
+<td>{{this.image}}</td>
+
+</tr>
+{{/each}}
+
+</table>
