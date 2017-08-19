@@ -18,9 +18,17 @@ router.get("/patients/add", function(req, res) {
     res.render("patients_new")
 })
 
-// router.get("/patients/:id", function(req, res) {
-//     db.patient.findOne({})
-// })
+router.get("/patients/:id", function(req, res) {
+    db.patient.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then((result) => {
+        console.log(result);
+        const hbsObject = { patient: result }
+        res.render("patients_page", hbsObject)
+    })
+})
 
 router.post("/patients/add", function(req, res) {
     db.patient.create({
