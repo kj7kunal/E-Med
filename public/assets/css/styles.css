@@ -9,10 +9,11 @@ img.ui.image  {
 /* Mobile */
 
  @media only screen and (max-width: 767px) {
-        div.ui.visible.left.vertical.inverted.labeled.icon.sidebar.menu {
-        position: fixed;
+    div.ui.visible.left.vertical.inverted.labeled.icon.sidebar.menu {
+        /* position: fixed;
         bottom: 0;
-        width: 100%;
+        width: 100%; */
+        visibility: hidden;
     }
 
     a.item {
@@ -21,6 +22,33 @@ img.ui.image  {
         text-align: center;
         font-size: 10px;
         bottom: 0;
+    }
+
+    img.ui.image {
+        height: 50px;
+        width: 50px;
+    }
+
+}
+
+/* Tablet / iPad Portrait */
+
+/* @media only screen and (min-width: 768px) and (max-width: 991px) {
+
+    .ui.bottom.inverted.six.item.labeled.icon.sidebar.menu.visible {
+        
+        display: none;
+    }
+   
+} */
+
+/* Computer / Desktop / iPad Landscape */
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+    div.ui.bottom.inverted.six.item.labeled.icon.sidebar.menu.visible {
+
+        display: none;
     }
 
 }
