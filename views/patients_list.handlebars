@@ -1,38 +1,116 @@
+{{!-- nav bar --}}
+<div class="ui visible left vertical inverted labeled icon sidebar menu">
+    <a class="item"><i class="home icon"></i>Home</a>
+    <a class="item"><i class="user circle outline icon"></i>Patients</a>
+    <a class="item"><i class="calendar icon"></i>Calendar</a>
+    <a class="item"><i class="comment icon"></i>Messaging</a>
+    <a class="item"><i class="payment icon"></i>Billing</a>
+    <a class="item"><i class="settings icon"></i>Settings</a>
+</div>
+
+<div class="main ui grid container" id="main-container">
+    <div class="ui container sixteen wide column">
+        <h1>My Dashboard > My Patients</h1>
+        <h3>Select a patient below.</h3>
+    </div>
+
+    <div class="sixteen wide column">
+        <table class="ui striped blue one column table" id="table">
+            <thead>
+                <tr class="sixteen wide column">
+                    <th class="two wide column">Image</th>
+                    <th class="four wide column">Name</th>
+                    <th class="two wide column">Gender</th>
+                    <th class="four wide column">Provider</th>
+                    <th class="four wide column">Next Appt</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {{#each patient}}
+                <tr class="sixteen wide column">
+                    <td class="two wide column"><img class="ui avatar image" src="{{this.image}}"></td>
+                    <td class="four wide column">{{this.first_name}} {{this.last_name}}</td>
+                    <td class="two wide column">M</td>
+                    <td class="four wide column">{{this.provider_name}}</td>
+                    <td class="four wide column">September 2, 2017</td>
+                </tr>
+
+                {{/each}} {{!--
+                <tr class="sixteen wide column">
+                    <td class="two wide column"><img class="ui avatar image" src="../assets/images/circle-image.png"></td>
+                    <td class="four wide column">Darrell K. Borchers</td>
+                    <td class="two wide column">M</td>
+                    <td class="four wide column">Blue Cross</td>
+                    <td class="four wide column">September 2, 2017</td>
+                </tr>
+                <tr class="sixteen wide column">
+                    <td class="two wide column"><img class="ui avatar image" src="../assets/images/circle-image.png"></td>
+                    <td class="four wide column">Angelica E. Dempsey</td>
+                    <td class="two wide column">F</td>
+                    <td class="four wide column">Medi-Cal</td>
+                    <td class="four wide column">September 2, 2017</td>
+                </tr>
+                <tr class="sixteen wide column">
+                    <td class="two wide column"><img class="ui avatar image" src="../assets/images/circle-image.png"></td>
+                    <td class="four wide column">Erin A. Turner</td>
+                    <td class="two wide column">F</td>
+                    <td class="four wide column">Blue Shield</td>
+                    <td class="four wide column">September 3, 2017</td>
+                </tr>
+                <tr class="sixteen wide column">
+                    <td class="two wide column"><img class="ui avatar image" src="../assets/images/circle-image.png"></td>
+                    <td class="four wide column">Joe S. Hayes</td>
+                    <td class="two wide column">M</td>
+                    <td class="four wide column">Blue Shield</td>
+                    <td class="four wide column">September 3, 2017</td>
+                </tr> --}}
+            </tbody>
+        </table>
+        <div class="ui basic buttons">
+            <div class="ui right button">
+                <a href="/patients/add">Add Patient</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!--
 <header>
-    
+
     <h1>Welcome Doctor!</h1>
-    
+
 </header>
 
 <h3>Here is a list of your current patients</h3>
 
 <table>
-<tr>
-    <th>First Name</th>
-    <th>Last Name</th>
-</tr>
-{{#each patient}}
-<tr>
-<td>{{this.first_name}}</td>
-<td>{{this.last_name}}</td>
-<td>{{this.dob}}</td>
-<td>{{this.street_address}}</td>
-<td>{{this.city}}</td>
-<td>{{this.state}}</td>
-<td>{{this.zip}}</td>
-<td>{{this.telephone}}</td>
-<td>{{this.height}}</td>
-<td>{{this.weight}}</td>
-<td>{{this.allergies}}</td>
-<td>{{this.procedures}}</td>
-<td>{{this.type}}</td>
-<td>{{this.emergency_contact_name}}</td>
-<td>{{this.emergency_contact_numbertd}}
-<td>{{this.provider_name}}</td>
-<td>{{this.appointments}}</td>
-<td>{{this.image}}</td>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+    </tr>
+    {{#each patient}}
+    <tr>
+        <td>{{this.first_name}}</td>
+        <td>{{this.last_name}}</td>
+        <td>{{this.dob}}</td>
+        <td>{{this.street_address}}</td>
+        <td>{{this.city}}</td>
+        <td>{{this.state}}</td>
+        <td>{{this.zip}}</td>
+        <td>{{this.telephone}}</td>
+        <td>{{this.height}}</td>
+        <td>{{this.weight}}</td>
+        <td>{{this.allergies}}</td>
+        <td>{{this.procedures}}</td>
+        <td>{{this.type}}</td>
+        <td>{{this.emergency_contact_name}}</td>
+        <td>{{this.emergency_contact_numbertd}}</td>
+        <td>{{this.provider_name}}</td>
+        <td>{{this.appointments}}</td>
+        <td>{{this.image}}</td>
 
-</tr>
-{{/each}}
+    </tr>
+    {{/each}}
 
-</table>
+</table> --}}

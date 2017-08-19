@@ -25,7 +25,42 @@
                 </tr>
             </thead>
             <tbody>
+
+                {{#each patient}}
                 <tr class="sixteen wide column">
+                    <td class="two wide column"><img class="ui avatar image" src="../assets/images/circle-image.png"></td>
+                    <td class="four wide column">{{this.first_name}} {{this.last_name}}</td>
+                    <td class="two wide column">M</td>
+                    <td class="four wide column">{{this.provider_name}}</td>
+                    <td class="four wide column">{{this.appointments}}</td>
+                </tr>
+
+
+{{!-- 
+                <tr class="sixteen wide column">
+                    <td>{{this.first_name}}</td>
+                    <td>{{this.last_name}}</td>
+                    <td>{{this.dob}}</td>
+                    <td>{{this.street_address}}</td>
+                    <td>{{this.city}}</td>
+                    <td>{{this.state}}</td>
+                    <td>{{this.zip}}</td>
+                    <td>{{this.telephone}}</td>
+                    <td>{{this.height}}</td>
+                    <td>{{this.weight}}</td>
+                    <td>{{this.allergies}}</td>
+                    <td>{{this.procedures}}</td>
+                    <td>{{this.type}}</td>
+                    <td>{{this.emergency_contact_name}}</td>
+                    <td>{{this.emergency_contact_numbertd}}
+                        <td>{{this.provider_name}}</td>
+                        <td>{{this.appointments}}</td>
+                        <td>{{this.image}}</td>
+
+                </tr> --}}
+                {{/each}}
+
+                {{!-- <tr class="sixteen wide column">
                     <td class="two wide column"><img class="ui avatar image" src="../assets/images/circle-image.png"></td>
                     <td class="four wide column">Darrell K. Borchers</td>
                     <td class="two wide column">M</td>
@@ -52,7 +87,7 @@
                     <td class="two wide column">M</td>
                     <td class="four wide column">Blue Shield</td>
                     <td class="four wide column">September 3, 2017</td>
-                </tr>
+                </tr> --}}
             </tbody>
         </table>
     </div>
