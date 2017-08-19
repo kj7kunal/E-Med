@@ -10,6 +10,9 @@ router.get("/physician", function(req, res) {
 router.get("/view", function(req, res) {
   res.render("viewPatient");
 });
+router.get("/record", function(req, res) {
+  res.render("healthRecord");
+});
 
 
 module.exports = router;

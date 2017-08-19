@@ -5,3 +5,22 @@ div.stretched.row {
 img.ui.image  {
     align-items: center;
 }
+
+/* Mobile */
+
+/* @media only screen and (max-width: 767px) {
+        div.ui.visible.left.vertical.inverted.labeled.icon.sidebar.menu {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    a.item {
+        float: left;
+        display: block;
+        text-align: center;
+        font-size: 10px;
+        bottom: 0;
+    }
+
+} */
