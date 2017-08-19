@@ -27,6 +27,19 @@ router.get("/patients/:id", (req, res) => {
     })
 })
 
+router.get("/patients/:id/:view", (req, res) => {
+  db.patient
+    .findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(result => {
+      const hbsObject = { patient: result };
+      res.render("viewPatient", hbsObject);
+    });
+});
+
 router.post("/patients/add", (req, res) => {
     db.patient.create({
             "first_name": req.body.firstName,
@@ -58,9 +71,9 @@ router.get("/", function(req, res) {
 router.get("/physician", function(req, res) {
     res.render("physician");
 });
-router.get("/view", function(req, res) {
-  res.render("viewPatient");
-});
+// router.get("/view", function(req, res) {
+//   res.render("viewPatient");
+// });
 router.get("/record", function(req, res) {
   res.render("healthRecord");
 });
