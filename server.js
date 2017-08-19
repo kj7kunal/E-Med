@@ -6,9 +6,7 @@ const express = require('express'),
     app = express(),
     port = process.env.PORT || 3000,
     fixtures = require('./scripts/fixture_patient'),
-    db = require('./models'),
-    server = require("http").createServer(app),
-    io = require('socket.io')(server);
+    db = require('./models');
 
 app.use(express.static("public"));
 
@@ -21,17 +19,6 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 app.use("/", routes);
-
-io.on('connection', (socket) => {
-    console.log('user connected');
-    socket.on('chat message', (msg) => {
-        console.log('message: ' + msg);
-        io.emit('chat message', msg);
-    });
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    });
-});
 
 db.sequelize.sync({ force: true })
     .then(fixtures)
