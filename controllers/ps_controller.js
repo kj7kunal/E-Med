@@ -1,14 +1,28 @@
 const express = require("express"),
     router = express.Router(),
-    db = require('../models');
+    db = require('../models'),
+    isAuthenticated = require("../config/middleware/isAuthenticated");
 
-router.get("/", (req, res) => { res.render("index") });
+router.get("/", (req, res) => {
+    if (req.user) {
+        res.redirect("/patients");
+    }
+    res.render("signup");
+});
 
-router.get("/chat", (req, res) => { res.render("chatbox") });
+router.get("/login", (req, res) => {
+    if (req.user) {
+        console.log("Logged in YAY!");
+        res.redirect("/patients");
+    }
+    res.render("login");
+});
 
-router.get("/patients/add", (req, res) => { res.render("patients_new") });
+router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
 
-router.get("/patients", (req, res) => {
+router.get("/patients/add", isAuthenticated, (req, res) => { res.render("patients_new") });
+
+router.get("/patients", isAuthenticated, (req, res) => {
     db.patient.findAll().then((result) => {
         console.log(result);
         const hbsObject = { patient: result };
@@ -16,7 +30,7 @@ router.get("/patients", (req, res) => {
     })
 })
 
-router.get("/patients/:id", (req, res) => {
+router.get("/patients/:id", isAuthenticated, (req, res) => {
     db.patient.findOne({
         where: {
             id: req.params.id
@@ -27,7 +41,7 @@ router.get("/patients/:id", (req, res) => {
     })
 })
 
-router.post("/patients/add", (req, res) => {
+router.post("/patients/add", isAuthenticated, (req, res) => {
     db.patient.create({
             "first_name": req.body.firstName,
             "last_name": req.body.lastName,
