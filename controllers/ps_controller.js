@@ -2,11 +2,13 @@ const express = require("express"),
     router = express.Router(),
     db = require('../models');
 
-router.get("/", function(req, res) {
-    res.render("index");
-});
+router.get("/", (req, res) => { res.render("index") });
 
-router.get("/patients", function(req, res) {
+router.get("/chat", (req, res) => { res.render("chatbox") });
+
+router.get("/patients/add", (req, res) => { res.render("patients_new") });
+
+router.get("/patients", (req, res) => {
     db.patient.findAll().then((result) => {
         console.log(result);
         const hbsObject = { patient: result };
@@ -14,23 +16,18 @@ router.get("/patients", function(req, res) {
     })
 })
 
-router.get("/patients/add", function(req, res) {
-    res.render("patients_new")
-})
-
-router.get("/patients/:id", function(req, res) {
+router.get("/patients/:id", (req, res) => {
     db.patient.findOne({
         where: {
             id: req.params.id
         }
     }).then((result) => {
-        console.log(result);
         const hbsObject = { patient: result }
         res.render("patients_page", hbsObject)
     })
 })
 
-router.post("/patients/add", function(req, res) {
+router.post("/patients/add", (req, res) => {
     db.patient.create({
             "first_name": req.body.firstName,
             "last_name": req.body.lastName,
