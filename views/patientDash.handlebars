@@ -1,4 +1,4 @@
-{{!-- nav bar --}}
+<!--SIDEBAR-->
 <div class="ui visible left vertical inverted labeled icon sidebar menu">
     <a class="item"><i class="home icon"></i>Home</a>
     <a class="item"><i class="user circle outline icon"></i>My Care</a>
@@ -8,31 +8,28 @@
     <a class="item"><i class="settings icon"></i>Settings</a>
 </div>
 
-<div class="main ui grid container" id="main-container">
+<!--MOBILE SIDEBAR-->
+<div class="ui bottom inverted six item labeled icon sidebar menu visible">
+    <a class="item"><i class="home icon"></i>Home</a>
+    <a class="item"><i class="user circle outline icon"></i>My Care</a>
+    <a class="item"><i class="calendar icon"></i>Appointments</a>
+    <a class="item"><i class="comment icon"></i>Messaging</a>
+    <a class="item"><i class="payment icon"></i>Billing</a>
+    <a class="item"><i class="settings icon"></i>Settings</a>
+</div>
+
+<div class="main ui stackable grid container" id="main-container">
     <div class="ui container sixteen wide column">
-        <div class="ui tiny image">
-            <img class="image" src="../assets/images/person.png">
+        <div class="ui raised blue segment">
+            <div class="row">
+                <h1 class="ui header">
+                    <img src="../assets/images/person.png" class="ui circular image"> Welcome Bob Smith
+                </h1>
+            </div>
         </div>
-        <h1>Welcome Bob Smith {{patient.first_name}} {{patient.last_name}}</h1>
     </div>
 
 <div class="row">
-    <div class="five wide column">
-    <div class="ui piled segment">
-        <h4 class="ui header">General Information</h4>
-        <ul>
-            <li>Date of Birth: 08/09/77{{patient.dob}}</li>
-            <li>Address: 42 Wallaby Way {{patient.street_address}}</li>
-            <li>Syndey, Australia, 0000000000000{{patient.city}},{{patient.state}},{{patient.zip}}</li>
-            <li>Phone: (888)888-8888 {{patient.telephone}}</li>
-            <li>Height: 6'0"{{patient.height}}</li>
-            <li>Weight: 190 lbs {{patient.weight}}</li>
-            <li>Provider: Blue Cross{{patient.provider_name}}</li>
-            <li>Emergency Contact: Rachel Green {{patient.emergency_contact_name}}</li>
-            <li>Emergency Contact Number: (999)999-9999{{patient.emergency_contact_number}}</li>
-        </ul>
-    </div>
-    </div>
         <div class="five wide column">
             <div class="ui medium header">My Doctors</div>
             <div class="ui tiny aligned center cards">
@@ -45,18 +42,7 @@
                         <div class="meta">
                             Primary Physician Family Medicine
                         </div>
-                        {{!--
-                        <div class="description">
-                            Elliot requested permission to view your contact details
-                        </div> --}}
                     </div>
-                    {{!--
-                    <div class="extra content">
-                        <div class="ui two buttons">
-                            <div class="ui basic green button">Message</div>
-                            <div class="ui basic blue button"></div>
-                        </div>
-                    </div> --}}
                 </div>
                 <div class="teal card">
                     <div class="content">
@@ -69,6 +55,22 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="five wide column">
+            <div class="ui piled segment">
+                <h4 class="ui header">General Information</h4>
+                <ul>
+                    <li>Date of Birth: 08/09/77{{patient.dob}}</li>
+                    <li>Address: 42 Wallaby Way {{patient.street_address}}</li>
+                    <li>Syndey, Australia, 0000000000000{{patient.city}},{{patient.state}},{{patient.zip}}</li>
+                    <li>Phone: (888)888-8888 {{patient.telephone}}</li>
+                    <li>Height: 6'0"{{patient.height}}</li>
+                    <li>Weight: 190 lbs {{patient.weight}}</li>
+                    <li>Provider: Blue Cross{{patient.provider_name}}</li>
+                    <li>Emergency Contact: Rachel Green {{patient.emergency_contact_name}}</li>
+                    <li>Emergency Contact Number: (999)999-9999{{patient.emergency_contact_number}}</li>
+                </ul>
             </div>
         </div>
     <div class="six wide column">

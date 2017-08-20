@@ -83,6 +83,9 @@ router.get("/login", function(req, res) {
 router.get("/patient", function(req, res) {
   res.render("patientDash");
 });
+router.get("/mycare", function(req, res) {
+  res.render("myCare");
+});
 
 
 module.exports = router;
