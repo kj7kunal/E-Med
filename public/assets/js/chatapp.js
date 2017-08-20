@@ -1,15 +1,31 @@
-$(function() {
-    let socket = io();
-
+$(() => {
+    let socket = io.connect('http://localhost:3000');
     let messageForm = $("#messageForm");
     let message = $("#message");
     let chat = $("#chat");
 
+
+
     messageForm.submit(event => {
-        console.log("here!");
+        // console.log("here!");
         event.preventDefault();
         socket.emit('send message', message.val());
-        messageForm.val();
+        // console.log(message.val());
+        message.val("");
         return false;
     })
-})
+
+    socket.on('connect', (data) => {
+        console.log("we're connected!");
+        socket.emit('join', 'Hello World from client');
+    });
+    socket.on('broad', (data) => {
+        $('#chat').html(data);
+        socket.emit('join', message.val());
+    });
+    socket.on('new message', data => {
+        console.log(data.msg);
+        // alert(data);
+        chat.append('<div class="well">' + data.msg + '</div>')
+    })
+});

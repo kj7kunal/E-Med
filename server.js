@@ -11,7 +11,7 @@ const express = require('express'),
     session = require('express-session'),
     passport = require('./config/passport'),
     http = require('http').createServer(app),
-    io = require('socket.io').listen(http);
+    io = require('socket.io')(http);
 
 app.use(express.static("public"));
 
@@ -33,7 +33,7 @@ app.use("/", routes);
 let users = [];
 let connections = [];
 
-io.on('connection', function(socket) {
+io.sockets.on('connection', socket => {
     connections.push(socket);
     console.log("Connected: %s sockets connected", connections.length);
 
@@ -45,10 +45,15 @@ io.on('connection', function(socket) {
 
     // send message
     socket.on('send message', data => {
-        io.sockets.emit('new message', { msg: data })
+        io.sockets.emit('new message', { msg: data });
+        // socket.broadcast.emit('broad', data);
+    })
+
+    socket.on('join', data => {
+        console.log(data);
+        socket.emit('messages', 'Hello from server')
     })
 })
-
 
 db.sequelize.sync({ force: true })
     .then(fixtures)
