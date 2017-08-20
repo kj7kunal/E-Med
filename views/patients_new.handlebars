@@ -14,7 +14,7 @@
     </div>
 
     <div class="sixteen wide column">
-        <form class="ui form" action="patients/add" method="post">
+        <form class="ui form" action="/patients/add" method="POST">
             <h4 class="ui dividing header">General Information</h4>
             <div class="field">
                 <label>Name</label>
@@ -168,9 +168,9 @@
             </div>
 
             <div>
-                <div class="ui button">
+                <button type="submit" id="newPatient" class="ui button">
                     <i class="icon user"></i>Add Patient
-                </div>
+                </button>
                 <button class="ui grey basic button" id="autofill">Autofill</button>
             </div>
     </div>

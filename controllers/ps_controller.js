@@ -31,7 +31,13 @@ router.get("/login/admin", (req, res) => {
     return res.render("index");
 });
 
-router.get("/chat", (req, res) => { res.render("chatbox") });
+router.get("/chat", isAuthenticated, (req, res) => {
+
+    const user = req.user;
+    console.log(user.email);
+    return res.render("chatbox", user);
+
+});
 
 router.get("/patients/add", isAuthenticated, (req, res) => { res.render("patients_new") });
 
@@ -74,7 +80,7 @@ router.post("/patients/add", (req, res) => {
     db.patient.create({
             "first_name": req.body.firstName,
             "last_name": req.body.lastName,
-            "dob": req.body.dob,
+            "dob": "June 1 2009",
             "street_address": req.body.streetAddress,
             "city": req.body.city,
             "state": req.body.state,

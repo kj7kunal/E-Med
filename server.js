@@ -30,7 +30,7 @@ app.set("view engine", "handlebars");
 
 app.use("/", routes);
 
-let users = ["narin", "kathy", "hovsep"];
+let usernames = {};
 let connections = [];
 
 io.sockets.on('connection', socket => {
@@ -39,13 +39,21 @@ io.sockets.on('connection', socket => {
 
     // disconnect
     socket.on('disconnect', data => {
+
         connections.splice(connections.indexOf(socket), 1);
         console.log("Disconnected: %s sockets connected", connections.length);
-    })
+        // remove the username from global usernames list
+        delete usernames[socket.username];
+        // update list of users in chat, client-side
+        io.sockets.emit('updateusers', usernames);
+        // echo globally that this client has left
+        socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
+    });
+
 
     // send message
     socket.on('send message', data => {
-        io.sockets.emit('new message', { msg: data });
+        io.sockets.emit('new message', socket.username, { msg: data });
         // socket.broadcast.emit('broad', data);
     })
 
@@ -53,7 +61,22 @@ io.sockets.on('connection', socket => {
         console.log(data);
         socket.emit('messages', 'Hello from server')
     })
-})
+
+    socket.on('adduser', (username) => {
+        // we store the username in the socket session for this client
+        socket.username = username;
+        // add the client's username to the global list
+        usernames[username] = username;
+        // echo to client they've connected
+        socket.emit('updatechat', 'SERVER', 'you have connected');
+        // echo globally (all clients) that a person has connected
+        socket.broadcast.emit('updatechat', 'SERVER', username + ' has connected');
+        // update the list of users in chat, client-side
+        io.sockets.emit('updateusers', usernames);
+    });
+
+});
+
 
 db.sequelize.sync({ force: true })
     .then(fixtures)

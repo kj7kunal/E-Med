@@ -18,14 +18,23 @@ $(() => {
     socket.on('connect', (data) => {
         console.log("we're connected!");
         socket.emit('join', 'Hello World from client');
-    });
+        socket.emit('adduser', window.prompt("What\'s your name?"));
+
+    })
+
     socket.on('broad', (data) => {
         $('#chat').html(data);
         socket.emit('join', message.val());
     });
-    socket.on('new message', data => {
+    socket.on('new message', (username, data) => {
         console.log(data.msg);
 
-        chat.append('<div class="well">' + data.msg + '</div>')
-    })
+        chat.append('<div class="well"><b>' + username + ':  </b>' + data.msg + '</div>')
+    });
+    socket.on('updateusers', data => {
+        $('#users').empty();
+        $.each(data, (key, value) => {
+            $('#users').append('<div>' + key + '</div>');
+        });
+    });
 });

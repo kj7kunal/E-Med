@@ -130,6 +130,13 @@
         }
     },
     {
+        "model": "User",
+        "data": {
+            "email": "admin@admin.com",
+            "password": "abc123"
+        }
+    },
+    {
         "model": "doctors",
         "data": {
             "first_name": "Steve",
