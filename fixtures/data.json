@@ -121,5 +121,62 @@
             "appointments": "",
             "visits_patient_id": ""
         }
+    },
+    {
+        "model": "prescriptions",
+        "data": {
+            "med_name": "Lipitor",
+            "patient_id": 1,
+            "dose": "10mg/day",
+            "amount": "30 pills",
+            "prescribed_date": "2016-05-05",
+            "renew_date": "2016-04-06"
+        }
+        
+    },
+    {
+        "model": "prescriptions",
+        "data": {
+            "med_name": "Adderall",
+            "patient_id": 2,
+            "dose": "10mg/day",
+            "amount": "30 pills",
+            "prescribed_date": "2017-02-02",
+            "renew_date": "2017-01-03"
+        }
+    },
+    {
+        "model": "prescriptions",
+        "data": {
+            "med_name": "Xanax",
+            "patient_id": 3,
+            "dose": "5mg/day",
+            "amount": "30 pills",
+            "prescribed_date": "2017-20-04",
+            "renew_date": "2017-19-05"
+        }
+    },
+    {
+        "model": "prescriptions",
+        "data": {
+            "med_name": "Glucophage",
+            "patient_id": 4,
+            "dose": "500mg/day",
+            "amount": "60 pills",
+            "prescribed_date": "2015-10-01",
+            "renew_date": "2015-09-03"
+        }
+    },
+    {
+        "model": "prescriptions",
+        "data": {
+            "med_name": "Ambien",
+            "patient_id": 5,
+            "dose": "10mg/day",
+            "amount": "14 pills",
+            "prescribed_date": "2017-18-03",
+            "renew_date": "2017-02-04"
+        }
     }
+    
 ]
