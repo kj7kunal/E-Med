@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
     if (req.user) {
         return res.redirect("/patients");
     }
-    res.render("login");
+    return res.render("index");
 });
 
 // patient login
@@ -18,7 +18,7 @@ router.get("/login", (req, res) => {
         return res.redirect("/patients");
     }
 
-    res.render("login");
+    return res.render("index");
 });
 
 // doctor login
@@ -28,7 +28,7 @@ router.get("/login/admin", (req, res) => {
         return res.redirect("/patients");
     }
 
-    res.render("login");
+    return res.render("index");
 });
 
 router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
@@ -57,7 +57,20 @@ router.get("/patients/:id", isAuthenticated, (req, res) => {
     })
 })
 
-router.post("/patients/add", isAuthenticated, (req, res) => {
+router.get("/patients/:id/:view", isAuthenticated, (req, res) => {
+    db.patient
+        .findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(result => {
+            const hbsObject = { patient: result };
+            return res.render("viewPatient", hbsObject);
+        });
+});
+
+router.post("/patients/add", (req, res) => {
     db.patient.create({
             "first_name": req.body.firstName,
             "last_name": req.body.lastName,
@@ -85,21 +98,12 @@ router.post("/patients/add", isAuthenticated, (req, res) => {
 
 // --------------------- Login / Signup --------------------------
 
-// Using the passport.authenticate middleware with our local strategy.
-// If the user has valid login credentials, send them to the members page.
-// Otherwise the user will be sent an error
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
-    // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
-    // So we're sending the user back the route to the members page because the redirect will happen on the front end
-    // They won't get this or even be able to access this page if they aren't authed
-    console.log('hi from /api/login')
+
     res.send("/patients"); // for when you need to respond with non json values 
     res.json({ id: req.user.id }) // specifically for json
 });
 
-// Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
-// how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
-// otherwise send back an error
 router.post("/api/signup", (req, res) => {
     console.log(req.body);
     db.User.create({
@@ -110,8 +114,17 @@ router.post("/api/signup", (req, res) => {
     }).catch((err) => {
         console.log(err);
         res.json(err);
-        // res.status(422).json(err.errors[0].message);
+
     });
+});
+
+
+router.get("/physician", isAuthenticated, function(req, res) {
+    res.render("physician");
+});
+
+router.get("/record", function(req, res) {
+    res.render("healthRecord");
 });
 
 // Route for logging user out
@@ -134,4 +147,6 @@ router.get("/api/user_data", (req, res) => {
         });
     }
 });
+
+
 module.exports = router;

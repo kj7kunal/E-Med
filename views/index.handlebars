@@ -1,2 +1,76 @@
+{{!-- <!--==============================LOG-IN FORM============================-->
+        <div id="log-sign-in">
+            <div class="pure-u-3-4">
+                <div class="pure-form" id="login-2">
+                    <input type="email" placeholder="Email Address" id="user-name">
+                    <input type="password" placeholder="Password" id="current-password">
+                    <button class="pure-button pure-button-active" id="btn-login">LOGIN</button>
+                </div>
+            </div>
+            <!--===================SIGN-UP FORM=======================================-->
+            <div class="pure-u-3-4">
+                <div class="pure-form" id="sign-up-2">
+                    <input type="email" placeholder="Email" id="user-email">
+                    <input type="password" placeholder="Password" id="user-password">
+                    <button class="pure-button pure-button-active" id="btn-add">SIGN UP</button>
+                </div>
+            </div>
+            <!-- end #log-sign-in -->
+        </div> --}}
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
 
-<h1>Hi!</h1>
+        body>.grid {
+            height: 60%;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+
+        .ui.huge.header {
+            text-align: center;
+        }
+    </style>
+
+    <h2 class="ui huge center aligned icon header">
+        Welcome to Patient Stack<i class="stack exchange icon"></i>
+    </h2>
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui blue image header">
+                    <div class="content">
+                        Log-in to your account
+                    </div>
+                </h2>
+                <form class="login ui small form">
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input id="email-input" type="email" name="email" placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input id="password-input" type="password" name="password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div id="loginBtn"class="ui fluid large blue submit button">Login</div>
+                    </div>
+
+                    <div class="ui error message"></div>
+
+                </form>
+
+                <div class="ui message">
+                    New user? <a href="#">Create Your Account</a>
+                </div>
+            </div>
+        </div>
+    <div class="ui black inverted vertical footer segment">
+         <h6 class="ui aligned center header">Copyright &copy; 2017 Squad</h6>
+    </div>
