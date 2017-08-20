@@ -9,7 +9,9 @@ const express = require('express'),
     fixtures = require('./scripts/fixture_patient'),
     db = require('./models'),
     session = require('express-session'),
-    passport = require('./config/passport');
+    passport = require('./config/passport'),
+    http = require('http').createServer(app),
+    io = require('socket.io').listen(http);
 
 app.use(express.static("public"));
 
@@ -28,8 +30,28 @@ app.set("view engine", "handlebars");
 
 app.use("/", routes);
 
+let users = [];
+let connections = [];
+
+io.on('connection', function(socket) {
+    connections.push(socket);
+    console.log("Connected: %s sockets connected", connections.length);
+
+    // disconnect
+    socket.on('disconnect', data => {
+        connections.splice(connections.indexOf(socket), 1);
+        console.log("Disconnected: %s sockets connected", connections.length);
+    })
+
+    // send message
+    socket.on('send message', data => {
+        io.sockets.emit('new message', { msg: data })
+    })
+})
+
+
 db.sequelize.sync({ force: true })
     .then(fixtures)
     .then(() => {
-        app.listen(port, () => { console.log(`==> 🌎 Listening on PORT ${port}. Visit http://localhost:${port}`.green) });
+        http.listen(port, () => { console.log(`==> 🌎 Listening on PORT ${port}. Visit http://localhost:${port}`.green) });
     });

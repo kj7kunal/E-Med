@@ -31,7 +31,7 @@ router.get("/login/admin", (req, res) => {
     return res.render("index");
 });
 
-router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
+router.get("/chat", (req, res) => { res.render("chatbox") });
 
 router.get("/patients/add", isAuthenticated, (req, res) => { res.render("patients_new") });
 
@@ -119,11 +119,11 @@ router.post("/api/signup", (req, res) => {
 });
 
 
-router.get("/physician", isAuthenticated, function(req, res) {
+router.get("/physician", isAuthenticated, (req, res) => {
     res.render("physician");
 });
 
-router.get("/record", function(req, res) {
+router.get("/record", isAuthenticated, (req, res) => {
     res.render("healthRecord");
 });
 
