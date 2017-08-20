@@ -8,10 +8,21 @@ router.get("/", (req, res) => {
     if (req.user) {
         return res.redirect("/patients");
     }
-    res.render("signup");
+    res.render("login");
 });
 
+// patient login
 router.get("/login", (req, res) => {
+    if (req.user) {
+        console.log("Logged in YAY!");
+        return res.redirect("/patients");
+    }
+
+    res.render("login");
+});
+
+// doctor login
+router.get("/login/admin", (req, res) => {
     if (req.user) {
         console.log("Logged in YAY!");
         return res.redirect("/patients");
@@ -31,7 +42,7 @@ router.get("/patients", isAuthenticated, (req, res) => {
         // router.get("/api/user_data", (req, res) => {
         //     const userId = res.id;
         // })
-        res.render("patients_list", hbsObject);
+        return res.render("patients_list", hbsObject);
     })
 })
 
@@ -42,7 +53,7 @@ router.get("/patients/:id", isAuthenticated, (req, res) => {
         }
     }).then((result) => {
         const hbsObject = { patient: result }
-        res.render("patients_page", hbsObject)
+        return res.render("patients_page", hbsObject)
     })
 })
 
@@ -67,7 +78,7 @@ router.post("/patients/add", isAuthenticated, (req, res) => {
             "image": req.body.image
         })
         .then(() => {
-            res.redirect("/patients");
+            return res.redirect("/patients");
         })
 })
 

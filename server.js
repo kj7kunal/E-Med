@@ -1,4 +1,5 @@
 const express = require('express'),
+    colors = require("colors"),
     bodyParser = require("body-parser"),
     methodOverride = require("method-override"),
     exphbs = require("express-handlebars"),
@@ -30,5 +31,5 @@ app.use("/", routes);
 db.sequelize.sync({ force: true })
     .then(fixtures)
     .then(() => {
-        app.listen(port, () => { console.log(`==> 🌎 Listening on PORT ${port}. Visit http://localhost:${port}`) });
+        app.listen(port, () => { console.log(`==> 🌎 Listening on PORT ${port}. Visit http://localhost:${port}`.green) });
     });

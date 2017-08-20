@@ -121,5 +121,20 @@
             "appointments": "",
             "visits_patient_id": ""
         }
+    },
+    {
+        "model": "User",
+        "data": {
+            "email": "test@test.com",
+            "password": "abc123"
+        }
+    },
+    {
+        "model": "doctors",
+        "data": {
+            "first_name": "Steve",
+            "last_name": "Peterson",
+            "telephone": "3103005890"
+        }
     }
 ]

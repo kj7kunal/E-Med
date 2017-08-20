@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         telephone: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         appointments: DataTypes.STRING
