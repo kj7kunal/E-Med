@@ -30,7 +30,7 @@ app.set("view engine", "handlebars");
 
 app.use("/", routes);
 
-let users = [];
+let users = ["narin", "kathy", "hovsep"];
 let connections = [];
 
 io.sockets.on('connection', socket => {

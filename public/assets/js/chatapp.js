@@ -10,7 +10,7 @@ $(() => {
         // console.log("here!");
         event.preventDefault();
         socket.emit('send message', message.val());
-        // console.log(message.val());
+
         message.val("");
         return false;
     })
@@ -25,7 +25,7 @@ $(() => {
     });
     socket.on('new message', data => {
         console.log(data.msg);
-        // alert(data);
+
         chat.append('<div class="well">' + data.msg + '</div>')
     })
 });
