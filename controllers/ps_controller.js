@@ -58,8 +58,6 @@ router.get("/patients", isAuthenticated, (req, res) => {
     }
 });
 
-router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
-
 
 //  ---------------- STAFF ROUTES ----------------------
 
@@ -101,6 +99,12 @@ router.get("/patients/:id/:view", isAuthenticated, (req, res) => {
             return res.render("viewPatient", hbsObject);
         });
 });
+
+// specialist/referrals <-----------------------
+router.get("/patients/:id/specialist", isAuthenticated, (req, res) => { res.render("specialist") });
+
+// lab results <-----------------------
+router.get("/patients/:id/lab_results", isAuthenticated, (req, res) => { res.render("lab_results") });
 
 router.get("/patients/add", isAuthenticated, (req, res) => { res.render("patients_new") });
 
@@ -146,10 +150,13 @@ router.get("/api/user_data", (req, res) => {
     }
 });
 
-router.get("/calendar", (req, res) => { res.render("calendar") });
-router.get("/patient", (req, res) => { res.render("patientDash") });
-router.get("/mycare", (req, res) => { res.render("myCare") });
-router.get("/chatview", (req, res) => { res.render("chatview") });
+router.get("/calendar", isAuthenticated, (req, res) => { res.render("calendar") });
+router.get("/patient", isAuthenticated, (req, res) => { res.render("patientDash") });
+router.get("/mycare", isAuthenticated, (req, res) => { res.render("myCare") });
+router.get("/chatview", isAuthenticated, (req, res) => { res.render("chatview") });
+router.get("/settings", isAuthenticated, (req, res) => res.render("settings"));
+router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
+
 
 
 module.exports = router;
