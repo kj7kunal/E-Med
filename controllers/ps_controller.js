@@ -71,6 +71,10 @@ router.get("/", function(req, res) {
 router.get("/physician", function(req, res) {
     res.render("physician");
 });
+
+router.get("/calendar", function(req, res) {
+    res.render("calendar");
+});
 // router.get("/view", function(req, res) {
 //   res.render("viewPatient");
 // });

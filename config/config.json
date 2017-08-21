@@ -1,25 +1,22 @@
 {
     "development": {
         "username": "root",
-        "password": "",
+        "password": "mysql-teststuff",
         "database": "patientstack_db",
         "host": "localhost",
-        "dialect": "mysql",
-        "dialectOptions": {
-            "supportBigNumbers": true
-        }
+        "dialect": "mysql"
     },
     "test": {
         "username": "root",
-        "password": null,
-        "database": "database_test",
+        "password": "mysql-teststuff",
+        "database": "patientstack_db",
         "host": "127.0.0.1",
         "dialect": "mysql"
     },
     "production": {
         "username": "root",
-        "password": null,
-        "database": "database_production",
+        "password": "mysql-teststuff",
+        "database": "patientstack_db",
         "host": "127.0.0.1",
         "dialect": "mysql"
     }
