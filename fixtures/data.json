@@ -16,7 +16,7 @@
             "type": "Patient",
             "emergency_contact_name": "Marth Smith",
             "emergency_contact_number": "3236574827",
-            "provider_name": "Cigna",
+            "provider_name": "Kaiser Permanente",
             "policy_number": "Z903452",
             "appointments": "",
             "image": "http://interactive.wxxi.org/sites/default/files/images/highlights/smithr_105.jpg",
@@ -66,7 +66,7 @@
             "type": "Patient",
             "emergency_contact_name": "Steven Wise",
             "emergency_contact_number": "2132716073",
-            "provider_name": "Cigna",
+            "provider_name": "Blue Shield",
             "policy_number": "Z40090335",
             "appointments": "",
             "image": "https://d1t3gia0in9tdj.cloudfront.net/photo/tributes/t/8/r/207x207/134938/b0794dc3831c4ef7abb200de6cb42cb2.jpg",
@@ -91,10 +91,10 @@
             "type": "Patient",
             "emergency_contact_name": "Steven Wise",
             "emergency_contact_number": "2132716073",
-            "provider_name": "Cigna",
+            "provider_name": "Alta Med",
             "policy_number": "Z40090335",
             "appointments": "",
-            "image": "https://d1t3gia0in9tdj.cloudfront.net/photo/tributes/t/8/r/207x207/134938/b0794dc3831c4ef7abb200de6cb42cb2.jpg",
+            "image": "https://semantic-ui.com/images/avatar/large/jenny.jpg",
             "visits_patient_id": ""
         }
     },
@@ -116,8 +116,9 @@
             "type": "Patient",
             "emergency_contact_name": "Tiffany Wise",
             "emergency_contact_number": "2134982475",
-            "provider_name": "Cigna",
+            "provider_name": "Blue Cross",
             "policy_number": "X49883785",
+            "image": "https://semantic-ui.com/images/avatar/large/elliot.jpg",
             "appointments": "",
             "visits_patient_id": ""
         }
@@ -176,5 +177,62 @@
             "last_name": "Peterson",
             "telephone": "3103005890"
         }
+    },
+    {
+        "model": "prescriptions",
+        "data": {
+            "med_name": "Lipitor",
+            "patient_id": 1,
+            "dose": "10mg/day",
+            "amount": "30 pills",
+            "prescribed_date": "2016-05-05",
+            "renew_date": "2016-04-06"
+        }
+
+    },
+    {
+        "model": "prescriptions",
+        "data": {
+            "med_name": "Adderall",
+            "patient_id": 2,
+            "dose": "10mg/day",
+            "amount": "30 pills",
+            "prescribed_date": "2017-02-02",
+            "renew_date": "2017-01-03"
+        }
+    },
+    {
+        "model": "prescriptions",
+        "data": {
+            "med_name": "Xanax",
+            "patient_id": 3,
+            "dose": "5mg/day",
+            "amount": "30 pills",
+            "prescribed_date": "2017-20-04",
+            "renew_date": "2017-19-05"
+        }
+    },
+    {
+        "model": "prescriptions",
+        "data": {
+            "med_name": "Glucophage",
+            "patient_id": 4,
+            "dose": "500mg/day",
+            "amount": "60 pills",
+            "prescribed_date": "2015-10-01",
+            "renew_date": "2015-09-03"
+        }
+    },
+    {
+        "model": "prescriptions",
+        "data": {
+            "med_name": "Ambien",
+            "patient_id": 5,
+            "dose": "10mg/day",
+            "amount": "14 pills",
+            "prescribed_date": "2017-18-03",
+            "renew_date": "2017-02-04"
+        }
     }
+
 ]

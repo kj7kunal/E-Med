@@ -124,18 +124,11 @@ router.post("/api/admin-login", passport.authenticate("admin-local"), (req, res)
 
 });
 
-// router.post("/api/signup", (req, res) => {
-//     console.log(req.body);
-//     db.User.create({
-//         email: req.body.email,
-//         password: req.body.password
-//     }).then(() => {
-//         res.redirect(307, "/api/login");
-//     }).catch((err) => {
-//         console.log(err);
-//         res.json(err);
-
-//     });
+router.get("/calendar", function(req, res) {
+    res.render("calendar");
+});
+// router.get("/view", function(req, res) {
+//   res.render("viewPatient");
 // });
 
 // Route for logging user out
@@ -157,6 +150,15 @@ router.get("/api/user_data", (req, res) => {
             id: req.user.id
         });
     }
+});
+router.get("/patient", function(req, res) {
+    res.render("patientDash");
+});
+router.get("/mycare", function(req, res) {
+    res.render("myCare");
+});
+router.get("/chatview", function(req, res) {
+    res.render("chatview");
 });
 
 
