@@ -75,5 +75,9 @@ module.exports = function(sequelize, DataTypes) {
         image: DataTypes.TEXT,
 
     });
+
+    Patient.associate = (models) => {
+        Patient.hasOne(models.User)
+    }
     return Patient;
 }

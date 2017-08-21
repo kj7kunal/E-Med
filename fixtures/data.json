@@ -125,8 +125,41 @@
     {
         "model": "User",
         "data": {
-            "email": "test@test.com",
-            "password": "abc123"
+            "email": "bob@test.com",
+            "password": "abc123",
+            "patientId": "1"
+        }
+    },
+    {
+        "model": "User",
+        "data": {
+            "email": "eugene@test.com",
+            "password": "abc123",
+            "patientId": "2"
+        }
+    },
+    {
+        "model": "User",
+        "data": {
+            "email": "alberta@test.com",
+            "password": "abc123",
+            "patientId": "3"
+        }
+    },
+    {
+        "model": "User",
+        "data": {
+            "email": "raymond@test.com",
+            "password": "abc123",
+            "patientId": "4"
+        }
+    },
+    {
+        "model": "User",
+        "data": {
+            "email": "deborah@test.com",
+            "password": "abc123",
+            "patientId": "5"
         }
     },
     {
