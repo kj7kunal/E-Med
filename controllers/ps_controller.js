@@ -20,10 +20,19 @@ router.get("/admin", (req, res) => {
 
 // -------------  Patient ---------------------------
 router.get("/patients", isAuthenticated, (req, res) => {
+
     if (req.user) {
-        return res.render("patientDash");
+        db.patient.findOne({
+            where: {
+                id: req.user.patientId
+            }
+        }).then((result) => {
+            const hbsObject = { patient: result }
+            console.log(hbsObject);
+            return res.render("patientDash", hbsObject);
+        })
     }
-    return res.render("index");
+    // return res.render("index");
 });
 
 router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
