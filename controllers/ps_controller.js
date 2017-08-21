@@ -84,5 +84,8 @@ router.get("/record", function(req, res) {
 router.get("/login", function(req, res) {
   res.render("login");
 });
+router.get("/chatview", function(req, res) {
+  res.render("chatview");
+});
 
 module.exports = router;
