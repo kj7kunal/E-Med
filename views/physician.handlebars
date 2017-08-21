@@ -1,5 +1,6 @@
-{{!-- nav bar --}}
-<div class="ui visible left vertical inverted labeled icon sidebar menu">
+<!--Physician Dashboard-->
+<!--SIDEBAR-->
+<div class="ui visible left vertical inverted labeled icon sidebar menu" id="sidebar">
     <a class="item"><i class="home icon"></i>Home</a>
     <a class="item"><i class="user circle outline icon"></i>Patients</a>
     <a class="item"><i class="calendar icon"></i>Calendar</a>
@@ -8,9 +9,27 @@
     <a class="item"><i class="settings icon"></i>Settings</a>
 </div>
 
-<div class="main ui grid container" id="main-container">
-    <div class="ui container sixteen wide column">
-        <h1>My Dashboard</h1>
+<!--MOBILE SIDEBAR-->
+<div class="ui bottom inverted six item labeled icon sidebar menu visible">
+    <a class="item"><i class="home icon"></i>Home</a>
+    <a class="item"><i class="user circle outline icon"></i>Patients</a>
+    <a class="item"><i class="calendar icon"></i>Calendar</a>
+    <a class="item"><i class="comment icon"></i>Messaging</a>
+    <a class="item"><i class="payment icon"></i>Billing</a>
+    <a class="item"><i class="settings icon"></i>Settings</a>
+</div>
+
+<div class="main ui stackable grid container">
+    
+        <div class="ui container sixteen wide column">
+            <div class="ui raised blue segment">
+                <div class="row">
+                <h1 class="ui header">
+                    <img src="../assets/images/person.png" class="ui circular image"> Welcome Dr. James Dean
+                    <div class="ui basic blue button">Log Out</div>
+                </h1>
+            </div>
+        </div>
     </div>
 
     <div class="eight wide column">
@@ -22,13 +41,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>John</td>
+                    <td>New Message from Jamie</td>
                 </tr>
                 <tr>
-                    <td>Jamie</td>
+                    <td>New Message from Michael</td>
                 </tr>
                 <tr>
-                    <td>Jill</td>
+                    <td>New Message from Diana</td>
                 </tr>
             </tbody>
         </table>
@@ -43,42 +62,70 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>John</td>
+                    <td>Follow up call with Josh</td>
                 </tr>
                 <tr>
-                    <td>Jamie</td>
+                    <td>Follow up call with Dan</td>
                 </tr>
                 <tr>
-                    <td>Jill</td>
+                    <td>Send in referral for Dave</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="sixteen wide column">
-        <table class="ui teal table">
+    <div class="ui sixteen wide column">
+        <table class="ui blue table" id="table">
             <thead>
                 <tr>
-                    <th class="ten wide"><i class="hourglass start icon"></i>Upcoming</th>
-                    <th class="six wide"></th>
+                    <th class="three wide"><i class="alarm icon"></i>Upcoming Appointments</th>
+                    <th class="three wide"></th>
+                    <th class="five wide"></th>
+                    <th class="five wide"></th>
                 </tr>
                 <tr>
-                    <th class="ten wide">Name</th>
-                    <th class="six wide">Status</th>
+                    <th class="three wide">Date</th>
+                    <th class="three wide">Time</th>
+                    <th class="five wide">Patient</th>
+                    <th class="five wide">Appointment Type</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>John</td>
-                    <td>Approved</td>
+                    <td>May 24, 2017</td>
+                    <td>10:00am</td>
+                    <td>Abby Lee</td>
+                    <td>Consultation</td>
                 </tr>
                 <tr>
-                    <td>Jamie</td>
-                    <td>Approved</td>
+                    <td>May 24, 2017</td>
+                    <td>10:30am</td>
+                    <td>Phil Collins</td>
+                    <td>Physical Exam</td>
                 </tr>
                 <tr>
-                    <td>Jill</td>
-                    <td>Denied</td>
+                    <td>May 24, 2017</td>
+                    <td>11:00am</td>
+                    <td>Will Smith</td>
+                    <td>Physical Exam</td>
+                </tr>
+                <tr>
+                    <td>May 25, 2017</td>
+                    <td>11:00am</td>
+                    <td>Bill Nye</td>
+                    <td>Physical Exam</td>
+                </tr>
+                <tr>
+                    <td>May 25, 2017</td>
+                    <td>11:30am</td>
+                    <td>Richard Simmons</td>
+                    <td>Phone Appointment</td>
+                </tr>
+                <tr>
+                    <td>May 26, 2017</td>
+                    <td>1:30pm</td>
+                    <td>Natalie Portman</td>
+                    <td>Follow up visit</td>
                 </tr>
             </tbody>
         </table>

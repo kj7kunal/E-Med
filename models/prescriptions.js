@@ -9,18 +9,40 @@ module.exports = function(sequelize, DataTypes) {
     },
     patient_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    amount: {
-      type: DataTypes.INTEGER,
       allowNull: false
     },
+    dose: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 45]
+      }
+    },
+    amount: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 45]
+      }
+    },
     prescribed_date: {
-        type: DataTypes.DATEONLY
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 45]
+      }
     },
     renew_date: {
-        type: DataTypes.DATEONLY
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 45]
+      }
     }
   });
+
+  Prescription.associate = (models) => {
+      Prescription.hasMany(models.patient);
+  }
   return Prescription;
 };

@@ -1,3 +1,4 @@
+<!--Patient views My Care page-->
 <!--SIDEBAR-->
 <div class="ui visible left vertical inverted labeled icon sidebar menu" id="sidebar">
     <a class="item"><i class="home icon"></i>Home</a>
@@ -20,6 +21,9 @@
 
 <div class="ui main container">
     <div class="row">
+        <div class="ui basic blue button">Log Out</div>
+    </div>
+    <div class="row">
         <h2 class="ui center aligned icon header">
             <i class="circular users icon"></i> {{patient.first_name}} {{patient.last_name}}
         </h2>
@@ -39,22 +43,21 @@
             </div>
             <div class="column">
                 <div class="ui teal segment">
-                    <a href=""><img class="ui centered image" src="/assets/images/prescription.svg" height="150" width="150"></a>
-                    <a href="">
-                        <h4 class="ui center aligned header">Prescriptions</h4>
-                    </a>
-                </div>
-            </div>
-            <div class="column">
-                <div class="ui teal segment">
                     <a href=""><img class="ui centered image" src="/assets/images/stethoscope.svg" height="150" width="150"></a>
                     <a href="">
                         <h4 class="ui center aligned header">Lab Results</h4>
                     </a>
                 </div>
             </div>
+            <div class="column">
+                <div class="ui teal segment">
+                    <a href=""><img class="ui centered image" src="/assets/images/notes.svg" height="150" width="150"></a>
+                    <a href="">
+                        <h4 class="ui center aligned header">My Documents</h4>
+                    </a>
+                </div>
+            </div>
         </div>
-        <!--stretched row-->
         <div class="stretched row">
             <div class="column">
                 <div class="ui teal segment">
@@ -80,17 +83,6 @@
                     </a>
                 </div>
             </div>
-        </div>
-        <!--stretched row-->
-        <div class="stretched row">
-            <div class="column">
-                <div class="ui teal segment">
-                    <a href=""><img class="ui centered image" src="/assets/images/notes.svg" height="150" width="150"></a>
-                    <a href="">
-                        <h4 class="ui center aligned header">My Documents</h4>
-                    </a>
-                </div>
-            </div>
-        </div>
+       
     </div><!--ui three column divided grid-->
 </div><!--ui main container-->
