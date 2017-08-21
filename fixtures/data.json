@@ -126,7 +126,16 @@
         "model": "User",
         "data": {
             "email": "test@test.com",
-            "password": "abc123"
+            "password": "abc123",
+            "type": "patient"
+        }
+    },
+    {
+        "model": "User",
+        "data": {
+            "email": "admin@admin.com",
+            "password": "abc123",
+            "type": "staff"
         }
     },
     {

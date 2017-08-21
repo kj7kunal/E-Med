@@ -11,31 +11,28 @@ router.get("/", (req, res) => {
     return res.render("index");
 });
 
-// patient login
-router.get("/login", (req, res) => {
+// -------------  Patient ---------------------------
+router.get("/patients", isAuthenticated, (req, res) => {
     if (req.user) {
-        console.log("Logged in YAY!");
-        return res.redirect("/patients");
+        return res.render("patientDash");
     }
-
-    return res.render("index");
-});
-
-// doctor login
-router.get("/login/admin", (req, res) => {
-    if (req.user) {
-        console.log("Logged in YAY!");
-        return res.redirect("/patients");
-    }
-
     return res.render("index");
 });
 
 router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
 
-router.get("/patients/add", isAuthenticated, (req, res) => { res.render("patients_new") });
 
-router.get("/patients", isAuthenticated, (req, res) => {
+
+
+
+
+//  ---------------- STAFF ROUTES ----------------------
+
+router.get("/physician", isAuthenticated, function(req, res) {
+    res.render("physician");
+});
+
+router.get("/physician/list", isAuthenticated, (req, res) => {
     db.patient.findAll().then((result) => {
         // console.log(result);
         const hbsObject = { patient: result };
@@ -45,6 +42,10 @@ router.get("/patients", isAuthenticated, (req, res) => {
         return res.render("patients_list", hbsObject);
     })
 })
+
+router.get("/record", function(req, res) {
+    res.render("healthRecord");
+});
 
 router.get("/patients/:id", isAuthenticated, (req, res) => {
     db.patient.findOne({
@@ -69,6 +70,8 @@ router.get("/patients/:id/:view", isAuthenticated, (req, res) => {
             return res.render("viewPatient", hbsObject);
         });
 });
+
+router.get("/patients/add", isAuthenticated, (req, res) => { res.render("patients_new") });
 
 router.post("/patients/add", (req, res) => {
     db.patient.create({
@@ -95,13 +98,24 @@ router.post("/patients/add", (req, res) => {
         })
 })
 
-
 // --------------------- Login / Signup --------------------------
 
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
+    // console.log("THIS TYPE: " + req.user.type);
 
-    res.send("/patients"); // for when you need to respond with non json values 
-    res.json({ id: req.user.id }) // specifically for json
+    // res.json({ id: req.user.id }) // specifically for json
+
+    if (req.user.type === "staff") {
+        // res.json({ id: req.user.id })
+        return res.send("/physician");
+
+    } else {
+        // res.json({ id: req.user.id })
+        return res.send("/patients");
+
+    }
+    // for when you need to respond with non json values 
+
 });
 
 router.post("/api/signup", (req, res) => {
@@ -119,13 +133,6 @@ router.post("/api/signup", (req, res) => {
 });
 
 
-router.get("/physician", isAuthenticated, function(req, res) {
-    res.render("physician");
-});
-
-router.get("/record", function(req, res) {
-    res.render("healthRecord");
-});
 
 // Route for logging user out
 router.get("/logout", (req, res) => {
