@@ -52,8 +52,8 @@ io.sockets.on('connection', socket => {
 
 
     // send message
-    socket.on('send message', data => {
-        io.sockets.emit('new message', socket.username, { msg: data });
+    socket.on('send message', (message, username) => {
+        io.sockets.emit('new message', username, { msg: message });
         // socket.broadcast.emit('broad', data);
     })
 

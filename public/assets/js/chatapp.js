@@ -3,13 +3,18 @@ $(() => {
     let messageForm = $("#messageForm");
     let message = $("#message");
     let chat = $("#chat");
+    let username = "";
 
+
+    $.get("/api/user_data", (req, res) => {
+        console.log(req);
+        username = req.email;
+    });
 
 
     messageForm.submit(event => {
-        // console.log("here!");
         event.preventDefault();
-        socket.emit('send message', message.val());
+        socket.emit('send message', message.val(), username);
 
         message.val("");
         return false;
@@ -18,8 +23,6 @@ $(() => {
     socket.on('connect', (data) => {
         console.log("we're connected!");
         socket.emit('join', 'Hello World from client');
-        socket.emit('adduser', window.prompt("What\'s your name?"));
-
     })
 
     socket.on('broad', (data) => {
