@@ -80,5 +80,11 @@ router.get("/record", function(req, res) {
 router.get("/login", function(req, res) {
   res.render("login");
 });
+router.get("/patient", function(req, res) {
+  res.render("patientDash");
+});
+router.get("/mycare", function(req, res) {
+  res.render("myCare");
+});
 
 module.exports = router;

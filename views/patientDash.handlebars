@@ -1,0 +1,154 @@
+<!--Patient Dashboard-->
+<!--SIDEBAR-->
+<div class="ui visible left vertical inverted labeled icon sidebar menu">
+    <a class="item"><i class="home icon"></i>Home</a>
+    <a class="item"><i class="user circle outline icon"></i>My Care</a>
+    <a class="item"><i class="calendar icon"></i>Appointments</a>
+    <a class="item"><i class="comment icon"></i>Messaging</a>
+    <a class="item"><i class="payment icon"></i>Billing</a>
+    <a class="item">
+        <i class="settings icon"></i>Settings
+    </a>
+    {{!-- <div class="ui dropdown item">
+        <i class="dropdown icon"></i> More
+        <div class="menu">
+            <a class="item"><i class="edit icon"></i> Edit Profile</a>
+            <a class="item"><i class="globe icon"></i> Choose Language</a>
+            <a class="item"><i class="settings icon"></i> Account Settings</a>
+        </div>
+    </div> --}}
+</div>
+
+<!--MOBILE SIDEBAR-->
+<div class="ui bottom inverted six item labeled icon sidebar menu visible">
+    <a class="item"><i class="home icon"></i>Home</a>
+    <a class="item"><i class="user circle outline icon"></i>My Care</a>
+    <a class="item"><i class="calendar icon"></i>Appointments</a>
+    <a class="item"><i class="comment icon"></i>Messaging</a>
+    <a class="item"><i class="payment icon"></i>Billing</a>
+    <a class="item"><i class="settings icon"></i>Settings</a>
+</div>
+
+<div class="main ui stackable grid container" id="main-container">
+    <div class="ui container sixteen wide column">        
+        <div class="ui raised blue segment">
+            <div class="row">
+                <h1 class="ui header">
+                    <img src="../assets/images/person.png" class="ui circular image"> Welcome Bob Smith
+                    <div class="ui basic blue button">Log Out</div>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+<div class="row">
+        <div class="five wide column">
+            <div class="ui medium header">My Doctors</div>
+            <div class="ui tiny aligned center cards">
+                <div class="green card">
+                    <div class="content">
+                        <img class="right floated mini ui image" src="../assets/images/person.png">
+                        <div class="header">
+                            Dr. Elliot Fu
+                        </div>
+                        <div class="meta">
+                            Primary Physician Family Medicine
+                        </div>
+                    </div>
+                </div>
+                <div class="teal card">
+                    <div class="content">
+                        <img class="right floated mini ui image" src="../assets/images/person.png">
+                        <div class="header">
+                            Dr. Jenny Hess
+                        </div>
+                        <div class="meta">
+                            Referral Sports Medicine/Physical Therapy
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="five wide column">
+            <div class="ui piled segment">
+                <h4 class="ui header">General Information</h4>
+                <ul>
+                    <li>Date of Birth: 08/09/77{{patient.dob}}</li>
+                    <li>Address: 42 Wallaby Way {{patient.street_address}}</li>
+                    <li>Syndey, Australia, 0000000000000{{patient.city}},{{patient.state}},{{patient.zip}}</li>
+                    <li>Phone: (888)888-8888 {{patient.telephone}}</li>
+                    <li>Height: 6'0"{{patient.height}}</li>
+                    <li>Weight: 190 lbs {{patient.weight}}</li>
+                    <li>Provider: Blue Cross{{patient.provider_name}}</li>
+                    <li>Emergency Contact: Rachel Green {{patient.emergency_contact_name}}</li>
+                    <li>Emergency Contact Number: (999)999-9999{{patient.emergency_contact_number}}</li>
+                </ul>
+            </div>
+        </div>
+    <div class="six wide column">
+        <table class="ui blue table" id="table">
+            <thead>
+                <tr>
+                    <th><i class="alarm icon"></i>Reminders</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Flu Vaccine</td>
+                    <td class="positive"><i class="icon checkmark"></td>
+                </tr>
+                <tr>
+                    <td>Prescription Renewal for: Hydrochlorothiazide</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Tetanus, Diphtheria, Pertussis (Td, Tdap) Vaccine</td>
+                    <td class="positive"><i class="icon checkmark"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+  <div class="ui sixteen wide column">  
+        <table class="ui inverted blue table" id="table">
+            <thead>
+                <tr>
+                    <th class="three wide"><i class="alarm icon"></i>Upcoming Appointments</th>
+                    <th class="three wide"></th>
+                    <th class="five wide"></th>
+                    <th class="five wide"></th>
+                </tr>
+                <tr>
+                    <th class="three wide">Date</th>
+                    <th class="three wide">Appointment Type</th>
+                    <th class="five wide">Doctor</th>
+                    <th class="five wide">Notes From My Doctor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>May 24, 2017</td>
+                    <td>Consultation</td>
+                    <td>Dr. Jones</td>
+                    <td>First visit. Please arrive 15 minutes early for paperwork.</td>
+                </tr>
+                <tr>
+                    <td>July 5, 2017</td>
+                    <td>Annual Physical</td>
+                    <td>Dr. Phil</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>August 5, 2017</td>
+                    <td>Physical Therapy</td>
+                    <td>Dr. Phil</td>
+                    <td>Referral for sports injury</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>
