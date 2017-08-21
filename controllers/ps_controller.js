@@ -94,4 +94,11 @@ router.get("/chatview", function(req, res) {
   res.render("chatview");
 });
 
+router.get("/specialists", function(req, res) {
+    db.specialists.findAll().then((result) => {
+        const hbsObject = { specialists: result };
+        res.render("specialists", hbsObject);
+    })
+});
+
 module.exports = router;
