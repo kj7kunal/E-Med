@@ -62,6 +62,11 @@ io.sockets.on('connection', socket => {
         socket.emit('messages', 'Hello from server')
     })
 
+    // typing
+    socket.on('typing', data => {
+        socket.broadcast.emit('typing', data);
+    })
+
     socket.on('adduser', (username) => {
         // we store the username in the socket session for this client
         socket.username = username;
