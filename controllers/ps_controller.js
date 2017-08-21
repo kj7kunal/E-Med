@@ -11,6 +11,13 @@ router.get("/", (req, res) => {
     return res.render("index");
 });
 
+router.get("/admin", (req, res) => {
+    if (req.user) {
+        return res.redirect("/patients");
+    }
+    return res.render("admin");
+});
+
 // -------------  Patient ---------------------------
 router.get("/patients", isAuthenticated, (req, res) => {
     if (req.user) {
@@ -20,10 +27,6 @@ router.get("/patients", isAuthenticated, (req, res) => {
 });
 
 router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
-
-
-
-
 
 
 //  ---------------- STAFF ROUTES ----------------------
@@ -100,39 +103,31 @@ router.post("/patients/add", (req, res) => {
 
 // --------------------- Login / Signup --------------------------
 
-router.post("/api/login", passport.authenticate("local"), (req, res) => {
-    // console.log("THIS TYPE: " + req.user.type);
+router.post("/api/login", passport.authenticate("user-local"), (req, res) => {
 
-    // res.json({ id: req.user.id }) // specifically for json
-
-    if (req.user.type === "staff") {
-        // res.json({ id: req.user.id })
-        return res.send("/physician");
-
-    } else {
-        // res.json({ id: req.user.id })
-        return res.send("/patients");
-
-    }
-    // for when you need to respond with non json values 
+    return res.send("/patients");
 
 });
 
-router.post("/api/signup", (req, res) => {
-    console.log(req.body);
-    db.User.create({
-        email: req.body.email,
-        password: req.body.password
-    }).then(() => {
-        res.redirect(307, "/api/login");
-    }).catch((err) => {
-        console.log(err);
-        res.json(err);
+router.post("/api/admin-login", passport.authenticate("admin-local"), (req, res) => {
 
-    });
+    return res.send("/physician")
+
 });
 
+// router.post("/api/signup", (req, res) => {
+//     console.log(req.body);
+//     db.User.create({
+//         email: req.body.email,
+//         password: req.body.password
+//     }).then(() => {
+//         res.redirect(307, "/api/login");
+//     }).catch((err) => {
+//         console.log(err);
+//         res.json(err);
 
+//     });
+// });
 
 // Route for logging user out
 router.get("/logout", (req, res) => {
