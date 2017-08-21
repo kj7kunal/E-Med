@@ -1,11 +1,5 @@
-<div class="ui visible left vertical inverted labeled icon sidebar menu">
-    <a class="item"><i class="home icon"></i>Home</a>
-    <a class="item"><i class="user circle outline icon"></i>Patients</a>
-    <a class="item"><i class="calendar icon"></i>Calendar</a>
-    <a class="item"><i class="comment icon"></i>Messaging</a>
-    <a class="item"><i class="payment icon"></i>Billing</a>
-    <a class="item"><i class="settings icon"></i>Settings</a>
-</div>
+<!-- NAV BAR PARTIAL-->
+{{> nav}}
 
 <div class="main ui grid container">
 
@@ -14,16 +8,21 @@
     </div>
 
     <div class="sixteen wide column">
-        <form class="ui form" action="patients/add" method="post">
+        <form class="ui form" action="/patients/add" method="post">
             <h4 class="ui dividing header">General Information</h4>
             <div class="field">
-                <label>Name</label>
-                <div class="two fields">
-                    <div class="field">
+                <div class="fields">
+                    <div class="eight wide field">
+                        <label>First Name</label>
                         <input type="text" name="firstName" placeholder="First Name">
                     </div>
-                    <div class="field">
+                    <div class="eight wide field">
+                        <label>Last Name</label>
                         <input type="text" name="lastName" placeholder="Last Name">
+                    </div>
+                    <div class="eight wide field">
+                        <label>Date of Birth</label>
+                        <input type="text" name="dob" placeholder="MM/DD/YYYY">
                     </div>
                 </div>
             </div>
@@ -136,7 +135,6 @@
                         <label>Weight</label>
                         <input type="text" name="weight">
                     </div>
-
                 </div>
             </div>
             <div class="field">
@@ -168,9 +166,7 @@
             </div>
 
             <div>
-                <div class="ui button">
-                    <i class="icon user"></i>Add Patient
-                </div>
+                <button type="submit" class="ui blue basic button" id="add-patient-button"><i class="icon user"></i>Add Patient</button>
                 <button class="ui grey basic button" id="autofill">Autofill</button>
             </div>
     </div>

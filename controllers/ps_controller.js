@@ -71,6 +71,10 @@ router.get("/", function(req, res) {
 router.get("/physician", function(req, res) {
     res.render("physician");
 });
+
+router.get("/calendar", function(req, res) {
+    res.render("calendar");
+});
 // router.get("/view", function(req, res) {
 //   res.render("viewPatient");
 // });
@@ -85,6 +89,9 @@ router.get("/patient", function(req, res) {
 });
 router.get("/mycare", function(req, res) {
   res.render("myCare");
+});
+router.get("/chatview", function(req, res) {
+  res.render("chatview");
 });
 
 module.exports = router;
