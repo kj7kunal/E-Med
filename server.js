@@ -11,7 +11,8 @@ const express = require('express'),
     session = require('express-session'),
     passport = require('./config/passport'),
     http = require('http').createServer(app),
-    io = require('socket.io')(http);
+    io = require('socket.io')(http),
+    chat1 = io.of('/bob');
 
 app.use(express.static("public"));
 
@@ -34,6 +35,13 @@ let usernames = {};
 let connections = [];
 
 io.sockets.on('connection', socket => {
+
+    socket.on('subscribe', room => {
+        console.log("joining room", room);
+        socket.join(room);
+    })
+
+
     connections.push(socket);
     console.log("Connected: %s sockets connected", connections.length);
 
@@ -50,16 +58,14 @@ io.sockets.on('connection', socket => {
         socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
     });
 
-
     // send message
     socket.on('send message', (message, username) => {
-        io.sockets.emit('new message', username, { msg: message });
+        // io.sockets.emit('new message', username, { msg: message });
         // socket.broadcast.emit('broad', data);
-    })
-
-    socket.on('join', data => {
-        console.log(data);
-        socket.emit('messages', 'Hello from server')
+        db.message.create({
+            username: username,
+            message: message
+        })
     })
 
     // typing
@@ -81,6 +87,13 @@ io.sockets.on('connection', socket => {
     });
 
 });
+
+// private room1
+// chat1.on('connection', socket => {
+//     console.log("Someone Connected to Bobs room");
+// });
+// chat1.emit('hi', 'everyone!');
+
 
 
 db.sequelize.sync({ force: true })

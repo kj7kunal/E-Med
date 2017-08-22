@@ -50,7 +50,7 @@ router.get("/patients", isAuthenticated, (req, res) => {
             }
         }).then((result) => {
             const hbsObject = { patient: result }
-            console.log(hbsObject);
+                // console.log(hbsObject);
             return res.render("patientDash", hbsObject);
         })
     } else {
@@ -61,7 +61,7 @@ router.get("/patients", isAuthenticated, (req, res) => {
 router.get("/chat", isAuthenticated, (req, res) => {
 
     const user = req.user;
-    console.log(user.email);
+    // console.log(user.email);
     return res.render("chatbox", user);
 
 });
@@ -151,7 +151,7 @@ router.post("/api/login", passport.authenticate("local"), (req, res) => {
 });
 
 router.post("/api/signup", (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     db.User.create({
         email: req.body.email,
         password: req.body.password
@@ -202,6 +202,33 @@ router.get("/api/user_data", (req, res) => {
     }
 });
 
+// Chat
+// router.post("/chat/post_message", (req, res) => {
+//     // console.log(req.body);
+//     db.message.create({
+//             "username": req.body.username,
+//             "message": req.body.message
+//         })
+//         .then(() => {
+//             db.message.findAll().then((result) => {
+//                 console.log(result);
+//                 const hbsObject = { message: result };
+
+//                 return res.render("chatview", hbsObject);
+//             })
+//         })
+// })
+
+router.get("/chatview", (req, res) => {
+    db.message.findAll().then((result) => {
+        console.log(result);
+        const hbsObject = { message: result };
+
+        return res.render("chatview", hbsObject);
+    })
+})
+
+router.get("/bob", isAuthenticated, (req, res) => { res.render("chatbox") });
 router.get("/calendar", isAuthenticated, (req, res) => { res.render("calendar") });
 router.get("/patient", isAuthenticated, (req, res) => { res.render("patientDash") });
 router.get("/mycare", isAuthenticated, (req, res) => { res.render("myCare") });

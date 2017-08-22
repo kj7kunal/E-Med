@@ -4,23 +4,30 @@
     <div class="ui container sixteen wide column">
         <div class="ui comments">
             <h3 class="ui dividing header">Comments</h3>
+
+
+        {{#each message}}
             <div class="comment">
-                <a class="avatar">
+                {{!-- <a class="avatar">
       <img src="https://semantic-ui.com/images/avatar/small/matt.jpg">
-    </a>
+    </a> --}}
                 <div class="content">
-                    <a class="author">Matt</a>
+                    <a class="author">{{this.username}}</a>
                     <div class="metadata">
-                        <span class="date">Today at 5:42PM</span>
+                        <span class="date">{{ this.createdAt}}</span>
                     </div>
                     <div class="text">
-                        How artistic!
+                        {{this.message}}
                     </div>
                     <div class="actions">
                         <a class="reply">Reply</a>
                     </div>
                 </div>
             </div>
+
+            {{/each}}
+
+{{!-- 
             <div class="comment">
                 <a class="avatar">
       <img src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
@@ -73,14 +80,15 @@
                         <a class="reply">Reply</a>
                     </div>
                 </div>
-            </div>
-            <form class="ui reply form">
+            </div> --}}
+            <form class="ui reply form" id="messageForm">
                 <div class="field">
-                    <textarea></textarea>
+                     <textarea id="message"><div id="typingmessage"></div></textarea>
                 </div>
                 <div class="ui blue labeled submit icon button">
                     <i class="icon edit"></i> Send
                 </div>
+                <input type="submit" value="Send Message">
             </form>
         </div>
     </div>
