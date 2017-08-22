@@ -16,6 +16,10 @@ module.exports = function(sequelize, DataTypes) {
                 len: [1, 45]
             }
         },
+        gender: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         dob: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -77,6 +81,10 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Patient.associate = (models) => {
+        Patient.hasOne(models.User)
+    }
+
+    Patient.associate = (models) => {
         Patient.belongsTo(models.prescriptions, {
             foreignKey: {
                 field: "Prescription_id"
@@ -84,4 +92,4 @@ module.exports = function(sequelize, DataTypes) {
         })
     }
     return Patient;
-}
+};

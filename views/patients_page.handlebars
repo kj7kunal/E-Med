@@ -1,53 +1,5 @@
 
-{{!-- <tr>
-
-<td>{{patient.first_name}}</td>
-<td>{{patient.last_name}}</td>
-<td>{{patient.dob}}</td>
-<td>{{patient.street_address}}</td>
-<td>{{patient.city}}</td>
-<td>{{patient.state}}</td>
-<td>{{patient.zip}}</td>
-<td>{{patient.telephone}}</td>
-<td>{{patient.height}}</td>
-<td>{{patient.weight}}</td>
-<td>{{patient.allergies}}</td>
-<td>{{patient.procedures}}</td>
-<td>{{patient.emergency_contact_name}}</td>
-<td>{{patient.emergency_contact_numbertd}}
-<td>{{patient.provider_name}}</td>
-<td>{{patient.appointments}}</td>
-<td>{{patient.image}}</td>
-
-</tr> --}}
-<!--SIDEBAR-->
-<div class="ui visible left vertical inverted labeled icon sidebar menu" id="sidebar">
-    <a class="item">
-  <i class="home icon"></i>
-  Home
-</a>
-    <a class="item">
-  <i class="user circle outline icon"></i>
-  Patients
-</a>
-    <a class="item">
-  <i class="calendar icon"></i>
-  Calendar
-</a>
-    <a class="item">
-  <i class="comment icon"></i>
-  Messaging
-</a>
-    <a class="item">
-  <i class="payment icon"></i>
-  Billing
-</a>
-    <a class="item">
-  <i class="settings icon"></i>
-  Settings
-</a>
-</div>
-
+{{> nav }}
 <!--HEADER-->
 <div class="ui main container">
     <div class="row">
@@ -84,12 +36,7 @@
     <div class="ui divider"></div>
     <div class="ui stackable grid">
         <div class="row">
-            <div class="ui large image">
-                <img class="image" src="../assets/images/linechart.png">
-            </div>
-            <div class="ui large image">
-                <img class="image" src="../assets/images/samplegraph.png">
-            </div>
+            {{> labresults}}
         </div>
         <div class="row">
             <table class="ui red celled table">

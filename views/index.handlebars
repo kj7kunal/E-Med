@@ -45,21 +45,21 @@
                         Log-in to your account
                     </div>
                 </h2>
-                <form class="ui small form">
+                <form class="login ui small form">
                     <div class="ui stacked segment">
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="email" placeholder="Username">
+                                <input id="email-input" type="email" name="email" placeholder="Username">
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="lock icon"></i>
-                                <input type="password" name="password" placeholder="Password">
+                                <input id="password-input" type="password" name="password" placeholder="Password">
                             </div>
                         </div>
-                        <div class="ui fluid large blue submit button">Login</div>
+                        <div id="loginBtn"class="ui fluid large blue submit button">Login</div>
                     </div>
 
                     <div class="ui error message"></div>

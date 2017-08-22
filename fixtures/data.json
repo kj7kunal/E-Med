@@ -3,6 +3,7 @@
         "data": {
             "first_name": "Bob",
             "last_name": "Smith",
+            "gender": "Male",
             "dob": "1967-01-12",
             "street_address": "20 Maple Avenue",
             "city": "San Pedro",
@@ -16,7 +17,7 @@
             "type": "Patient",
             "emergency_contact_name": "Marth Smith",
             "emergency_contact_number": "3236574827",
-            "provider_name": "Cigna",
+            "provider_name": "Kaiser Permanente",
             "policy_number": "Z903452",
             "appointments": "",
             "image": "http://interactive.wxxi.org/sites/default/files/images/highlights/smithr_105.jpg",
@@ -28,6 +29,7 @@
         "data": {
             "first_name": "Eugene",
             "last_name": "Richards",
+            "gender": "Male",
             "dob": "1987-10-11",
             "street_address": "601 Sherwood Ave. ",
             "city": "San Bernardino",
@@ -53,6 +55,7 @@
         "data": {
             "first_name": "Alberta",
             "last_name": "Wise",
+            "gender": "Female",
             "dob": "1984-13-08",
             "street_address": "3872 Rubaiyat Road",
             "city": "Grand Rapids",
@@ -66,7 +69,7 @@
             "type": "Patient",
             "emergency_contact_name": "Steven Wise",
             "emergency_contact_number": "2132716073",
-            "provider_name": "Cigna",
+            "provider_name": "Blue Shield",
             "policy_number": "Z40090335",
             "appointments": "",
             "image": "https://d1t3gia0in9tdj.cloudfront.net/photo/tributes/t/8/r/207x207/134938/b0794dc3831c4ef7abb200de6cb42cb2.jpg",
@@ -78,6 +81,7 @@
         "data": {
             "first_name": "Raymond",
             "last_name": "Madrigal",
+            "gender": "Male",
             "dob": "1974-14-01",
             "street_address": "241 Indian Spring St.d",
             "city": "Pittsburg",
@@ -91,10 +95,10 @@
             "type": "Patient",
             "emergency_contact_name": "Steven Wise",
             "emergency_contact_number": "2132716073",
-            "provider_name": "Cigna",
+            "provider_name": "Alta Med",
             "policy_number": "Z40090335",
             "appointments": "",
-            "image": "https://d1t3gia0in9tdj.cloudfront.net/photo/tributes/t/8/r/207x207/134938/b0794dc3831c4ef7abb200de6cb42cb2.jpg",
+            "image": "https://semantic-ui.com/images/avatar/large/jenny.jpg",
             "visits_patient_id": ""
         }
     },
@@ -103,6 +107,7 @@
         "data": {
             "first_name": "Deborah",
             "last_name": "Sanderson",
+            "gender": "Female",
             "dob": "1961-28-07",
             "street_address": "369 Wentworth St.",
             "city": "Pomona",
@@ -116,10 +121,66 @@
             "type": "Patient",
             "emergency_contact_name": "Tiffany Wise",
             "emergency_contact_number": "2134982475",
-            "provider_name": "Cigna",
+            "provider_name": "Blue Cross",
             "policy_number": "X49883785",
+            "image": "https://semantic-ui.com/images/avatar/large/elliot.jpg",
             "appointments": "",
             "visits_patient_id": ""
+        }
+    },
+    {
+        "model": "User",
+        "data": {
+            "email": "bob@test.com",
+            "password": "abc123",
+            "patientId": "1"
+        }
+    },
+    {
+        "model": "User",
+        "data": {
+            "email": "eugene@test.com",
+            "password": "abc123",
+            "patientId": "2"
+        }
+    },
+    {
+        "model": "User",
+        "data": {
+            "email": "alberta@test.com",
+            "password": "abc123",
+            "patientId": "3"
+        }
+    },
+    {
+        "model": "User",
+        "data": {
+            "email": "raymond@test.com",
+            "password": "abc123",
+            "patientId": "4"
+        }
+    },
+    {
+        "model": "User",
+        "data": {
+            "email": "deborah@test.com",
+            "password": "abc123",
+            "patientId": "5"
+        }
+    },
+    {
+        "model": "Admin",
+        "data": {
+            "email": "admin@admin.com",
+            "password": "abc123"
+        }
+    },
+    {
+        "model": "doctors",
+        "data": {
+            "first_name": "Steve",
+            "last_name": "Peterson",
+            "telephone": "3103005890"
         }
     },
     {
@@ -132,7 +193,7 @@
             "prescribed_date": "2016-05-05",
             "renew_date": "2016-04-06"
         }
-        
+
     },
     {
         "model": "prescriptions",
@@ -178,5 +239,5 @@
             "renew_date": "2017-02-04"
         }
     }
-    
+
 ]

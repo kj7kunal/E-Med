@@ -1,44 +1,112 @@
 const express = require("express"),
     router = express.Router(),
-    db = require('../models');
+    db = require('../models'),
+    isAuthenticated = require("../config/middleware/isAuthenticated"),
+    passport = require("../config/passport");
 
-router.get("/", (req, res) => { res.render("index") });
 
-router.get("/chat", (req, res) => { res.render("chatbox") });
+// --------------------- Login / Signup --------------------------
 
-router.get("/patients/add", (req, res) => { res.render("patients_new") });
+// Route for Patient Login
+router.get("/", (req, res) => {
+    if (req.user) {
+        return res.redirect("/patients");
+    } else {
+        return res.render("index");
+    }
+});
 
-router.get("/patients", (req, res) => {
+router.post("/api/login", passport.authenticate("user-local"), (req, res) => {
+    return res.send("/patients");
+});
+
+// Route for Patient Login
+
+router.get("/admin", (req, res) => {
+    if (req.user) {
+        return res.redirect("/patients");
+    } else {
+        return res.render("admin");
+    }
+});
+
+router.post("/api/admin-login", passport.authenticate("admin-local"), (req, res) => {
+    return res.send("/physician")
+});
+
+// Route for logging user out
+router.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+});
+
+// -------------  Patient ---------------------------
+router.get("/patients", isAuthenticated, (req, res) => {
+
+    if (req.user) {
+        db.patient.findOne({
+            where: {
+                id: req.user.patientId
+            }
+        }).then((result) => {
+            const hbsObject = { patient: result }
+            console.log(hbsObject);
+            return res.render("patientDash", hbsObject);
+        })
+    } else {
+        return res.render("index");
+    }
+});
+
+
+//  ---------------- STAFF ROUTES ----------------------
+
+router.get("/physician", isAuthenticated, (req, res) => { res.render("physician") });
+
+router.get("/physician/list", isAuthenticated, (req, res) => {
     db.patient.findAll().then((result) => {
-        console.log(result);
+        // console.log(result);
         const hbsObject = { patient: result };
-        res.render("patients_list", hbsObject);
+        // router.get("/api/user_data", (req, res) => {
+        //     const userId = res.id;
+        // })
+        return res.render("patients_list", hbsObject);
     })
 })
 
-router.get("/patients/:id", (req, res) => {
+router.get("/record", isAuthenticated, (req, res) => { res.render("healthRecord") });
+
+router.get("/patients/:id", isAuthenticated, (req, res) => {
     db.patient.findOne({
         where: {
             id: req.params.id
         }
     }).then((result) => {
         const hbsObject = { patient: result }
-        res.render("patients_page", hbsObject)
+        return res.render("patients_page", hbsObject)
     })
 })
 
-router.get("/patients/:id/:view", (req, res) => {
-  db.patient
-    .findOne({
-      where: {
-        id: req.params.id
-      }
-    })
-    .then(result => {
-      const hbsObject = { patient: result };
-      res.render("viewPatient", hbsObject);
-    });
+router.get("/patients/:id/:view", isAuthenticated, (req, res) => {
+    db.patient
+        .findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(result => {
+            const hbsObject = { patient: result };
+            return res.render("viewPatient", hbsObject);
+        });
 });
+
+// specialist/referrals <-----------------------
+router.get("/patients/:id/specialist", isAuthenticated, (req, res) => { res.render("specialist") });
+
+// lab results <-----------------------
+router.get("/patients/:id/lab_results", isAuthenticated, (req, res) => { res.render("lab_results") });
+
+router.get("/patients/add", isAuthenticated, (req, res) => { res.render("patients_new") });
 
 router.post("/patients/add", (req, res) => {
     db.patient.create({
@@ -60,35 +128,38 @@ router.post("/patients/add", (req, res) => {
             "appointments": req.body.appointments,
             "image": req.body.image
         })
-        .then(function() {
-            res.redirect("/patients");
+        .then(() => {
+            return res.redirect("/patients");
         })
 })
 
-router.get("/", function(req, res) {
-    res.render("index");
-});
-router.get("/physician", function(req, res) {
-    res.render("physician");
-});
-// router.get("/view", function(req, res) {
-//   res.render("viewPatient");
-// });
-router.get("/record", function(req, res) {
-  res.render("healthRecord");
-});
-router.get("/login", function(req, res) {
-  res.render("login");
-});
-router.get("/patient", function(req, res) {
-  res.render("patientDash");
-});
-router.get("/mycare", function(req, res) {
-  res.render("myCare");
+
+
+// Route for getting some data about our user to be used client side
+router.get("/api/user_data", (req, res) => {
+    if (!req.user) {
+        // The user is not logged in, send back an empty object
+        res.json({});
+    } else {
+        // Otherwise send back the user's email and id
+        // Sending back a password, even a hashed password, isn't a good idea
+        res.json({
+            email: req.user.email,
+            id: req.user.id
+        });
+    }
 });
 router.get("/settings", function(req, res) {
   res.render("settings");
 });
+
+router.get("/calendar", isAuthenticated, (req, res) => { res.render("calendar") });
+router.get("/patient", isAuthenticated, (req, res) => { res.render("patientDash") });
+router.get("/mycare", isAuthenticated, (req, res) => { res.render("myCare") });
+router.get("/chatview", isAuthenticated, (req, res) => { res.render("chatview") });
+router.get("/settings", isAuthenticated, (req, res) => res.render("settings"));
+router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
+
 
 
 module.exports = router;

@@ -34,8 +34,8 @@
         <div class="ui raised blue segment">
             <div class="row">
                 <h1 class="ui header">
-                    <img src="../assets/images/person.png" class="ui circular image"> Welcome Bob Smith
-                    <div class="ui basic blue button">Log Out</div>
+                    <img src="../assets/images/person.png" class="ui circular image"> Welcome {{patient.first_name}} {{patient.last_name}}
+                    <div id="logout" class="ui basic blue button">Log Out</div>
                 </h1>
             </div>
         </div>
@@ -73,15 +73,15 @@
             <div class="ui piled segment">
                 <h4 class="ui header">General Information</h4>
                 <ul>
-                    <li>Date of Birth: 08/09/77{{patient.dob}}</li>
-                    <li>Address: 42 Wallaby Way {{patient.street_address}}</li>
-                    <li>Syndey, Australia, 0000000000000{{patient.city}},{{patient.state}},{{patient.zip}}</li>
-                    <li>Phone: (888)888-8888 {{patient.telephone}}</li>
-                    <li>Height: 6'0"{{patient.height}}</li>
-                    <li>Weight: 190 lbs {{patient.weight}}</li>
-                    <li>Provider: Blue Cross{{patient.provider_name}}</li>
-                    <li>Emergency Contact: Rachel Green {{patient.emergency_contact_name}}</li>
-                    <li>Emergency Contact Number: (999)999-9999{{patient.emergency_contact_number}}</li>
+                    <li>Date of Birth: {{patient.dob}}</li>
+                    <li>Address: 4{{patient.street_address}}</li>
+                    <li>{{patient.city}},{{patient.state}},{{patient.zip}}</li>
+                    <li>Phone{{patient.telephone}}</li>
+                    <li>Height:{{patient.height}}</li>
+                    <li>Weight:{{patient.weight}}</li>
+                    <li>Provider: {{patient.provider_name}}</li>
+                    <li>Emergency Contact: {{patient.emergency_contact_name}}</li>
+                    <li>Emergency Contact Number: {{patient.emergency_contact_number}}</li>
                 </ul>
             </div>
         </div>
