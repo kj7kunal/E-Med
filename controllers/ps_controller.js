@@ -101,4 +101,39 @@ router.get("/specialists", function(req, res) {
     })
 });
 
+router.get("/specialists/add", function(req, res) {
+    res.render("specialists_new");
+  });
+
+router.post("/specialists/add", (req, res) => {
+    db.specialists.create({
+            "first_name": req.body.firstName,
+            "last_name": req.body.lastName,
+            "street_address": req.body.streetAddress,
+            "city": req.body.city,
+            "state": req.body.state,
+            "zip": req.body.zip,
+            "telephone": req.body.telephone,
+            "image": req.body.image
+        })
+        .then(function() {
+            res.redirect("/specialists");
+        })
+})
+
+router.delete("/specialists/delete/:id", function(req, res) {
+    // We just have to specify which todo we want to destroy with "where"
+    var theid = req.param.id;
+    console.log(theid);
+
+    db.specialists.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(result) {
+        res.json({success:true, url: '/specialists'})
+    });
+
+  });
+
 module.exports = router;

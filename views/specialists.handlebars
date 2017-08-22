@@ -29,7 +29,8 @@
                     <td class="four wide column">{{this.practice_type}}</td>
                     <td class="three wide column">{{this.city}}, {{this.state}}</td>
                     <td class="one wide column"><i class="share icon"></i></td>
-                    <td class="one wide column"><i class="minus icon"></i></td>
+                    <td class="one wide column"><i class="minus icon" data-id="{{this.id}}"></i></td>
+                    {{!-- <button type="submit" formmethod="delete" formaction="/specialists/{{this.id}}"><i class="minus icon"></i></button> --}}
                 </tr>
 
                 {{/each}}
