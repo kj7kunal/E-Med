@@ -136,4 +136,28 @@ router.delete("/specialists/delete/:id", function(req, res) {
 
   });
 
+router.get("/ass", function(req, res) {
+    db.doctors.findAll({
+        where: { id: 1 },
+        include: [
+            { model: db.alerts}
+        ]
+    }).then(function(match) {
+        res.json(match);
+    });
+    
+// });
+// router.get("/patients", function(req, res) {
+//     db.doctors.findAll({
+//         where: { id: 1 },
+//         include: [
+//             { model: db.alerts}
+//         ]
+//     }).then(function(result) {
+//         const hbsObject = { specialists: result };
+//         res.render("patients", hbsObject);
+//     });
+    
+// });
+
 module.exports = router;

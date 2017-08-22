@@ -20,5 +20,12 @@ module.exports = function(sequelize, DataTypes) {
         },
         appointments: DataTypes.STRING
     });
+
+    Doctor.associate = (models) => {
+        Doctor.hasMany(models.alerts, {
+            foreignKey: { allowNull: false, }
+        })
+    }
+
     return Doctor;
 }
