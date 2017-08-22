@@ -9,7 +9,7 @@ $(() => {
 
     $.get("/api/user_data", (req, res) => {
         console.log(req);
-        username = req.email;
+        username = req.username;
     });
 
 

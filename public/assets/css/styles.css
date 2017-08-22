@@ -17,6 +17,13 @@ h4.ui.header {
     align-content: center;
 }
 
+div.ui.blue.basic.button {
+    float: right !important;
+}
+
+div.ui.sidebar {
+    overflow: visible !important;
+}
 
 /* Mobile */
 

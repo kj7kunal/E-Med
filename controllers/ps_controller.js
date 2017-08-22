@@ -4,31 +4,58 @@ const express = require("express"),
     isAuthenticated = require("../config/middleware/isAuthenticated"),
     passport = require("../config/passport");
 
+
+// --------------------- Login / Signup --------------------------
+
+// Route for Patient Login
 router.get("/", (req, res) => {
     if (req.user) {
         return res.redirect("/patients");
+    } else {
+        return res.render("index");
     }
-    return res.render("index");
 });
 
-// patient login
-router.get("/login", (req, res) => {
-    if (req.user) {
-        console.log("Logged in YAY!");
-        return res.redirect("/patients");
-    }
-
-    return res.render("index");
+router.post("/api/login", passport.authenticate("user-local"), (req, res) => {
+    return res.send("/patients");
 });
 
-// doctor login
-router.get("/login/admin", (req, res) => {
-    if (req.user) {
-        console.log("Logged in YAY!");
-        return res.redirect("/patients");
-    }
+// Route for Patient Login
 
-    return res.render("index");
+router.get("/admin", (req, res) => {
+    if (req.user) {
+        return res.redirect("/patients");
+    } else {
+        return res.render("admin");
+    }
+});
+
+router.post("/api/admin-login", passport.authenticate("admin-local"), (req, res) => {
+    return res.send("/physician")
+});
+
+// Route for logging user out
+router.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+});
+
+// -------------  Patient ---------------------------
+router.get("/patients", isAuthenticated, (req, res) => {
+
+    if (req.user) {
+        db.patient.findOne({
+            where: {
+                id: req.user.patientId
+            }
+        }).then((result) => {
+            const hbsObject = { patient: result }
+            console.log(hbsObject);
+            return res.render("patientDash", hbsObject);
+        })
+    } else {
+        return res.render("index");
+    }
 });
 
 router.get("/chat", isAuthenticated, (req, res) => {
@@ -38,10 +65,11 @@ router.get("/chat", isAuthenticated, (req, res) => {
     return res.render("chatbox", user);
 
 });
+//  ---------------- STAFF ROUTES ----------------------
 
-router.get("/patients/add", isAuthenticated, (req, res) => { res.render("patients_new") });
+router.get("/physician", isAuthenticated, (req, res) => { res.render("physician") });
 
-router.get("/patients", isAuthenticated, (req, res) => {
+router.get("/physician/list", isAuthenticated, (req, res) => {
     db.patient.findAll().then((result) => {
         // console.log(result);
         const hbsObject = { patient: result };
@@ -51,6 +79,8 @@ router.get("/patients", isAuthenticated, (req, res) => {
         return res.render("patients_list", hbsObject);
     })
 })
+
+router.get("/record", isAuthenticated, (req, res) => { res.render("healthRecord") });
 
 router.get("/patients/:id", isAuthenticated, (req, res) => {
     db.patient.findOne({
@@ -75,6 +105,14 @@ router.get("/patients/:id/:view", isAuthenticated, (req, res) => {
             return res.render("viewPatient", hbsObject);
         });
 });
+
+// specialist/referrals <-----------------------
+router.get("/patients/:id/specialist", isAuthenticated, (req, res) => { res.render("specialist") });
+
+// lab results <-----------------------
+router.get("/patients/:id/lab_results", isAuthenticated, (req, res) => { res.render("lab_results") });
+
+router.get("/patients/add", isAuthenticated, (req, res) => { res.render("patients_new") });
 
 router.post("/patients/add", (req, res) => {
     db.patient.create({
@@ -106,7 +144,9 @@ router.post("/patients/add", (req, res) => {
 
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
 
-    res.send("/patients"); // for when you need to respond with non json values 
+    res.send("/patients");
+
+    // for when you need to respond with non json values 
     res.json({ id: req.user.id }) // specifically for json
 });
 
@@ -145,14 +185,30 @@ router.get("/api/user_data", (req, res) => {
         // The user is not logged in, send back an empty object
         res.json({});
     } else {
-        // Otherwise send back the user's email and id
-        // Sending back a password, even a hashed password, isn't a good idea
-        res.json({
-            email: req.user.email,
-            id: req.user.id
-        });
+        db.patient.findOne({
+                where: {
+                    id: req.user.id
+                }
+            }).then((result) => {
+                return name = result.first_name;
+            }).then(name => {
+                return res.json({
+                    email: req.user.email,
+                    id: req.user.id,
+                    username: name
+                });
+            })
+            // Otherwise send back the user's email and id
     }
 });
+
+router.get("/calendar", isAuthenticated, (req, res) => { res.render("calendar") });
+router.get("/patient", isAuthenticated, (req, res) => { res.render("patientDash") });
+router.get("/mycare", isAuthenticated, (req, res) => { res.render("myCare") });
+router.get("/chatview", isAuthenticated, (req, res) => { res.render("chatview") });
+router.get("/settings", isAuthenticated, (req, res) => res.render("settings"));
+router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
+
 
 
 module.exports = router;

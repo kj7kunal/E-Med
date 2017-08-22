@@ -1,0 +1,53 @@
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+
+        body>.grid {
+            height: 60%;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+
+        .ui.huge.header {
+            text-align: center;
+        }
+    </style>
+
+    <h2 class="ui huge center aligned icon header">
+        Welcome to Admin!<i class="stack exchange icon"></i>
+    </h2>
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui blue image header">
+                    <div class="content">
+                        Log-in to your Admin account
+                    </div>
+                </h2>
+                <form class="login ui small form">
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input id="admin-email-input" type="email" name="email" placeholder="Username">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input id="admin-password-input" type="password" name="password" placeholder="Password">
+                            </div>
+                        </div>
+                        <div id="adminLoginBtn"class="ui fluid large blue submit button">Login</div>
+                    </div>
+
+                    <div class="ui error message"></div>
+
+                </form>
+            </div>
+        </div>
+    <div class="ui black inverted vertical footer segment">
+         <h6 class="ui aligned center header">Copyright &copy; 2017 Squad</h6>
+    </div>
