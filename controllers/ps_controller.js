@@ -158,6 +158,6 @@ router.get("/ass", function(req, res) {
 //         res.render("patients", hbsObject);
 //     });
     
-// });
+});
 
 module.exports = router;
