@@ -79,16 +79,21 @@ module.exports = function(sequelize, DataTypes) {
         image: DataTypes.TEXT
     });
 
-    Patient.associate = (models) => {
+    Patient.associate = models => {
         Patient.hasOne(models.User)
     }
 
-    Patient.associate = (models) => {
+    Patient.associate = models => {
         Patient.belongsTo(models.prescriptions, {
             foreignKey: {
                 field: "Prescription_id"
             }
         })
     }
+
+    Patient.associate = models => {
+        Patient.hasOne(models.appointment)
+    }
+
     return Patient;
 };

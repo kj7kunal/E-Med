@@ -18,8 +18,12 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        appointments: DataTypes.STRING,
         image: DataTypes.TEXT
     });
+
+    Doctor.associate = models => {
+        Doctor.hasOne(models.appointment)
+    }
+
     return Doctor;
 }

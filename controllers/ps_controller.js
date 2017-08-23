@@ -131,7 +131,6 @@ router.post("/patients/add", (req, res) => {
         })
 })
 
-
 // --------------------- Login / Signup --------------------------
 
 router.post("/api/login", passport.authenticate("local"), (req, res) => {
@@ -172,11 +171,11 @@ router.get("/logout", (req, res) => {
 
 // Route for getting some data about our user to be used client side
 router.get("/api/user_data", (req, res) => {
-    console.log(req.user);
     if (!req.user) {
         // The user is not logged in, send back an empty object
         res.json({});
     } else if (req.user.type === "admin") {
+        // staff / admin login
         db.doctors.findOne({
             where: {
                 id: req.user.id
@@ -196,25 +195,25 @@ router.get("/api/user_data", (req, res) => {
             });
         })
     } else {
+        // patient login
         db.patient.findOne({
-                where: {
-                    id: req.user.id
-                }
-            }).then((result) => {
-                const user = {
-                    name: result.first_name,
-                    img: result.image
-                }
-                return user;
-            }).then(user => {
-                return res.json({
-                    email: req.user.email,
-                    id: req.user.id,
-                    username: user.name,
-                    avatar: user.img
-                });
-            })
-            // Otherwise send back the user's email and id
+            where: {
+                id: req.user.id
+            }
+        }).then((result) => {
+            const user = {
+                name: result.first_name,
+                img: result.image
+            }
+            return user;
+        }).then(user => {
+            return res.json({
+                email: req.user.email,
+                id: req.user.id,
+                username: user.name,
+                avatar: user.img
+            });
+        })
     }
 });
 

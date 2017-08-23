@@ -191,6 +191,15 @@
         }
     },
     {
+        "model": "doctors",
+        "data": {
+            "first_name": "Nancy",
+            "last_name": "Cunningham",
+            "telephone": "3103005890",
+            "image": "https://media.bizj.us/view/img/10569204/nancy-cunningham-6133599*166xx480-640-80-0.jpg"
+        }
+    },
+    {
         "model": "prescriptions",
         "data": {
             "med_name": "Lipitor",
@@ -244,6 +253,31 @@
             "amount": "14 pills",
             "prescribed_date": "2017-18-03",
             "renew_date": "2017-02-04"
+        }
+    },
+    {
+        "model": "appointment",
+        "data": {
+            "type": "Annual Visit",
+            "date": "2017-09-10 10:00:00"
+        }
+    },
+    {
+        "model": "appointment",
+        "data": {
+            "type": "Follow-Up Visit",
+            "date": "2017-09-10 11:00:00",
+            "patient_id": 2,
+            "doctor_Id": 1
+        }
+    },
+    {
+        "model": "appointment",
+        "data": {
+            "type": "Follow-Up Visit",
+            "date": "2017-09-10 11:00:00",
+            "patient_id": 3,
+            "doctor_Id": 1
         }
     }
 
