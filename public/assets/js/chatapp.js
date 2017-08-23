@@ -2,7 +2,6 @@ $(() => {
     let socket = io.connect('http://localhost:3000'),
         messageForm = $("#messageForm"),
         message = $("#message"),
-        chat = $("#chat"),
         typingmessage = $("#typingmessage"),
         username = "",
         mainContain = $("#main-container")
@@ -13,20 +12,13 @@ $(() => {
         username = req.username;
     });
 
-    // $.get("/")
-
-
     messageForm.submit(event => {
         // event.preventDefault();
         socket.emit('send message', message.val(), username);
 
-        // $.post("/chat/post_message", {
-        //     message: message.val(),
-        //     username: username
-        // }).catch(error => {
-        //     console.log(error);
-
-        // })
+        $.get("/chatview", (req, res) => {
+            return;
+        })
         message.val("");
     })
 
@@ -47,15 +39,10 @@ $(() => {
     socket.on('new message', (username, data) => {
         console.log(data.msg);
 
-        // chat.append('<div class="well"><b>' + username + ':  </b>' + data.msg + '</div>');
+        mainContain.append('<div class="comment"><div class="content"><a class="author">' + username + '</a><div class="metadata"><span class="date"></span></div><div class="text">' + data.msg + '</div><div class="actions"><a class="reply">Reply</a></div></div></div>');
         typingmessage.html("");
     });
-    // socket.on('updateusers', data => {
-    //     $('#users').empty();
-    //     $.each(data, (key, value) => {
-    //         $('#users').append('<div>' + key + '</div>');
-    //     });
-    // });
+
     // keypress
     socket.on('typing', data => {
         typingmessage.html('<p><em>' + data + ' is typing a message...</em></p>');

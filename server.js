@@ -60,8 +60,9 @@ io.sockets.on('connection', socket => {
 
     // send message
     socket.on('send message', (message, username) => {
-        // io.sockets.emit('new message', username, { msg: message });
+        io.sockets.emit('new message', username, { msg: message });
         // socket.broadcast.emit('broad', data);
+
         db.message.create({
             username: username,
             message: message
@@ -87,14 +88,6 @@ io.sockets.on('connection', socket => {
     });
 
 });
-
-// private room1
-// chat1.on('connection', socket => {
-//     console.log("Someone Connected to Bobs room");
-// });
-// chat1.emit('hi', 'everyone!');
-
-
 
 db.sequelize.sync({ force: true })
     .then(fixtures)

@@ -1,95 +1,41 @@
 {{> nav}}
 
-<div class="main ui grid container" id="main-container">
-    <div class="ui container sixteen wide column">
-        <div class="ui comments">
-            <h3 class="ui dividing header">Comments</h3>
+<div class="main ui grid container">
 
-
-        {{#each message}}
-            <div class="comment">
-                {{!-- <a class="avatar">
-      <img src="https://semantic-ui.com/images/avatar/small/matt.jpg">
-    </a> --}}
-                <div class="content">
-                    <a class="author">{{this.username}}</a>
-                    <div class="metadata">
-                        <span class="date">{{ this.createdAt}}</span>
-                    </div>
-                    <div class="text">
-                        {{this.message}}
-                    </div>
-                    <div class="actions">
-                        <a class="reply">Reply</a>
-                    </div>
-                </div>
-            </div>
-
-            {{/each}}
-
-{{!-- 
-            <div class="comment">
-                <a class="avatar">
-      <img src="https://semantic-ui.com/images/avatar/small/elliot.jpg">
-    </a>
-                <div class="content">
-                    <a class="author">Elliot Fu</a>
-                    <div class="metadata">
-                        <span class="date">Yesterday at 12:30AM</span>
-                    </div>
-                    <div class="text">
-                        <p>This has been very useful for my research. Thanks as well!</p>
-                    </div>
-                    <div class="actions">
-                        <a class="reply">Reply</a>
-                    </div>
-                </div>
-                <div class="comments">
+        <div class="ui container sixteen wide column">
+            <div class="ui comments">
+                <h3 class="ui dividing header">Comments</h3>
+            <div id="main-container">
+                {{#each message}}
                     <div class="comment">
-                        <a class="avatar">
-          <img src="https://semantic-ui.com/images/avatar/small/jenny.jpg">
-        </a>
-                        <div class="content">
-                            <a class="author">Jenny Hess</a>
-                            <div class="metadata">
-                                <span class="date">Just now</span>
-                            </div>
-                            <div class="text">
-                                Elliot you are always so right :)
-                            </div>
-                            <div class="actions">
-                                <a class="reply">Reply</a>
-                            </div>
+                    {{!-- <a class="avatar">
+                    <img src="https://semantic-ui.com/images/avatar/small/matt.jpg">
+                    </a> --}}
+                     <div class="content">
+                        <a class="author">{{this.username}}</a>
+                        <div class="metadata">
+                            <span class="date">{{ this.createdAt}}</span>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="comment">
-                <a class="avatar">
-      <img src="https://semantic-ui.com/images/avatar/small/joe.jpg">
-    </a>
-                <div class="content">
-                    <a class="author">Joe Henderson</a>
-                    <div class="metadata">
-                        <span class="date">5 days ago</span>
-                    </div>
-                    <div class="text">
-                        Dude, this is awesome. Thanks so much
-                    </div>
+                        <div class="text">
+                            {{this.message}}
+                        </div>
                     <div class="actions">
                         <a class="reply">Reply</a>
                     </div>
                 </div>
-            </div> --}}
+            </div>
+            {{/each}}
+     </div>
             <form class="ui reply form" id="messageForm">
                 <div class="field">
-                     <textarea id="message"><div id="typingmessage"></div></textarea>
+                     <textarea id="message"></textarea>
                 </div>
                 <div class="ui blue labeled submit icon button">
                     <i class="icon edit"></i> Send
                 </div>
                 <input type="submit" value="Send Message">
             </form>
+            <div id="typingmessage"></div>
         </div>
     </div>
 </div>
