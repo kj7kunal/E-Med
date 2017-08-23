@@ -20,7 +20,7 @@ router.post("/api/login", passport.authenticate("user-local"), (req, res) => {
     return res.send("/patients");
 });
 
-// Route for Patient Login
+// Route for Admin Login
 
 router.get("/admin", (req, res) => {
     if (req.user) {
@@ -208,7 +208,7 @@ router.get("/settings", function(req, res) {
 });
 
 router.get("/calendar", isAuthenticated, (req, res) => { res.render("calendar") });
-router.get("/patient", isAuthenticated, (req, res) => { res.render("patientDash") });
+router.get("/patientdashboard", isAuthenticated, (req, res) => { res.render("patientDash") });
 router.get("/mycare", isAuthenticated, (req, res) => { res.render("myCare") });
 router.get("/labresults", isAuthenticated, (req, res) => {res.render("labResults") });
 router.get("/chatview", isAuthenticated, (req, res) => { res.render("chatview") });
