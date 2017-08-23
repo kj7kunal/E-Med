@@ -76,8 +76,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         provider_name: DataTypes.STRING,
         appointments: DataTypes.STRING,
-        image: DataTypes.TEXT,
-
+        image: DataTypes.TEXT
     });
 
     Patient.associate = (models) => {

@@ -143,7 +143,6 @@ router.post("/api/login", passport.authenticate("local"), (req, res) => {
 });
 
 router.post("/api/signup", (req, res) => {
-    // console.log(req.body);
     db.User.create({
         email: req.body.email,
         password: req.body.password
@@ -173,9 +172,29 @@ router.get("/logout", (req, res) => {
 
 // Route for getting some data about our user to be used client side
 router.get("/api/user_data", (req, res) => {
+    console.log(req.user);
     if (!req.user) {
         // The user is not logged in, send back an empty object
         res.json({});
+    } else if (req.user.type === "admin") {
+        db.doctors.findOne({
+            where: {
+                id: req.user.id
+            }
+        }).then((result) => {
+            const user = {
+                name: "Dr. " + result.last_name,
+                img: result.image
+            }
+            return user;
+        }).then(user => {
+            return res.json({
+                email: req.user.email,
+                id: req.user.id,
+                username: user.name,
+                avatar: user.img
+            });
+        })
     } else {
         db.patient.findOne({
                 where: {
@@ -199,21 +218,17 @@ router.get("/api/user_data", (req, res) => {
     }
 });
 
-router.get("/chatview", (req, res) => {
+router.get("/chatview", isAuthenticated, (req, res) => {
     db.message.findAll().then((result) => {
-        console.log(result);
         const hbsObject = { message: result };
 
         return res.render("chatview", hbsObject);
     })
 })
 
-router.get("/bob", isAuthenticated, (req, res) => { res.render("chatbox") });
 router.get("/calendar", isAuthenticated, (req, res) => { res.render("calendar") });
 router.get("/patient", isAuthenticated, (req, res) => { res.render("patientDash") });
 router.get("/mycare", isAuthenticated, (req, res) => { res.render("myCare") });
-router.get("/chatview", isAuthenticated, (req, res) => { res.render("chatview") });
 router.get("/settings", isAuthenticated, (req, res) => res.render("settings"));
-router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
 
 module.exports = router;

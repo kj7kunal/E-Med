@@ -7,11 +7,19 @@ $(() => {
         avatar = "",
         mainContain = $("#main-container")
 
-
+    // store user data from API
     $.get("/api/user_data", (req, res) => {
-        // console.log(req);
         username = req.username;
         avatar = req.avatar;
+    });
+
+    socket.on('connect', data => {
+        socket.emit('join', 'Hello World from client');
+    })
+
+    socket.on('broad', data => {
+        $('#chat').html(data);
+        socket.emit('join', message.val());
     });
 
     messageForm.submit(() => {
@@ -23,20 +31,6 @@ $(() => {
         message.val("");
     })
 
-    // keypress
-    messageForm.on("keypress", event => {
-        socket.emit('typing', username)
-    })
-
-    socket.on('connect', data => {
-        console.log("we're connected!");
-        socket.emit('join', 'Hello World from client');
-    })
-
-    socket.on('broad', data => {
-        $('#chat').html(data);
-        socket.emit('join', message.val());
-    });
     socket.on('new message', (username, avatar, data) => {
         console.log("avater: " + avatar);
 
@@ -48,10 +42,7 @@ $(() => {
     socket.on('typing', data => {
         typingmessage.html('<p><em>' + data + ' is typing a message...</em></p>');
     })
-
-    // // private chat - bob
-    // bobSocket.on('connect', data => {
-    //     console.log("Bob Socket is connected!");
-    // })
-
+    messageForm.on("keypress", event => {
+        socket.emit('typing', username)
+    })
 });

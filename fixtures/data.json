@@ -133,7 +133,8 @@
         "data": {
             "email": "bob@test.com",
             "password": "abc123",
-            "patientId": "1"
+            "patientId": "1",
+            "type": "patient"
         }
     },
     {
@@ -141,7 +142,8 @@
         "data": {
             "email": "eugene@test.com",
             "password": "abc123",
-            "patientId": "2"
+            "patientId": "2",
+            "type": "patient"
         }
     },
     {
@@ -149,7 +151,8 @@
         "data": {
             "email": "alberta@test.com",
             "password": "abc123",
-            "patientId": "3"
+            "patientId": "3",
+            "type": "patient"
         }
     },
     {
@@ -157,7 +160,8 @@
         "data": {
             "email": "raymond@test.com",
             "password": "abc123",
-            "patientId": "4"
+            "patientId": "4",
+            "type": "patient"
         }
     },
     {
@@ -165,14 +169,16 @@
         "data": {
             "email": "deborah@test.com",
             "password": "abc123",
-            "patientId": "5"
+            "patientId": "5",
+            "type": "patient"
         }
     },
     {
         "model": "Admin",
         "data": {
             "email": "admin@admin.com",
-            "password": "abc123"
+            "password": "abc123",
+            "type": "admin"
         }
     },
     {
@@ -180,7 +186,8 @@
         "data": {
             "first_name": "Steve",
             "last_name": "Peterson",
-            "telephone": "3103005890"
+            "telephone": "3103005890",
+            "image": "http://www.lungmds.com/images/team/james-a-dean-md.png"
         }
     },
     {

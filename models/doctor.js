@@ -18,7 +18,8 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        appointments: DataTypes.STRING
+        appointments: DataTypes.STRING,
+        image: DataTypes.TEXT
     });
     return Doctor;
 }
