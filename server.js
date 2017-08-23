@@ -59,13 +59,14 @@ io.sockets.on('connection', socket => {
     });
 
     // send message
-    socket.on('send message', (message, username) => {
-        io.sockets.emit('new message', username, { msg: message });
+    socket.on('send message', (message, username, avatar) => {
+        io.sockets.emit('new message', username, avatar, { msg: message });
         // socket.broadcast.emit('broad', data);
 
         db.message.create({
             username: username,
-            message: message
+            message: message,
+            avatar: avatar,
         })
     })
 

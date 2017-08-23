@@ -6,6 +6,9 @@ module.exports = function(sequelize, DataTypes) {
         },
         message: {
             type: DataTypes.TEXT
+        },
+        avatar: {
+            type: DataTypes.TEXT
         }
 
     })

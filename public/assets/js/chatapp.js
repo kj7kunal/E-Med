@@ -4,17 +4,18 @@ $(() => {
         message = $("#message"),
         typingmessage = $("#typingmessage"),
         username = "",
+        avatar = "",
         mainContain = $("#main-container")
 
 
     $.get("/api/user_data", (req, res) => {
         // console.log(req);
         username = req.username;
+        avatar = req.avatar;
     });
 
-    messageForm.submit(event => {
-        // event.preventDefault();
-        socket.emit('send message', message.val(), username);
+    messageForm.submit(() => {
+        socket.emit('send message', message.val(), username, avatar);
 
         $.get("/chatview", (req, res) => {
             return;
@@ -36,10 +37,10 @@ $(() => {
         $('#chat').html(data);
         socket.emit('join', message.val());
     });
-    socket.on('new message', (username, data) => {
-        console.log(data.msg);
+    socket.on('new message', (username, avatar, data) => {
+        console.log("avater: " + avatar);
 
-        mainContain.append('<div class="comment"><div class="content"><a class="author">' + username + '</a><div class="metadata"><span class="date"></span></div><div class="text">' + data.msg + '</div><div class="actions"><a class="reply">Reply</a></div></div></div>');
+        mainContain.append('<div class="comment"><a class="avatar"><img src="' + avatar + '"></a><div class="content"><a class="author">' + username + '</a><div class="metadata"><span class="date"></span></div><div class="text">' + data.msg + '</div></div></div>');
         typingmessage.html("");
     });
 

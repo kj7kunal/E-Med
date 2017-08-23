@@ -8,9 +8,9 @@
             <div id="main-container">
                 {{#each message}}
                     <div class="comment">
-                    {{!-- <a class="avatar">
-                    <img src="https://semantic-ui.com/images/avatar/small/matt.jpg">
-                    </a> --}}
+                    <a class="avatar">
+                    <img src="{{this.avatar}}">
+                    </a>
                      <div class="content">
                         <a class="author">{{this.username}}</a>
                         <div class="metadata">
@@ -19,9 +19,6 @@
                         <div class="text">
                             {{this.message}}
                         </div>
-                    <div class="actions">
-                        <a class="reply">Reply</a>
-                    </div>
                 </div>
             </div>
             {{/each}}
@@ -30,12 +27,13 @@
                 <div class="field">
                      <textarea id="message"></textarea>
                 </div>
+                <div id="typingmessage"></div>
                 <div class="ui blue labeled submit icon button">
                     <i class="icon edit"></i> Send
                 </div>
-                <input type="submit" value="Send Message">
+                <input type="submit">
             </form>
-            <div id="typingmessage"></div>
+
         </div>
     </div>
 </div>
