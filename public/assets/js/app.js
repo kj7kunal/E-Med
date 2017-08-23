@@ -1,3 +1,4 @@
+console.log("app.js loaded");
 //---- Dropdown Animation Semantic UI ----//
 $('.dropdown').dropdown({
     transition: 'fade down'
@@ -18,4 +19,10 @@ function deleteSpecialist(event) {
     });
   }
 
+function checkClick (event) {
+    console.log($(this).data("id"));
+}
+
   $(document).on("click", ".minus.icon", deleteSpecialist);
+  $(document).on("click", "input[type='checkbox']", checkClick);
+

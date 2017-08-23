@@ -1,3 +1,7 @@
+body {
+    font-family: 'Muli', sans-serif;    
+}
+
 div.stretched.row {
     margin-left: 5em;
 }

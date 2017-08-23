@@ -1,35 +1,33 @@
-var MONTHS = ["Jan", "Feb", "Mar", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var MONTHS = ["Jan 2012", "Feb 2013", "Jan 2014", "Feb 2017", "Jan 2016", "Jan 2017" ];
 var config = {
     type: 'line',
     data: {
-        labels: ["Jan", "Feb", "Mar", "April", "May", "June", "July"],
+        labels: ["2012", "2013", "2014", "2017", "2016", "2017" ],
         datasets: [{
             label: "Blood Glucose",
             backgroundColor: window.chartColors.red,
             borderColor: window.chartColors.red,
             data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
+                125,
+                200,
+                129,
+                210,
+                0,
+                132
             ],
             fill: false,
         }, {
-            label: "My Second dataset",
+            label: "Cholesterol",
             fill: false,
             backgroundColor: window.chartColors.blue,
             borderColor: window.chartColors.blue,
             data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
+                200,
+                175,
+                190,
+                255,
+                0,
+                199
             ],
         }]
     },
@@ -125,11 +123,20 @@ var color = Chart.helpers.color;
 var barChartData = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [{
-        label: 'Data Type',
-        backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-        borderColor: window.chartColors.red,
+        label: 'Apple Watch',
+        backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
+        borderColor: window.chartColors.green,
         borderWidth: 1,
-        data: [100, 344,323,233, 343, 343,232,234, 343, 34]
+        data: [
+            (Math.floor(Math.random() * 60) + 1),
+            (Math.floor(Math.random() * 60) + 1),
+            (Math.floor(Math.random() * 60) + 1),
+            (Math.floor(Math.random() * 60) + 1),
+            (Math.floor(Math.random() * 60) + 1),
+            (Math.floor(Math.random() * 60) + 1),
+            (Math.floor(Math.random() * 60) + 1)
+        
+        ]
     }]
 };
 window.onload = function() {
@@ -146,7 +153,7 @@ window.onload = function() {
             },
             title: {
                 display: true,
-                text: 'Chart 2 Contents'
+                text: 'Fitness Points'
             }
         }
     });

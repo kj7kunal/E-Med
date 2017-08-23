@@ -68,8 +68,28 @@ router.post("/patients/add", (req, res) => {
 router.get("/", function(req, res) {
     res.render("index");
 });
+
 router.get("/physician", function(req, res) {
     res.render("physician");
+});
+
+router.get("/physician/:id", function(req, res) {
+    // res.render("physician");
+    db.doctors.findAll({
+        where: {
+            id: req.params.id
+        },
+        include: [
+            { model: db.alerts}
+        ]
+    }).then((result) => {
+        const hbsObject = { doctor: result }
+        res.render("doctor", hbsObject);
+        // res.json(hbsObject)
+        // res.json(hbsObject.doctor[0].alerts[0].is_alert)
+    })
+    
+
 });
 
 router.get("/calendar", function(req, res) {

@@ -230,6 +230,7 @@
         "data": {
             "type": "Phone",
             "message": "Call Diana",
+            "is_alert": true,
             "doctorId": 1
         }
     },
@@ -238,7 +239,8 @@
         "data": {
             "type": "Message",
             "message": "Respond to Mike",
-            "doctorId": 2
+            "is_alert": true,
+            "doctorId": 1
         }
     },
     {
@@ -246,7 +248,75 @@
         "data": {
             "type": "Chat",
             "message": "Respond to Laura",
+            "is_alert": true,
             "doctorId": 1
+        }
+    },
+    {
+        "model": "alerts",
+        "data": {
+            "type": "Phone",
+            "message": "Complete paperwork for Blue Cross",
+            "is_alert": false,
+            "doctorId": 1
+        }
+    },
+    {
+        "model": "alerts",
+        "data": {
+            "type": "Message",
+            "message": "Clear calendar for Friday",
+            "is_alert": false,
+            "doctorId": 1
+        }
+    },
+    {
+        "model": "alerts",
+        "data": {
+            "type": "Chat",
+            "message": "Confirm Josh's appointment time",
+            "is_alert": false,
+            "doctorId": 1
+        }
+    },
+    {
+        "model": "lab_results",
+        "data": {
+            "test_name": "Cholesterol",
+            "patientId": 2,
+            "month": "Jan",
+            "year": 2017,
+            "test_value": 199
+        }
+    },
+    {
+        "model": "lab_results",
+        "data": {
+            "test_name": "Blood Glucose",
+            "patientId": 2,
+            "month": "Jan",
+            "year": 2017,
+            "test_value": 132
+        }
+    },
+    {
+        "model": "lab_results",
+        "data": {
+            "test_name": "Cholesterol",
+            "patientId": 2,
+            "month": "Jan",
+            "year": 2016,
+            "test_value": 210
+        }
+    },
+    {
+        "model": "lab_results",
+        "data": {
+            "test_name": "Blood Glucose",
+            "patientId": 2,
+            "month": "Jan",
+            "year": 2016,
+            "test_value": 120
         }
     }
 ]

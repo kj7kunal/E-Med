@@ -1,0 +1,138 @@
+{{!-- nav bar --}} {{> nav }}
+
+<div class="main ui stackable grid container">
+
+    <div class="ui container sixteen wide column">
+        <div class="ui raised grey segment">
+            <div class="row">
+                <h1 class="ui header">
+                    <img src="../assets/images/person.png" class="ui circular image"> Welcome Dr. James Dean
+                    <div class="ui basic blue button">Log Out</div>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="eight wide column">
+        <table class="ui red two column table" id="table">
+            <thead class="ui inverted">
+                <tr>
+                    <th class="twelve wide"><i class="alarm icon"></i>Alerts</th>
+                    <th class="four wide">Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each doctor}}
+                    {{#each alerts}}
+                        {{#ifEquals this.is_alert true}}
+                            {{#ifEquals this.type "Chat"}}
+                                <tr>
+                                    <td><i class="comments outline icon"></i>{{this.message}}</td>
+                                    <td>Today</td>
+                                </tr>
+                            {{/ifEquals}}
+                            {{#ifEquals this.type "Phone"}}
+                                 <tr>
+                                    <td><i class="phone icon"></i>{{this.message}}</td>
+                                    <td>Today</td>
+                                </tr>
+                            {{/ifEquals}}
+                            {{#ifEquals this.type "Message"}}
+                                <tr>
+                                    <td><i class="mail outline icon"></i>{{this.message}}</td>
+                                    <td>Today</td>
+                                </tr>
+                            {{/ifEquals}}
+                        {{/ifEquals}}
+                    {{/each}}
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="eight wide column">
+        <table class="ui blue one column table" id="table">
+            <thead>
+                <tr>
+                    <th><i class="checkmark box icon"></i>Tasks</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each doctor}}
+                    {{#each alerts}}
+                        {{#ifEquals this.is_alert false}}
+                            <tr>
+                                <td>{{this.message}}</td>
+                                <td>
+                                    <div class="ui checkbox">
+                                        <input data-id="{{this.id}}" onClick="checkClick" type="checkbox">
+                                        <label></label>
+                                    </div>
+                                </td>
+                            </tr>
+                        {{/ifEquals}}
+
+                    {{/each}}
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="ui sixteen wide column">
+        <table class="ui teal table" id="table">
+            <thead>
+                <tr>
+                    <th class="three wide"><i class="alarm icon"></i>Upcoming Appointments</th>
+                    <th class="three wide"></th>
+                    <th class="five wide"></th>
+                    <th class="five wide"></th>
+                </tr>
+                <tr>
+                    <th class="three wide">Date</th>
+                    <th class="three wide">Time</th>
+                    <th class="five wide">Patient</th>
+                    <th class="five wide">Appointment Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>May 24, 2017</td>
+                    <td>10:00am</td>
+                    <td>Abby Lee</td>
+                    <td>Consultation</td>
+                </tr>
+                <tr>
+                    <td>May 24, 2017</td>
+                    <td>10:30am</td>
+                    <td>Phil Collins</td>
+                    <td>Physical Exam</td>
+                </tr>
+                <tr>
+                    <td>May 24, 2017</td>
+                    <td>11:00am</td>
+                    <td>Will Smith</td>
+                    <td>Physical Exam</td>
+                </tr>
+                <tr>
+                    <td>May 25, 2017</td>
+                    <td>11:00am</td>
+                    <td>Bill Nye</td>
+                    <td>Physical Exam</td>
+                </tr>
+                <tr>
+                    <td>May 25, 2017</td>
+                    <td>11:30am</td>
+                    <td>Richard Simmons</td>
+                    <td>Phone Appointment</td>
+                </tr>
+                <tr>
+                    <td>May 26, 2017</td>
+                    <td>1:30pm</td>
+                    <td>Natalie Portman</td>
+                    <td>Follow up visit</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
