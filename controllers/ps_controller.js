@@ -58,6 +58,58 @@ router.get("/patients", isAuthenticated, (req, res) => {
     }
 });
 
+router.get("/patients", isAuthenticated, (req, res) => {
+  db.patient
+    .findOne({
+      where: {
+        id: req.user.patientId
+      }
+    })
+    .then(result => {
+      const hbsObject = { patient: result };
+      return res.render("patientDash", hbsObject);
+    });
+});
+
+router.get("/mycare", isAuthenticated, (req, res) => {
+  db.patient
+    .findOne({
+      where: {
+        id: req.user.patientId
+      }
+    })
+    .then(result => {
+      const hbsObject = { patient: result };
+      return res.render("myCare", hbsObject);
+    });
+});
+
+router.get("/record", isAuthenticated, (req, res) => {
+  db.patient
+    .findOne({
+      where: {
+        id: req.user.patientId
+      }
+    })
+    .then(result => {
+      const hbsObject = { patient: result };
+      return res.render("healthRecord", hbsObject);
+    });
+});
+
+router.get("/labresults", isAuthenticated, (req, res) => {
+  db.patient
+    .findOne({
+      where: {
+        id: req.user.patientId
+      }
+    })
+    .then(result => {
+      const hbsObject = { patient: result };
+      return res.render("labResults", hbsObject);
+    });
+});
+
 
 //  ---------------- STAFF ROUTES ----------------------
 
@@ -77,29 +129,17 @@ router.get("/physician/list", isAuthenticated, (req, res) => {
 router.get("/record", isAuthenticated, (req, res) => { res.render("healthRecord") });
 
 
-// router.get("/patients/:id", isAuthenticated, (req, res) => {
-//     db.patient.findOne({
-//         where: {
-//             id: req.params.id
-//         }
-//     }).then((result) => {
-//         const hbsObject = { patient: result }
-//         return res.render("patients_page", hbsObject)
-//     })
-// })
-
-router.get("/patients/:id", (req, res) => {
-  db.patient
-    .findOne({
-      where: {
-        id: req.params.id
-      }
+router.get("/patients/:id", isAuthenticated, (req, res) => {
+    db.patient.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then((result) => {
+        const hbsObject = { patient: result }
+        return res.render("patients_page", hbsObject)
     })
-    .then(result => {
-      const hbsObject = { patient: result };
-      return res.render("patients_page", hbsObject);
-    });
-});
+})
+
 
 router.get("/patients/:id/:view", isAuthenticated, (req, res) => {
     db.patient
@@ -167,34 +207,15 @@ router.get("/settings", function(req, res) {
   res.render("settings");
 });
 
-// router.get("/calendar", isAuthenticated, (req, res) => { res.render("calendar") });
-// router.get("/patient", isAuthenticated, (req, res) => { res.render("patientDash") });
-// router.get("/mycare", isAuthenticated, (req, res) => { res.render("myCare") });
-// router.get("/chatview", isAuthenticated, (req, res) => { res.render("chatview") });
-// router.get("/settings", isAuthenticated, (req, res) => res.render("settings"));
-// router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
+router.get("/calendar", isAuthenticated, (req, res) => { res.render("calendar") });
+router.get("/patient", isAuthenticated, (req, res) => { res.render("patientDash") });
+router.get("/mycare", isAuthenticated, (req, res) => { res.render("myCare") });
+router.get("/labresults", isAuthenticated, (req, res) => {res.render("labResults") });
+router.get("/chatview", isAuthenticated, (req, res) => { res.render("chatview") });
+router.get("/settings", isAuthenticated, (req, res) => {res.render("settings") });
+router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
+router.get("/record", isAuthenticated, (req, res) => {res.render("healthRecord")});
 
-router.get("/calendar", (req, res) => {
-  res.render("calendar");
-});
-router.get("/patient", (req, res) => {
-  res.render("patientDash");
-});
-router.get("/mycare", (req, res) => {
-  res.render("myCare");
-});
-router.get("/chatview", (req, res) => {
-  res.render("chatview");
-});
-router.get("/settings", (req, res) => res.render("settings"));
-
-router.get("/chat", (req, res) => {
-  res.render("chatbox");
-});
-
-router.get("/labs", (req, res) => {
-  res.render("labResults");
-});
 
 
 module.exports = router;

@@ -1,4 +1,4 @@
-{{> nav }}
+{{> patientnav }}
 <!--HEADER-->
 <div class="main ui stackable grid container" id="main-container">
     <div class="ui container sixteen wide column">
@@ -6,7 +6,9 @@
             <div class="row">
                 <h1 class="ui header">
                     <img src="../assets/images/person.png" class="ui circular image">{{patient.first_name}} {{patient.last_name}}'s Lab Results
-                    <div id="logout" class="ui basic blue button">Log Out</div>
+                    <a href="/">
+                        <div id="logout" class="ui basic blue button">Log Out</div>
+                    </a>
                 </h1>
             </div>
         </div>

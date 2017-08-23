@@ -1,23 +1,4 @@
-<!--Settings Page-->
-<!--SIDEBAR-->
-<div class="ui visible left vertical inverted labeled icon sidebar menu" id="sidebar">
-    <a class="item"><i class="home icon"></i>Home</a>
-    <a class="item"><i class="user circle outline icon"></i>Patients</a>
-    <a class="item"><i class="calendar icon"></i>Calendar</a>
-    <a class="item"><i class="comment icon"></i>Messaging</a>
-    <a class="item"><i class="payment icon"></i>Billing</a>
-    <a class="item"><i class="settings icon"></i>Settings</a>
-</div>
-
-<!--MOBILE SIDEBAR-->
-<div class="ui bottom inverted six item labeled icon sidebar menu visible">
-    <a class="item"><i class="home icon"></i>Home</a>
-    <a class="item"><i class="user circle outline icon"></i>Patients</a>
-    <a class="item"><i class="calendar icon"></i>Calendar</a>
-    <a class="item"><i class="comment icon"></i>Messaging</a>
-    <a class="item"><i class="payment icon"></i>Billing</a>
-    <a class="item"><i class="settings icon"></i>Settings</a>
-</div>
+{{> nav}}
 
 <div class="ui main container">
     <div class="row">
@@ -40,9 +21,9 @@
             </div>
             <div class="column">
                 <div class="ui teal segment">
-                    <a href=""><img class="ui centered image" src="/assets/images/logout1.svg" height="100" width="100"></a>
-                    <a href="">
-                        <h4 class="ui center aligned header">Log Out</h4>
+                    <a href="/"><img class="ui centered image" src="/assets/images/logout1.svg" height="100" width="100"></a>
+                    <a href="/">
+                        <h4 id="logout" class="ui center aligned header">Log Out</h4>
                     </a>
                 </div>
             </div>
