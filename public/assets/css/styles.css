@@ -1,3 +1,13 @@
+/*FOOTER*/
+div#sidebar {
+    background-color: white;
+}
+
+div#sidebar i {
+    color: #ff6666;
+}
+
+
 div.stretched.row {
     margin-left: 5em;
 }
@@ -11,7 +21,7 @@ div.ui.vertical.footer.segment {
     bottom: 0;
     width: 100%;
     align-items: center;
-    color: #191970 !important;
+    color: #8fdbe5 !important;
 }
 
 h4.ui.header {
@@ -26,6 +36,9 @@ div.ui.sidebar {
     overflow: visible !important;
 }
 
+div.ui.vertical.footer.segment {
+    background-color: #191970;
+}
 
 /* Mobile */
 
