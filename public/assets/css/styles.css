@@ -1,4 +1,7 @@
-/*FOOTER*/
+body {
+    font-family: 'Muli', sans-serif;    
+}
+
 div#sidebar {
     background-color: white;
 }
@@ -6,7 +9,6 @@ div#sidebar {
 div#sidebar i {
     color: #ff6666;
 }
-
 
 div.stretched.row {
     margin-left: 5em;

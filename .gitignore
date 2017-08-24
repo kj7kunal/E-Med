@@ -3,3 +3,4 @@ node_modules
 public/.DS_Store
 public/assets/.DS_Store
 views/.DS_Store
+config/config.json

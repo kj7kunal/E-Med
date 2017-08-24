@@ -16,12 +16,7 @@ router.get("/", (req, res) => {
     }
 });
 
-router.post("/api/login", passport.authenticate("user-local"), (req, res) => {
-    return res.send("/patients");
-});
-
 // Route for Admin Login
-
 router.get("/admin", (req, res) => {
     if (req.user) {
         return res.redirect("/patients");
@@ -34,15 +29,8 @@ router.post("/api/admin-login", passport.authenticate("admin-local"), (req, res)
     return res.send("/physician")
 });
 
-// Route for logging user out
-router.get("/logout", (req, res) => {
-    req.logout();
-    res.redirect("/");
-});
-
 // -------------  Patient ---------------------------
 router.get("/patients", isAuthenticated, (req, res) => {
-
     if (req.user) {
         db.patient.findOne({
             where: {
@@ -56,21 +44,6 @@ router.get("/patients", isAuthenticated, (req, res) => {
     } else {
         return res.render("index");
     }
-});
-<<<<<<< HEAD
-=======
-
-router.get("/patients", isAuthenticated, (req, res) => {
-  db.patient
-    .findOne({
-      where: {
-        id: req.user.patientId
-      }
-    })
-    .then(result => {
-      const hbsObject = { patient: result };
-      return res.render("patientDash", hbsObject);
-    });
 });
 
 router.get("/mycare", isAuthenticated, (req, res) => {
@@ -113,11 +86,7 @@ router.get("/labresults", isAuthenticated, (req, res) => {
 });
 
 
->>>>>>> patient-dash
 //  ---------------- STAFF ROUTES ----------------------
-
-router.get("/physician", isAuthenticated, (req, res) => { res.render("physician") });
-
 router.get("/physician/list", isAuthenticated, (req, res) => {
     db.patient.findAll().then((result) => {
         // console.log(result);
@@ -128,9 +97,6 @@ router.get("/physician/list", isAuthenticated, (req, res) => {
         return res.render("patients_list", hbsObject);
     })
 })
-
-router.get("/record", isAuthenticated, (req, res) => { res.render("healthRecord") });
-
 
 router.get("/patients/:id", isAuthenticated, (req, res) => {
     db.patient.findOne({
@@ -157,15 +123,10 @@ router.get("/patients/:id/:view", isAuthenticated, (req, res) => {
         });
 });
 
-// specialist/referrals <-----------------------
-router.get("/patients/:id/specialist", isAuthenticated, (req, res) => { res.render("specialist") });
-
 // lab results <-----------------------
 router.get("/patients/:id/lab_results", isAuthenticated, (req, res) => { res.render("lab_results") });
 
-router.get("/patients/add", isAuthenticated, (req, res) => { res.render("patients_new") });
-
-router.post("/patients/add", (req, res) => {
+router.post("/patients/add", isAuthenticated, (req, res) => {
     db.patient.create({
             "first_name": req.body.firstName,
             "last_name": req.body.lastName,
@@ -200,6 +161,10 @@ router.post("/api/login", passport.authenticate("local"), (req, res) => {
     res.json({ id: req.user.id }) // specifically for json
 });
 
+// router.post("/api/login", passport.authenticate("user-local"), (req, res) => {
+//     return res.send("/patients");
+// });
+
 router.post("/api/signup", (req, res) => {
     db.User.create({
         email: req.body.email,
@@ -213,13 +178,23 @@ router.post("/api/signup", (req, res) => {
     });
 });
 
+router.get("/physician/:id", isAuthenticated, (req, res) => {
+    // res.render("physician");
+    db.doctors.findAll({
+        where: {
+            id: req.params.id
+        },
+        include: [
+            { model: db.alerts}
+        ]
+    }).then((result) => {
+        const hbsObject = { doctor: result }
+        res.render("doctor", hbsObject);
+    })
+});
 
 router.get("/physician", isAuthenticated, (req, res) => {
     res.render("physician");
-});
-
-router.get("/record", isAuthenticated, (req, res) => {
-    res.render("healthRecord");
 });
 
 // Route for logging user out
@@ -275,9 +250,6 @@ router.get("/api/user_data", (req, res) => {
         })
     }
 });
-router.get("/settings", function(req, res) {
-  res.render("settings");
-});
 
 router.get("/chatview", isAuthenticated, (req, res) => {
     db.message.findAll().then((result) => {
@@ -289,17 +261,55 @@ router.get("/chatview", isAuthenticated, (req, res) => {
 
 router.get("/calendar", isAuthenticated, (req, res) => { res.render("calendar") });
 router.get("/patientdashboard", isAuthenticated, (req, res) => { res.render("patientDash") });
-router.get("/mycare", isAuthenticated, (req, res) => { res.render("myCare") });
-<<<<<<< HEAD
 router.get("/settings", isAuthenticated, (req, res) => res.render("settings"));
-=======
-router.get("/labresults", isAuthenticated, (req, res) => {res.render("labResults") });
-router.get("/chatview", isAuthenticated, (req, res) => { res.render("chatview") });
-router.get("/settings", isAuthenticated, (req, res) => {res.render("settings") });
-router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
-router.get("/record", isAuthenticated, (req, res) => {res.render("healthRecord")});
 
+router.get("/specialists", (req, res) => {
+    db.specialists.findAll().then((result) => {
+        const hbsObject = { specialists: result };
+        res.render("specialists", hbsObject);
+    })
+});
 
->>>>>>> patient-dash
+router.post("/specialists/add", (req, res) => {
+    db.specialists.create({
+            "first_name": req.body.firstName,
+            "last_name": req.body.lastName,
+            "street_address": req.body.streetAddress,
+            "city": req.body.city,
+            "state": req.body.state,
+            "zip": req.body.zip,
+            "telephone": req.body.telephone,
+            "image": req.body.image
+        })
+        .then(function() {
+            res.redirect("/specialists");
+        })
+})
+
+router.delete("/specialists/delete/:id", (req, res) => {
+    // We just have to specify which todo we want to destroy with "where"
+    var theid = req.param.id;
+    console.log(theid);
+
+    db.specialists.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(result) {
+        res.json({success:true, url: '/specialists'})
+    });
+
+  });
+
+router.get("/assoc", (req, res) => {
+    db.doctors.findAll({
+        where: { id: 1 },
+        include: [
+            { model: db.alerts}
+        ]
+    }).then(function(match) {
+        res.json(match);
+    });
+});
 
 module.exports = router;

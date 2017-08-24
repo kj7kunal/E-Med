@@ -279,6 +279,145 @@
             "patient_id": 3,
             "doctor_Id": 1
         }
+    },
+    {
+        "model": "specialists",
+        "data": {
+            "first_name": "Michael",
+            "last_name": "Scalpel",
+            "street_address": "1312 5th St",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zip": 90017,
+            "telephone": "2132001335",
+            "practice_type": "Podiatrist",
+            "image": "https://s-media-cache-ak0.pinimg.com/736x/e7/b2/d1/e7b2d1cd72b5243cf695d3bd487e352e--kitchen-sinks-ui.jpg"
+        }
+    },
+    {
+        "model": "specialists",
+        "data": {
+            "first_name": "Lauren",
+            "last_name": "Surgeonist",
+            "street_address": "1231 S Brand Blvd",
+            "city": "Glendale",
+            "state": "CA",
+            "zip": 91204,
+            "telephone": "2132001335",
+            "practice_type": "Heart Surgeon",
+            "image": "https://s-media-cache-ak0.pinimg.com/736x/60/7f/f2/607ff22d230565a215aacbe900fba2c2--ui-animation-jquery.jpg"
+        }
+    },
+    {
+        "model": "doctors",
+        "data": {
+            "first_name": "Regina",
+            "last_name": "Doctor",
+            "telephone": "323449090",
+            "appointments": ""
+        }
+    },
+    {
+        "model": "doctors",
+        "data": {
+            "first_name": "Lollmao",
+            "last_name": "Yollo",
+            "telephone": "626449090",
+            "appointments": ""
+        }
+    },
+    {
+        "model": "alerts",
+        "data": {
+            "type": "Phone",
+            "message": "Call Diana",
+            "is_alert": true,
+            "doctorId": 1
+        }
+    },
+    {
+        "model": "alerts",
+        "data": {
+            "type": "Message",
+            "message": "Respond to Mike",
+            "is_alert": true,
+            "doctorId": 1
+        }
+    },
+    {
+        "model": "alerts",
+        "data": {
+            "type": "Chat",
+            "message": "Respond to Laura",
+            "is_alert": true,
+            "doctorId": 1
+        }
+    },
+    {
+        "model": "alerts",
+        "data": {
+            "type": "Phone",
+            "message": "Complete paperwork for Blue Cross",
+            "is_alert": false,
+            "doctorId": 1
+        }
+    },
+    {
+        "model": "alerts",
+        "data": {
+            "type": "Message",
+            "message": "Clear calendar for Friday",
+            "is_alert": false,
+            "doctorId": 1
+        }
+    },
+    {
+        "model": "alerts",
+        "data": {
+            "type": "Chat",
+            "message": "Confirm Josh's appointment time",
+            "is_alert": false,
+            "doctorId": 1
+        }
+    },
+    {
+        "model": "lab_results",
+        "data": {
+            "test_name": "Cholesterol",
+            "patientId": 2,
+            "month": "Jan",
+            "year": 2017,
+            "test_value": 199
+        }
+    },
+    {
+        "model": "lab_results",
+        "data": {
+            "test_name": "Blood Glucose",
+            "patientId": 2,
+            "month": "Jan",
+            "year": 2017,
+            "test_value": 132
+        }
+    },
+    {
+        "model": "lab_results",
+        "data": {
+            "test_name": "Cholesterol",
+            "patientId": 2,
+            "month": "Jan",
+            "year": 2016,
+            "test_value": 210
+        }
+    },
+    {
+        "model": "lab_results",
+        "data": {
+            "test_name": "Blood Glucose",
+            "patientId": 2,
+            "month": "Jan",
+            "year": 2016,
+            "test_value": 120
+        }
     }
-
 ]

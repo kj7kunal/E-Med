@@ -21,8 +21,14 @@ module.exports = function(sequelize, DataTypes) {
         image: DataTypes.TEXT
     });
 
-    Doctor.associate = models => {
-        Doctor.hasOne(models.appointment)
+
+    // Doctor.associate = models => {
+    //     Doctor.hasOne(models.appointment)
+
+    Doctor.associate = (models) => {
+        Doctor.hasMany(models.alerts, {
+            foreignKey: { allowNull: false, }
+        })
     }
 
     return Doctor;

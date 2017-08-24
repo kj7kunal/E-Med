@@ -4,25 +4,20 @@
 <div class="main ui grid container">
 
     <div class="ui container sixteen wide column">
-        <h1>Add New Patient</h1>
+        <h1>Add New Specialist</h1>
     </div>
 
     <div class="sixteen wide column">
-        <form class="ui form" action="/patients/add" method="post">
-            <h4 class="ui dividing header">General Information</h4>
+        <form class="ui form" action="/specialists/add" method="post">
             <div class="field">
                 <div class="fields">
                     <div class="eight wide field">
                         <label>First Name</label>
-                        <input type="text" name="firstName" placeholder="First Name">
+                        <input type="text" name="firstName" placeholder="First Name" required>
                     </div>
                     <div class="eight wide field">
                         <label>Last Name</label>
-                        <input type="text" name="lastName" placeholder="Last Name">
-                    </div>
-                    <div class="eight wide field">
-                        <label>Date of Birth</label>
-                        <input type="text" name="dob" placeholder="MM/DD/YYYY">
+                        <input type="text" name="lastName" placeholder="Last Name" required>
                     </div>
                 </div>
             </div>
@@ -31,11 +26,11 @@
                 <div class="fields">
                     <div class="eight wide field">
                         <label>Street Address</label>
-                        <input type="text" name="streetAddress">
+                        <input type="text" name="streetAddress" required>
                     </div>
                     <div class="eight wide field">
                         <label>City</label>
-                        <input type="text" name="city">
+                        <input type="text" name="city" required>
                     </div>
                 </div>
             </div>
@@ -44,7 +39,7 @@
                 <div class="fields">
                     <div class="four wide field">
                         <label>State</label>
-                        <select class="ui fluid dropdown" name="state" id="state">
+                        <select class="ui fluid dropdown" name="state" id="state" required>
                             <option value="">Select State</option>
                             <option value="AL">Alabama</option>
                             <option value="AK">Alaska</option>
@@ -101,11 +96,11 @@
                     </div>
                     <div class="five wide field">
                         <label>Zip Code</label>
-                        <input type="text" pattern="[0-9]{5}" name="zip" placeholder="Zip">
+                        <input type="text" pattern="[0-9]{5}" name="zip" placeholder="Zip" required>
                     </div>
                     <div class="five wide field">
                         <label>Phone Number</label>
-                        <input type="text" name="telephone">
+                        <input type="text" name="telephone" required>
                     </div>
 
                 </div>
@@ -115,58 +110,13 @@
                 <div class="fields">
                     <div class="eight wide field">
                         <label>Profile Image Link</label>
-                        <input type="text" name="image">
+                        <input type="text" name="image" required>
                     </div>
-                </div>
-            </div>
-
-            <h4 class="ui dividing header">Health Information</h4>
-            <div class="field">
-                <div class="fields">
-                    <div class="six wide field">
-                        <label>Provider Name</label>
-                        <input type="text" name="providerName">
-                    </div>
-                    <div class="three wide field">
-                        <label>Height</label>
-                        <input type="text" name="height">
-                    </div>
-                    <div class="three wide field">
-                        <label>Weight</label>
-                        <input type="text" name="weight">
-                    </div>
-                </div>
-            </div>
-            <div class="field">
-                <div class="fields">
-                    <div class="eight wide field">
-                        <label>Allergies</label>
-                        <input type="text" name="allergies">
-                    </div>
-                    <div class="eight wide field">
-                        <label>Procedures</label>
-                        <input type="text" name="procedures">
-                    </div>
-                </div>
-            </div>
-
-            <h4 class="ui dividing header">Emergency Contact</h4>
-            <div class="field">
-                <div class="fields">
-                    <div class="eight wide field">
-                        <label>Contact Name</label>
-                        <input type="text" name="emergencyContactName">
-                    </div>
-                    <div class="eight wide field">
-                        <label>Contact Phone Number</label>
-                        <input type="text" name="emergencyContactNumber">
-                    </div>
-
                 </div>
             </div>
 
             <div>
-                <button type="submit" class="ui blue basic button" id="add-patient-button"><i class="add user icon"></i>Add Patient</button>
+                <button type="submit" class="ui blue basic button" id="add-patient-button"><i class="add user icon"></i>Add Specialist</button>
                 <button class="ui grey basic button" id="autofill">Autofill</button>
             </div>
     </div>

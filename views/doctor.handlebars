@@ -7,9 +7,7 @@
             <div class="row">
                 <h1 class="ui header">
                     <img src="../assets/images/person.png" class="ui circular image"> Welcome Dr. James Dean
-                    <a href="/">
-                        <div id="logout" class="ui basic blue button">Log Out</div>
-                    </a>
+                    <div class="ui basic blue button">Log Out</div>
                 </h1>
             </div>
         </div>
@@ -20,22 +18,34 @@
             <thead class="ui inverted">
                 <tr>
                     <th class="twelve wide"><i class="alarm icon"></i>Alerts</th>
-                    <th class="four wide">Status</th>
+                    <th class="four wide">Due Date</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><i class="mail outline icon"></i>New Message from Jamie</td>
-                    <td>Incomplete</td>
-                </tr>
-                <tr>
-                    <td><i class="phone icon"></i>Follow up call with Michael</td>
-                    <td>Incomplete</td>
-                </tr>
-                <tr>
-                    <td><i class="mail outline icon"></i>New Message from Diana</td>
-                    <td>Incomplete</td>
-                </tr>
+                {{#each doctor}}
+                    {{#each alerts}}
+                        {{#ifEquals this.is_alert true}}
+                            {{#ifEquals this.type "Chat"}}
+                                <tr>
+                                    <td><i class="comments outline icon"></i>{{this.message}}</td>
+                                    <td>Today</td>
+                                </tr>
+                            {{/ifEquals}}
+                            {{#ifEquals this.type "Phone"}}
+                                 <tr>
+                                    <td><i class="phone icon"></i>{{this.message}}</td>
+                                    <td>Today</td>
+                                </tr>
+                            {{/ifEquals}}
+                            {{#ifEquals this.type "Message"}}
+                                <tr>
+                                    <td><i class="mail outline icon"></i>{{this.message}}</td>
+                                    <td>Today</td>
+                                </tr>
+                            {{/ifEquals}}
+                        {{/ifEquals}}
+                    {{/each}}
+                {{/each}}
             </tbody>
         </table>
     </div>
@@ -45,33 +55,26 @@
             <thead>
                 <tr>
                     <th><i class="checkmark box icon"></i>Tasks</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        <div class="ui checkbox">
-                            <input type="checkbox">
-                            <label>Follow up call with Josh</label>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="ui checked checkbox">
-                            <input type="checkbox">
-                            <label>Follow up call with Beth</label>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="ui checked checkbox">
-                            <input type="checkbox">
-                            <label>Send in referral for Dave</label>
-                        </div>
-                    </td>
-                </tr>
+                {{#each doctor}}
+                    {{#each alerts}}
+                        {{#ifEquals this.is_alert false}}
+                            <tr>
+                                <td>{{this.message}}</td>
+                                <td>
+                                    <div class="ui checkbox">
+                                        <input data-id="{{this.id}}" onClick="checkClick" type="checkbox">
+                                        <label></label>
+                                    </div>
+                                </td>
+                            </tr>
+                        {{/ifEquals}}
+
+                    {{/each}}
+                {{/each}}
             </tbody>
         </table>
     </div>

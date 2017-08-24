@@ -1,0 +1,50 @@
+<!-- NAV BAR PARTIAL-->
+{{> nav}}
+
+<div class="main ui grid container" id="main-container">
+    <div class="ui container sixteen wide column">
+        <h1>My Dashboard > Specialists</h1>
+        <h3>Select a specialist below.</h3>
+    </div>
+
+    <div class="sixteen wide column">
+        <table class="ui striped blue one column table" id="table">
+            <thead>
+                <tr class="sixteen wide column">
+                    <th class="two wide column">Image</th>
+                    <th class="four wide column">Name</th>
+                    <th class="four wide column">Specialty</th>
+                    <th class="four wide column">City</th>
+                    <th class="one wide column">Refer</th>
+                    {{!-- <i class="share icon"></i> --}}
+                    <th class="one wide column">Remove</th>
+                    {{!-- <i class="minus icon"></i> --}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#each specialists}}
+                <tr class="sixteen wide column" id={{this.id}}>
+                    <td class="two wide column"><img class="ui avatar image" src="{{this.image}}"></td>
+                    <td class="four wide column"><a href="specialists/{{this.id}}">{{this.first_name}} {{this.last_name}}</a></td>
+                    <td class="four wide column">{{this.practice_type}}</td>
+                    <td class="three wide column">{{this.city}}, {{this.state}}</td>
+                    <td class="one wide column"><i class="share icon"></i></td>
+                    <td class="one wide column"><i class="minus icon" data-id="{{this.id}}"></i></td>
+                    {{!-- <button type="submit" formmethod="delete" formaction="/specialists/{{this.id}}"><i class="minus icon"></i></button> --}}
+                </tr>
+
+                {{/each}}
+            </tbody>
+        </table>
+
+        <div class="ui basic buttons">
+            <div class="ui right button">
+                <a href="/specialists/add"><i class="add user icon"></i>Add Specialist</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- FOR REFERENCE -------------------------- "first_name": "Lauren", "last_name": "Surgeonist", "street_address": "1231
+S Brand Blvd", "city": "Glendale", "state": "CA", "zip": 91204, "telephone": "2132001335", "practice_type": "Heart Surgeon",
+"image": "https://s-media-cache-ak0.pinimg.com/736x/60/7f/f2/607ff22d230565a215aacbe900fba2c2--ui-animation-jquery.jpg" -----------------------------------------------}}
