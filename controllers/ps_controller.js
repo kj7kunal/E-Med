@@ -199,7 +199,7 @@ router.post("/api/signup", (req, res) => {
 
 router.get("/physician/:id", isAuthenticated, (req, res) => {
     // res.render("physician");
-    db.doctors.findAll({
+    db.doctors.findOne({
         where: {
             id: req.params.id
         },
@@ -217,7 +217,7 @@ router.get("/physician/:id", isAuthenticated, (req, res) => {
 
 router.get("/physician", isAuthenticated, (req, res) => {
     if (req.user) {
-        db.doctors.findAll({
+        db.doctors.findOne({
             where: {
                 id: req.user.id
             },
@@ -229,7 +229,7 @@ router.get("/physician", isAuthenticated, (req, res) => {
                 doctor: result
             }
             console.log(hbsObject);
-            console.log(req.user.doctorId);
+            console.log(req.user);
             return res.render("doctor", hbsObject);
         })
     } else {

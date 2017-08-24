@@ -12,6 +12,10 @@ div#sidebar {
 div#sidebar i, p {
     color: #ff6666;
 }
+div#sidebar p {
+    color: #5A5A5A;
+    font-size: .7em;
+}
 
 div.stretched.row {
     margin-left: 5em;
@@ -68,7 +72,6 @@ div.ui.basic.button {
 }
 
 /* Mobile */
-
  @media only screen and (max-width: 767px) {
 
     div.ui.visible.left.vertical.inverted.labeled.icon.sidebar.menu.visible {
@@ -98,12 +101,12 @@ div.ui.basic.button {
 }
 
 /* Computer / Desktop / iPad Landscape */
-
 @media only screen and (min-width: 768px) {
-
     .ui.bottom.inverted.six.item.labeled.icon.sidebar.menu.visible {
         display: none;
     }
-    
 }
 
+.main.ui.grid.container {
+    margin: 1em 0;
+}

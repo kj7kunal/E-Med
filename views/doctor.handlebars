@@ -6,7 +6,12 @@
         <div class="ui raised grey segment">
             <div class="row">
                 <h1 class="ui header">
-                    <img src="../assets/images/person.png" class="ui circular image"> Welcome Dr. James Dean
+                    <img src="../assets/images/person.png" class="ui circular image">
+                    
+                    {{!-- {{#each doctor}} --}}
+                        Welcome Dr. {{this.first_name}} {{this.last_name}}
+                    {{!-- {{/each}} --}}
+                     
                     <div class="ui basic blue button">Log Out</div>
                 </h1>
             </div>
@@ -22,8 +27,8 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each doctor}}
-                    {{#each alerts}}
+                {{!-- {{#each doctor}} --}}
+                    {{#each doctor.alerts}}
                         {{#ifEquals this.is_alert true}}
                             {{#ifEquals this.type "Chat"}}
                                 <tr>
@@ -45,7 +50,7 @@
                             {{/ifEquals}}
                         {{/ifEquals}}
                     {{/each}}
-                {{/each}}
+                {{!-- {{/each}} --}}
             </tbody>
         </table>
     </div>
@@ -59,8 +64,8 @@
                 </tr>
             </thead>
             <tbody>
-                {{#each doctor}}
-                    {{#each alerts}}
+                {{!-- {{#each doctor}} --}}
+                    {{#each doctor.alerts}}
                         {{#ifEquals this.is_alert false}}
                             <tr>
                                 <td>{{this.message}}</td>
@@ -74,7 +79,7 @@
                         {{/ifEquals}}
 
                     {{/each}}
-                {{/each}}
+                {{!-- {{/each}} --}}
             </tbody>
         </table>
     </div>

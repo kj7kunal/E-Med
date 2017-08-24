@@ -5,12 +5,10 @@ $('.dropdown').dropdown({
 });
 
 $("#logout").on("click", () => {
-
-        $.get("/logout", () => {
-            return;
-        })
-    }
-)
+    $.get("/logout", () => {
+        return;
+    })
+});
 
 //---- Delete Specialist ----//
 function deleteSpecialist(event) {
@@ -30,6 +28,6 @@ function checkClick (event) {
     console.log($(this).data("id"));
 }
 
-  $(document).on("click", ".minus.icon", deleteSpecialist);
-  $(document).on("click", "input[type='checkbox']", checkClick);
+$(document).on("click", ".minus.icon", deleteSpecialist);
+$(document).on("click", "input[type='checkbox']", checkClick);
 
