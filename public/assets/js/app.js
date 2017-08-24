@@ -4,17 +4,13 @@ $('.dropdown').dropdown({
     transition: 'fade down'
 });
 
-<<<<<<< HEAD
 $("#logout").on("click", () => {
 
         $.get("/logout", () => {
             return;
         })
     }
-
-
 )
-=======
 
 //---- Delete Specialist ----//
 function deleteSpecialist(event) {
@@ -37,4 +33,3 @@ function checkClick (event) {
   $(document).on("click", ".minus.icon", deleteSpecialist);
   $(document).on("click", "input[type='checkbox']", checkClick);
 
->>>>>>> referrals

@@ -31,7 +31,6 @@ app.set("view engine", "handlebars");
 
 app.use("/", routes);
 
-<<<<<<< HEAD
 let usernames = {};
 let connections = [];
 
@@ -88,11 +87,10 @@ io.sockets.on('connection', socket => {
         // update the list of users in chat, client-side
         io.sockets.emit('updateusers', usernames);
     });
+});
 
-=======
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
     return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
->>>>>>> referrals
 });
 
 db.sequelize.sync({ force: true })

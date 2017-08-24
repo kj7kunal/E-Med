@@ -37,8 +37,10 @@ router.get("/patients", isAuthenticated, (req, res) => {
                 id: req.user.patientId
             }
         }).then((result) => {
-            const hbsObject = { patient: result }
-                // console.log(hbsObject);
+            const hbsObject = {
+                patient: result
+            }
+            // console.log(hbsObject);
             return res.render("patientDash", hbsObject);
         })
     } else {
@@ -47,42 +49,48 @@ router.get("/patients", isAuthenticated, (req, res) => {
 });
 
 router.get("/mycare", isAuthenticated, (req, res) => {
-  db.patient
-    .findOne({
-      where: {
-        id: req.user.patientId
-      }
-    })
-    .then(result => {
-      const hbsObject = { patient: result };
-      return res.render("myCare", hbsObject);
-    });
+    db.patient
+        .findOne({
+            where: {
+                id: req.user.patientId
+            }
+        })
+        .then(result => {
+            const hbsObject = {
+                patient: result
+            };
+            return res.render("myCare", hbsObject);
+        });
 });
 
 router.get("/record", isAuthenticated, (req, res) => {
-  db.patient
-    .findOne({
-      where: {
-        id: req.user.patientId
-      }
-    })
-    .then(result => {
-      const hbsObject = { patient: result };
-      return res.render("healthRecord", hbsObject);
-    });
+    db.patient
+        .findOne({
+            where: {
+                id: req.user.patientId
+            }
+        })
+        .then(result => {
+            const hbsObject = {
+                patient: result
+            };
+            return res.render("healthRecord", hbsObject);
+        });
 });
 
 router.get("/labresults", isAuthenticated, (req, res) => {
-  db.patient
-    .findOne({
-      where: {
-        id: req.user.patientId
-      }
-    })
-    .then(result => {
-      const hbsObject = { patient: result };
-      return res.render("labResults", hbsObject);
-    });
+    db.patient
+        .findOne({
+            where: {
+                id: req.user.patientId
+            }
+        })
+        .then(result => {
+            const hbsObject = {
+                patient: result
+            };
+            return res.render("labResults", hbsObject);
+        });
 });
 
 
@@ -90,22 +98,13 @@ router.get("/labresults", isAuthenticated, (req, res) => {
 router.get("/physician/list", isAuthenticated, (req, res) => {
     db.patient.findAll().then((result) => {
         // console.log(result);
-        const hbsObject = { patient: result };
+        const hbsObject = {
+            patient: result
+        };
         // router.get("/api/user_data", (req, res) => {
         //     const userId = res.id;
         // })
         return res.render("patients_list", hbsObject);
-    })
-})
-
-router.get("/patients/:id", isAuthenticated, (req, res) => {
-    db.patient.findOne({
-        where: {
-            id: req.params.id
-        }
-    }).then((result) => {
-        const hbsObject = { patient: result }
-        return res.render("patients_page", hbsObject)
     })
 })
 
@@ -118,21 +117,32 @@ router.get("/patients/:id/:view", isAuthenticated, (req, res) => {
             }
         })
         .then(result => {
-            const hbsObject = { patient: result };
+            const hbsObject = {
+                patient: result
+            };
             return res.render("viewPatient", hbsObject);
         });
 });
 
 // lab results <-----------------------
-router.get("/patients/:id/lab_results", isAuthenticated, (req, res) => { res.render("lab_results") });
+router.get("/patients/:id/lab_results", isAuthenticated, (req, res) => {
+    res.render("lab_results")
+});
+
+router.get("/patients/add", isAuthenticated, (req, res) => {
+    console.log("testing");
+    res.render("patients_new")
+});
 
 router.post("/patients/add", isAuthenticated, (req, res) => {
+    console.log("testing2");
     db.patient.create({
             "first_name": req.body.firstName,
             "last_name": req.body.lastName,
             "dob": "June 1 2009",
             "street_address": req.body.streetAddress,
             "city": req.body.city,
+            "gender": "F",
             "state": req.body.state,
             "zip": req.body.zip,
             "telephone": req.body.telephone,
@@ -147,23 +157,24 @@ router.post("/patients/add", isAuthenticated, (req, res) => {
             "image": req.body.image
         })
         .then(() => {
-            return res.redirect("/patients");
+            console.log("testing3");
+            return res.redirect("/physician/list");
         })
 })
 
 // --------------------- Login / Signup --------------------------
 
-router.post("/api/login", passport.authenticate("local"), (req, res) => {
+// router.post("/api/login", passport.authenticate("local"), (req, res) => {
 
-    res.send("/patients");
+//     res.send("/patients");
 
-    // for when you need to respond with non json values 
-    res.json({ id: req.user.id }) // specifically for json
-});
-
-// router.post("/api/login", passport.authenticate("user-local"), (req, res) => {
-//     return res.send("/patients");
+//     // for when you need to respond with non json values 
+//     res.json({ id: req.user.id }) // specifically for json
 // });
+
+router.post("/api/login", passport.authenticate("user-local"), (req, res) => {
+    return res.send("/patients");
+});
 
 router.post("/api/signup", (req, res) => {
     db.User.create({
@@ -184,17 +195,38 @@ router.get("/physician/:id", isAuthenticated, (req, res) => {
         where: {
             id: req.params.id
         },
-        include: [
-            { model: db.alerts}
-        ]
+        include: [{
+            model: db.alerts
+        }]
     }).then((result) => {
-        const hbsObject = { doctor: result }
+        const hbsObject = {
+            doctor: result
+        }
+        console.log(hbsObject);
         res.render("doctor", hbsObject);
     })
 });
 
 router.get("/physician", isAuthenticated, (req, res) => {
-    res.render("physician");
+    if (req.user) {
+        db.doctors.findAll({
+            where: {
+                id: req.user.id
+            },
+            include: [{
+                model: db.alerts
+            }]
+        }).then((result) => {
+            const hbsObject = {
+                doctor: result
+            }
+            console.log(hbsObject);
+            console.log(req.user.doctorId);
+            return res.render("doctor", hbsObject);
+        })
+    } else {
+        return res.render("admin");
+    }
 });
 
 // Route for logging user out
@@ -253,19 +285,27 @@ router.get("/api/user_data", (req, res) => {
 
 router.get("/chatview", isAuthenticated, (req, res) => {
     db.message.findAll().then((result) => {
-        const hbsObject = { message: result };
+        const hbsObject = {
+            message: result
+        };
 
         return res.render("chatview", hbsObject);
     })
 })
 
-router.get("/calendar", isAuthenticated, (req, res) => { res.render("calendar") });
-router.get("/patientdashboard", isAuthenticated, (req, res) => { res.render("patientDash") });
+router.get("/calendar", isAuthenticated, (req, res) => {
+    res.render("calendar")
+});
+router.get("/patientdashboard", isAuthenticated, (req, res) => {
+    res.render("patientDash")
+});
 router.get("/settings", isAuthenticated, (req, res) => res.render("settings"));
 
 router.get("/specialists", (req, res) => {
     db.specialists.findAll().then((result) => {
-        const hbsObject = { specialists: result };
+        const hbsObject = {
+            specialists: result
+        };
         res.render("specialists", hbsObject);
     })
 });
@@ -281,7 +321,7 @@ router.post("/specialists/add", (req, res) => {
             "telephone": req.body.telephone,
             "image": req.body.image
         })
-        .then(function() {
+        .then(function () {
             res.redirect("/specialists");
         })
 })
@@ -292,24 +332,43 @@ router.delete("/specialists/delete/:id", (req, res) => {
     console.log(theid);
 
     db.specialists.destroy({
-      where: {
-        id: req.params.id
-      }
-    }).then(function(result) {
-        res.json({success:true, url: '/specialists'})
+        where: {
+            id: req.params.id
+        }
+    }).then(function (result) {
+        res.json({
+            success: true,
+            url: '/specialists'
+        })
     });
 
-  });
+});
 
 router.get("/assoc", (req, res) => {
     db.doctors.findAll({
-        where: { id: 1 },
-        include: [
-            { model: db.alerts}
-        ]
-    }).then(function(match) {
+        where: {
+            id: 1
+        },
+        include: [{
+            model: db.alerts
+        }]
+    }).then(function (match) {
         res.json(match);
     });
 });
+
+router.get("/patients/:id", isAuthenticated, (req, res) => {
+    console.log("hitting patient id")
+    db.patient.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then((result) => {
+        const hbsObject = {
+            patient: result
+        }
+        return res.render("patients_page", hbsObject)
+    })
+})
 
 module.exports = router;
