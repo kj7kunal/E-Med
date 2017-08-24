@@ -11,8 +11,7 @@ const express = require('express'),
     session = require('express-session'),
     passport = require('./config/passport'),
     http = require('http').createServer(app),
-    io = require('socket.io')(http),
-    chat1 = io.of('/bob');
+    io = require('socket.io')(http);
 
 app.use(express.static("public"));
 
