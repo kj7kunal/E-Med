@@ -6,11 +6,12 @@ img.ui.image  {
     align-items: center;
 }
 
-div.ui.black.inverted.vertical.footer.segment {
+div.ui.vertical.footer.segment {
     position: fixed;
     bottom: 0;
     width: 100%;
     align-items: center;
+    color: #191970 !important;
 }
 
 h4.ui.header {
@@ -24,6 +25,7 @@ div.ui.blue.basic.button {
 div.ui.sidebar {
     overflow: visible !important;
 }
+
 
 /* Mobile */
 
