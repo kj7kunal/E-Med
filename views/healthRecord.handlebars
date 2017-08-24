@@ -1,23 +1,4 @@
-<!--Physician views patient health records-->
-<!--SIDEBAR-->
-<div class="ui visible left vertical inverted labeled icon sidebar menu" id="sidebar">
-    <a class="item"><i class="home icon"></i>Home</a>
-    <a class="item"><i class="user circle outline icon"></i>Patients</a>
-    <a class="item"><i class="calendar icon"></i>Calendar</a>
-    <a class="item"><i class="comment icon"></i>Messaging</a>
-    <a class="item"><i class="payment icon"></i>Billing</a>
-    <a class="item"><i class="settings icon"></i>Settings</a>
-</div>
-
-<!--MOBILE SIDEBAR-->
-<div class="ui bottom inverted six item labeled icon sidebar menu visible">
-    <a class="item"><i class="home icon"></i>Home</a>
-    <a class="item"><i class="user circle outline icon"></i>Patients</a>
-    <a class="item"><i class="calendar icon"></i>Calendar</a>
-    <a class="item"><i class="comment icon"></i>Messaging</a>
-    <a class="item"><i class="payment icon"></i>Billing</a>
-    <a class="item"><i class="settings icon"></i>Settings</a>
-</div>
+{{> patientnav}}
 
 <!--HEADER-->
 <div class="ui main container">
@@ -28,7 +9,7 @@
         <div class="ui items">
             <div class="item">
                 <div class="ui tiny image">
-                    <img class="image" src="../assets/images/person.png">
+                    <img class="image" src="{{patient.image}}">
                 </div>
                 <div class="content">
                     <a class="header">{{patient.first_name}} {{patient.last_name}}</a>
@@ -51,14 +32,6 @@
     </div><!--row-->
     <div class="ui divider"></div>
     <div class="ui stackable grid">
-        <div class="row">
-                <div class="ui large image">
-                    <img class="image" src="../assets/images/linechart.png">Graphs go here
-                </div>
-                <div class="ui large image">
-                    <img class="image" src="../assets/images/samplegraph.png">Graphs go here
-                </div>
-        </div>
         <div class="row">
             <table class="ui red celled table">
                 <thead>
@@ -93,7 +66,7 @@
             </table>
         </div><!--row-->
        <div class="row"></div>
-        <div class="ui stackable grid">
+        {{!-- <div class="ui stackable grid"> --}}
             <div class="eight wide column">
                 <table class="ui green celled table">
                     <thead>
@@ -159,7 +132,7 @@
                     </tbody>
                 </table>
             </div><!--column-->
-        </div>
+        {{!-- </div> --}}
     </div><!--ui stackable grid-->
 
 </div><!--ui main container-->

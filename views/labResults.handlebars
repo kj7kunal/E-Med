@@ -1,0 +1,73 @@
+{{> patientnav }}
+<!--HEADER-->
+<div class="main ui stackable grid container" id="main-container">
+    <div class="ui container sixteen wide column">
+        <div class="ui raised blue segment">
+            <div class="row">
+                <h1 class="ui header">
+                    <img src="../assets/images/person.png" class="ui circular image">{{patient.first_name}} {{patient.last_name}}'s Lab Results
+                    <a href="/">
+                        <div id="logout" class="ui basic blue button">Log Out</div>
+                    </a>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+<div class="eight wide centered column">
+    {{> labresults}}
+</div>
+
+<div class="eight wide centered column">
+        <table class="ui green celled table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Test</th>
+                    <th>Status</th>
+                    <th>Results</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>October 2, 2016</td>
+                    <td>White Blood Count</td>
+                    <td>Pending</td>
+                    <td class="negative"><i class="icon close"></i>Unknown</td>
+                </tr>
+                <tr class="positive">
+                    <td>November 3, 2016</td>
+                    <td>Chemistry Panel and Complete Blood Count</td>
+                    <td>Complete</td>
+                    <td class="positive"><i class="icon checkmark"></i>Within Range</td>
+                </tr>
+                <tr class="positive">
+                    <td>November 3, 2016</td>
+                    <td>C-Reactive Protein</td>
+                    <td>Complete</td>
+                    <td class="negative"><i class="icon close"></i>Negative</td>
+                </tr>
+                <tr>
+                    <td>November 3, 2016</td>
+                    <td>Hemoglobin A1C</td>
+                    <td>Scheduled</td>
+                    <td>Unknown</td>
+                </tr>
+                <tr>
+                    <td>February 28, 2017</td>
+                    <td>Electrolytes (Electrolyte Panel)</td>
+                    <td>Scheduled</td>
+                    <td>Unknown</td>
+                </tr>
+                <tr>
+                    <td>March 4, 2017</td>
+                    <td>Liver Panel (Liver Function Panel)</td>
+                    <td>Scheduled</td>
+                    <td>Unknown</td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+
+
+</div><!--ui container-->

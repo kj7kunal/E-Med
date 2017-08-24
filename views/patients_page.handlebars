@@ -3,7 +3,9 @@
 <!--HEADER-->
 <div class="ui main container">
     <div class="row">
-        <div class="ui basic blue button">Log Out</div>
+        <a href="/">
+            <div id="logout" class="ui basic blue button">Log Out</div>
+        </a>
     </div>
     <div class="row">
         <div class="ui items">
@@ -42,39 +44,60 @@
             <table class="ui red celled table">
                 <thead>
                     <tr>
-                        <th>Test</th>
-                        <th>Status</th>
-                        <th>Results</th>
+                        <th>Lab Set</th>
+                        <th>Specific Lab</th>
+                        <th>Result</th>
+                        <th>Normal Range</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>White Blood Count</td>
-                        <td>Pending</td>
-                        <td class="negative"><i class="icon close"></i>Unknown</td>
-                    </tr>
-                    <tr class="positive">
-                        <td>Chemistry Panel and Complete Blood Count</td>
-                        <td>Complete</td>
-                        <td class="positive"><i class="icon checkmark"></i>Within Range</td>
-                    </tr>
-                    <tr class="positive">
-                        <td>C-Reactive Protein</td>
-                        <td>Complete</td>
-                        <td class="negative"><i class="icon close"></i>Negative</td>
+                        <td>Complete Blood Count</td>
+                        <td>WBC</td>
+                        <td class="negative">2.6</td>
+                        <td>4.5-10</td>
                     </tr>
                     <tr>
-                        <td>Hemoglobin A1C</td>
-                        <td>Scheduled</td>
-                        <td>Unknown</td>
+                        <td></td>
+                        <td>Hemoglobin</td>
+                        <td class="negative">11.2</td>
+                        <td>13.5-16.5(male), 12.0-15.0(female)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Hematocrit</td>
+                        <td class="negative">33.4</td>
+                        <td>41-50(male), 26-44(female)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Platelets</td>
+                        <td class="negative">90</td>
+                        <td>100-450</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Neutrophil count (%)</td>
+                        <td class="positive">2.08(80%)</td>
+                        <td>2-7(40-80%)</td>
+                    </tr>
+                    <tr>
+                        <td>Metabolic Panel</td>
+                        <td>Sodium</td>
+                        <td>139</td>
+                        <td>135-147</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Potassium</td>
+                        <td>4.4</td>
+                        <td>3.4-5.2</td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <!--row-->
-        <div class="row"></div>
-        {{!-- <div class="ui stackable grid"> --}}
-            <div class="eight wide column">
+        </div><!--row-->
+        <div class="row">
+            <div class="six wide column">
                 <table class="ui green celled table">
                     <thead>
                         <tr>
@@ -85,31 +108,15 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{patient.allergy}}</td>
+                            <td>{{patient.allergies}}</td>
                             <td class="warning"><i class="attention icon"></i>High</td>
                             <td>None</td>
                         </tr>
-                        {{!-- <tr class="warning">
-                            <td>Penicillin</td>
-                            <td><i class="attention icon"></i> High</td>
-                            <td>None</td>
-                        </tr>
-                        <tr>
-                            <td>{{patient.allergy}}</td>
-                            <td>Low</td>
-                            <td class="warning"><i class="attention icon"></i>Has pets</td>
-                        </tr>
-                        <tr>
-                            <td>{{patient.allergy}}</td>
-                            <td>Moderate</td>
-                            <td>None</td>
-                        </tr> --}}
                     </tbody>
                 </table>
-            </div>
-            <!--column-->
-            <div class="column">
-                <table class="ui blue single line table">
+            </div><!--column-->
+            <div class="ten wide column">
+                <table class="ui blue table">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -140,7 +147,7 @@
                     </tbody>
                 </table>
             </div><!--column-->
-        {{!-- </div> --}}
+        </div><!--row-->
     </div><!--ui stackable grid-->
 
 </div><!--ui main container-->

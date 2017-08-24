@@ -1,33 +1,4 @@
-<!--Patient Dashboard-->
-<!--SIDEBAR-->
-<div class="ui visible left vertical inverted labeled icon sidebar menu">
-    <a class="item"><i class="home icon"></i>Home</a>
-    <a class="item"><i class="user circle outline icon"></i>My Care</a>
-    <a class="item"><i class="calendar icon"></i>Appointments</a>
-    <a class="item"><i class="comment icon"></i>Messaging</a>
-    <a class="item"><i class="payment icon"></i>Billing</a>
-    <a class="item">
-        <i class="settings icon"></i>Settings
-    </a>
-    {{!-- <div class="ui dropdown item">
-        <i class="dropdown icon"></i> More
-        <div class="menu">
-            <a class="item"><i class="edit icon"></i> Edit Profile</a>
-            <a class="item"><i class="globe icon"></i> Choose Language</a>
-            <a class="item"><i class="settings icon"></i> Account Settings</a>
-        </div>
-    </div> --}}
-</div>
-
-<!--MOBILE SIDEBAR-->
-<div class="ui bottom inverted six item labeled icon sidebar menu visible">
-    <a class="item"><i class="home icon"></i>Home</a>
-    <a class="item"><i class="user circle outline icon"></i>My Care</a>
-    <a class="item"><i class="calendar icon"></i>Appointments</a>
-    <a class="item"><i class="comment icon"></i>Messaging</a>
-    <a class="item"><i class="payment icon"></i>Billing</a>
-    <a class="item"><i class="settings icon"></i>Settings</a>
-</div>
+{{> patientnav}}
 
 <div class="main ui stackable grid container" id="main-container">
     <div class="ui container sixteen wide column">        
@@ -35,7 +6,9 @@
             <div class="row">
                 <h1 class="ui header">
                     <img src="../assets/images/person.png" class="ui circular image"> Welcome {{patient.first_name}} {{patient.last_name}}
-                    <div id="logout" class="ui basic blue button">Log Out</div>
+                    <a href="/">
+                        <div id="logout" class="ui basic blue button">Log Out</div>
+                    </a>
                 </h1>
             </div>
         </div>
@@ -74,9 +47,10 @@
                 <h4 class="ui header">General Information</h4>
                 <ul>
                     <li>Date of Birth: {{patient.dob}}</li>
+                    <li>Gender: {{patient.gender}}</li>
                     <li>Address: 4{{patient.street_address}}</li>
                     <li>{{patient.city}},{{patient.state}},{{patient.zip}}</li>
-                    <li>Phone{{patient.telephone}}</li>
+                    <li>Phone: {{patient.telephone}}</li>
                     <li>Height:{{patient.height}}</li>
                     <li>Weight:{{patient.weight}}</li>
                     <li>Provider: {{patient.provider_name}}</li>
@@ -113,7 +87,7 @@
 </div>
 
   <div class="ui sixteen wide column">  
-        <table class="ui inverted blue table" id="table">
+        <table class="ui blue table" id="table">
             <thead>
                 <tr>
                     <th class="three wide"><i class="alarm icon"></i>Upcoming Appointments</th>
@@ -147,6 +121,45 @@
                     <td>Dr. Phil</td>
                     <td>Referral for sports injury</td>
                 </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="ui sixteen wide column">
+        <table class="ui red table" id="table">
+            <thead>
+                <tr>
+                    <th class="three wide">Prescriptions</th>
+                    <th class="three wide"></th>
+                    <th class="five wide"></th>
+                    <th class="five wide"></th>
+                </tr>
+                <tr>
+                    <th class="three wide">Name</th>
+                    <th class="three wide">Prescribed Date</th>
+                    <th class="five wide">Dose</th>
+                    <th class="five wide">Refill Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Drug 1 {{prescription.med_name}}</td>
+                    <td>August 21, 2017 {{prescription.prescribed_date}}</td>
+                    <td>10mg/day {{prescription.dose}}</td>
+                    <td>September 21, 2017 {{prescription.renew_date}}</td>
+                </tr>
+                {{!-- <tr>
+                    <td>Drug 1 {{prescription.med_name}}</td>
+                    <td>August 21, 2017 {{prescription.prescribed_date}}</td>
+                    <td>10mg/day {{prescription.dose}}</td>
+                    <td>September 21, 2017 {{prescription.renew_date}}</td>
+                </tr>
+                <tr>
+                    <td>Drug 1 {{prescription.med_name}}</td>
+                    <td>August 21, 2017 {{prescription.prescribed_date}}</td>
+                    <td>10mg/day {{prescription.dose}}</td>
+                    <td>September 21, 2017 {{prescription.renew_date}}</td>
+                </tr> --}}
             </tbody>
         </table>
     </div>

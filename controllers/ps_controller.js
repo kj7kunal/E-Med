@@ -20,7 +20,7 @@ router.post("/api/login", passport.authenticate("user-local"), (req, res) => {
     return res.send("/patients");
 });
 
-// Route for Patient Login
+// Route for Admin Login
 
 router.get("/admin", (req, res) => {
     if (req.user) {
@@ -57,6 +57,63 @@ router.get("/patients", isAuthenticated, (req, res) => {
         return res.render("index");
     }
 });
+<<<<<<< HEAD
+=======
+
+router.get("/patients", isAuthenticated, (req, res) => {
+  db.patient
+    .findOne({
+      where: {
+        id: req.user.patientId
+      }
+    })
+    .then(result => {
+      const hbsObject = { patient: result };
+      return res.render("patientDash", hbsObject);
+    });
+});
+
+router.get("/mycare", isAuthenticated, (req, res) => {
+  db.patient
+    .findOne({
+      where: {
+        id: req.user.patientId
+      }
+    })
+    .then(result => {
+      const hbsObject = { patient: result };
+      return res.render("myCare", hbsObject);
+    });
+});
+
+router.get("/record", isAuthenticated, (req, res) => {
+  db.patient
+    .findOne({
+      where: {
+        id: req.user.patientId
+      }
+    })
+    .then(result => {
+      const hbsObject = { patient: result };
+      return res.render("healthRecord", hbsObject);
+    });
+});
+
+router.get("/labresults", isAuthenticated, (req, res) => {
+  db.patient
+    .findOne({
+      where: {
+        id: req.user.patientId
+      }
+    })
+    .then(result => {
+      const hbsObject = { patient: result };
+      return res.render("labResults", hbsObject);
+    });
+});
+
+
+>>>>>>> patient-dash
 //  ---------------- STAFF ROUTES ----------------------
 
 router.get("/physician", isAuthenticated, (req, res) => { res.render("physician") });
@@ -74,6 +131,7 @@ router.get("/physician/list", isAuthenticated, (req, res) => {
 
 router.get("/record", isAuthenticated, (req, res) => { res.render("healthRecord") });
 
+
 router.get("/patients/:id", isAuthenticated, (req, res) => {
     db.patient.findOne({
         where: {
@@ -84,6 +142,7 @@ router.get("/patients/:id", isAuthenticated, (req, res) => {
         return res.render("patients_page", hbsObject)
     })
 })
+
 
 router.get("/patients/:id/:view", isAuthenticated, (req, res) => {
     db.patient
@@ -216,6 +275,9 @@ router.get("/api/user_data", (req, res) => {
         })
     }
 });
+router.get("/settings", function(req, res) {
+  res.render("settings");
+});
 
 router.get("/chatview", isAuthenticated, (req, res) => {
     db.message.findAll().then((result) => {
@@ -226,8 +288,18 @@ router.get("/chatview", isAuthenticated, (req, res) => {
 })
 
 router.get("/calendar", isAuthenticated, (req, res) => { res.render("calendar") });
-router.get("/patient", isAuthenticated, (req, res) => { res.render("patientDash") });
+router.get("/patientdashboard", isAuthenticated, (req, res) => { res.render("patientDash") });
 router.get("/mycare", isAuthenticated, (req, res) => { res.render("myCare") });
+<<<<<<< HEAD
 router.get("/settings", isAuthenticated, (req, res) => res.render("settings"));
+=======
+router.get("/labresults", isAuthenticated, (req, res) => {res.render("labResults") });
+router.get("/chatview", isAuthenticated, (req, res) => { res.render("chatview") });
+router.get("/settings", isAuthenticated, (req, res) => {res.render("settings") });
+router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
+router.get("/record", isAuthenticated, (req, res) => {res.render("healthRecord")});
+
+
+>>>>>>> patient-dash
 
 module.exports = router;

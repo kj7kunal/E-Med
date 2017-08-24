@@ -1,27 +1,10 @@
-<!--Patient views My Care page-->
-<!--SIDEBAR-->
-<div class="ui visible left vertical inverted labeled icon sidebar menu" id="sidebar">
-    <a class="item"><i class="home icon"></i>Home</a>
-    <a class="item"><i class="user circle outline icon"></i>Patients</a>
-    <a class="item"><i class="calendar icon"></i>Calendar</a>
-    <a class="item"><i class="comment icon"></i>Messaging</a>
-    <a class="item"><i class="payment icon"></i>Billing</a>
-    <a class="item"><i class="settings icon"></i>Settings</a>
-</div>
-
-<!--MOBILE SIDEBAR-->
-<div class="ui bottom inverted six item labeled icon sidebar menu visible">
-    <a class="item"><i class="home icon"></i>Home</a>
-    <a class="item"><i class="user circle outline icon"></i>Patients</a>
-    <a class="item"><i class="calendar icon"></i>Calendar</a>
-    <a class="item"><i class="comment icon"></i>Messaging</a>
-    <a class="item"><i class="payment icon"></i>Billing</a>
-    <a class="item"><i class="settings icon"></i>Settings</a>
-</div>
+{{> patientnav}}
 
 <div class="ui main container">
     <div class="row">
-        <div class="ui basic blue button">Log Out</div>
+        <a href="/">
+            <div id="logout" class="ui basic blue button">Log Out</div>
+        </a>
     </div>
     <div class="row">
         <h2 class="ui center aligned icon header">
@@ -35,16 +18,16 @@
         <div class="stretched row">
             <div class="column">
                 <div class="ui teal segment">
-                    <a href=""><img class="ui centered image" src="/assets/images/clipboard.png" height="150" width="150"></a>
-                    <a href="">
+                    <a href="/record"><img class="ui centered image" src="/assets/images/clipboard.png" height="150" width="150"></a>
+                    <a href="/record">
                         <h4 class="ui center aligned header">Medical Record</h4>
                     </a>
                 </div>
             </div>
             <div class="column">
                 <div class="ui teal segment">
-                    <a href=""><img class="ui centered image" src="/assets/images/stethoscope.svg" height="150" width="150"></a>
-                    <a href="">
+                    <a href="/labresults"><img class="ui centered image" src="/assets/images/stethoscope.svg" height="150" width="150"></a>
+                    <a href="/labresults">
                         <h4 class="ui center aligned header">Lab Results</h4>
                     </a>
                 </div>
@@ -69,16 +52,16 @@
             </div>
             <div class="column">
                 <div class="ui teal segment">
-                    <a href=""><img class="ui centered image" src="/assets/images/message.svg" height="150" width="150"></a>
-                    <a href="">
+                    <a href="/chatview"><img class="ui centered image" src="/assets/images/message.svg" height="150" width="150"></a>
+                    <a href="/chatview">
                         <h4 class="ui center aligned header">Message</h4>
                     </a>
                 </div>
             </div>
             <div class="column">
                 <div class="ui teal segment">
-                    <a href=""><img class="ui centered image" src="/assets/images/message.svg" height="150" width="150"></a>
-                    <a href="">
+                    <a href="tel:+18004644000"><img class="ui centered image" src="/assets/images/message.svg" height="150" width="150"></a>
+                    <a href="tel:+18004644000">
                         <h4 class="ui center aligned header">Nurse Advice</h4>
                     </a>
                 </div>
