@@ -2,7 +2,7 @@ const express = require('express'),
     colors = require("colors"),
     bodyParser = require("body-parser"),
     methodOverride = require("method-override"),
-    hbs = require('handlebars'),    
+    hbs = require('handlebars'),
     exphbs = require("express-handlebars"),
     routes = require("./controllers/ps_controller.js"),
     app = express(),
@@ -93,8 +93,8 @@ hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
     return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
 
-db.sequelize.sync({ force: true })
-    .then(fixtures)
+db.sequelize.sync( /*{ force: true }*/ )
+    // .then(fixtures)
     .then(() => {
         http.listen(port, () => { console.log(`==> 🌎 Listening on PORT ${port}. Visit http://localhost:${port}`.green) });
     });
