@@ -93,6 +93,14 @@ router.get("/labresults", isAuthenticated, (req, res) => {
         });
 });
 
+router.get("/patientsettings", isAuthenticated, (req, res) => {
+  res.render("patientset");
+});
+
+router.get("/chat", isAuthenticated, (req, res) => {
+  res.render("patientchat");
+});
+
 
 //  ---------------- STAFF ROUTES ----------------------
 router.get("/physician/list", isAuthenticated, (req, res) => {
