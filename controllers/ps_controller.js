@@ -110,6 +110,14 @@ router.get("/labresults", isAuthenticated, (req, res) => {
     });
 });
 
+router.get("/patientsettings", isAuthenticated, (req, res) => {
+  res.render("patientset");
+});
+
+router.get("/chat", isAuthenticated, (req, res) => {
+  res.render("patientchat");
+});
+
 
 //  ---------------- STAFF ROUTES ----------------------
 
@@ -212,7 +220,6 @@ router.get("/patientdashboard", isAuthenticated, (req, res) => { res.render("pat
 router.get("/mycare", isAuthenticated, (req, res) => { res.render("myCare") });
 router.get("/labresults", isAuthenticated, (req, res) => {res.render("labResults") });
 router.get("/chatview", isAuthenticated, (req, res) => { res.render("chatview") });
-router.get("/settings", isAuthenticated, (req, res) => {res.render("settings") });
 router.get("/chat", isAuthenticated, (req, res) => { res.render("chatbox") });
 router.get("/record", isAuthenticated, (req, res) => {res.render("healthRecord")});
 
