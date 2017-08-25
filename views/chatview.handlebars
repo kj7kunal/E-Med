@@ -13,7 +13,7 @@
                     <div class="content">
                         <a class="author">{{this.username}}</a>
                         <div class="metadata">
-                            <span class="date">{{this.createdAt}}</span>
+                            <span class="date">{{moment this.createdAt format="MMM DD hh:mm a"}}</span>
                         </div>
                         <div class="text">
                             {{this.message}}

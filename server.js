@@ -3,6 +3,7 @@ const express = require('express'),
     bodyParser = require("body-parser"),
     methodOverride = require("method-override"),
     hbs = require('handlebars'),
+    moment = require('helper-moment'),
     exphbs = require("express-handlebars"),
     routes = require("./controllers/ps_controller.js"),
     app = express(),
@@ -92,6 +93,8 @@ io.sockets.on('connection', socket => {
 hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
     return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
+
+hbs.registerHelper('moment', require('helper-moment'));
 
 db.sequelize.sync({ force: true })
     .then(fixtures)
