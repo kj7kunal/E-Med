@@ -110,3 +110,11 @@ div.ui.basic.button {
 .main.ui.grid.container {
     margin: 1em 0;
 }
+
+.ui.modal {
+    padding: 2em 3em 4em 3em;
+}
+
+.ui.modal label {
+    padding-top: 1em;
+}

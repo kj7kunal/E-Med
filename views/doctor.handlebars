@@ -6,12 +6,9 @@
         <div class="ui raised grey segment">
             <div class="row">
                 <h1 class="ui header">
-                    <img src="../assets/images/person.png" class="ui circular image">
-                    
-                    {{!-- {{#each doctor}} --}}
-                        Welcome Dr. {{this.first_name}} {{this.last_name}}
-                    {{!-- {{/each}} --}}
-                     
+                    <img src="../assets/images/person.png" class="ui circular image"> {{!-- {{#each doctor}} --}} Welcome
+                    Dr. {{doctor.first_name}} {{doctor.last_name}} {{!-- {{/each}} --}}
+
                     <div class="ui basic blue button">Log Out</div>
                 </h1>
             </div>
@@ -27,30 +24,22 @@
                 </tr>
             </thead>
             <tbody>
-                {{!-- {{#each doctor}} --}}
-                    {{#each doctor.alerts}}
-                        {{#ifEquals this.is_alert true}}
-                            {{#ifEquals this.type "Chat"}}
-                                <tr>
-                                    <td><i class="comments outline icon"></i>{{this.message}}</td>
-                                    <td>Today</td>
-                                </tr>
-                            {{/ifEquals}}
-                            {{#ifEquals this.type "Phone"}}
-                                 <tr>
-                                    <td><i class="phone icon"></i>{{this.message}}</td>
-                                    <td>Today</td>
-                                </tr>
-                            {{/ifEquals}}
-                            {{#ifEquals this.type "Message"}}
-                                <tr>
-                                    <td><i class="mail outline icon"></i>{{this.message}}</td>
-                                    <td>Today</td>
-                                </tr>
-                            {{/ifEquals}}
-                        {{/ifEquals}}
-                    {{/each}}
-                {{!-- {{/each}} --}}
+                {{!-- {{#each doctor}} --}} {{#each doctor.alerts}} {{#ifEquals this.is_alert true}} {{#ifEquals this.type "Chat"}}
+                <tr>
+                    <td><i class="comments outline icon"></i>{{this.message}}</td>
+                    <td>Today</td>
+                </tr>
+                {{/ifEquals}} {{#ifEquals this.type "Phone"}}
+                <tr>
+                    <td><i class="phone icon"></i>{{this.message}}</td>
+                    <td>Today</td>
+                </tr>
+                {{/ifEquals}} {{#ifEquals this.type "Message"}}
+                <tr>
+                    <td><i class="mail outline icon"></i>{{this.message}}</td>
+                    <td>Today</td>
+                </tr>
+                {{/ifEquals}} {{/ifEquals}} {{/each}} {{!-- {{/each}} --}}
             </tbody>
         </table>
     </div>
@@ -61,25 +50,22 @@
                 <tr>
                     <th><i class="checkmark box icon"></i>Tasks</th>
                     <th>Status</th>
+                    <th class="three wide column"><i class="add circle icon"></i></th>
                 </tr>
             </thead>
             <tbody>
-                {{!-- {{#each doctor}} --}}
-                    {{#each doctor.alerts}}
-                        {{#ifEquals this.is_alert false}}
-                            <tr>
-                                <td>{{this.message}}</td>
-                                <td>
-                                    <div class="ui checkbox">
-                                        <input data-id="{{this.id}}" onClick="checkClick" type="checkbox">
-                                        <label></label>
-                                    </div>
-                                </td>
-                            </tr>
-                        {{/ifEquals}}
-
-                    {{/each}}
-                {{!-- {{/each}} --}}
+                {{#each doctor.alerts}} {{#ifEquals this.is_alert false}}
+                <tr>
+                    <td>{{this.message}}</td>
+                    <td>
+                        <div class="ui checkbox">
+                            <input data-id="{{this.id}}" onClick="checkClick" type="checkbox">
+                            <label></label>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                {{/ifEquals}} {{/each}} {{!-- {{/each}} --}}
             </tbody>
         </table>
     </div>
@@ -139,5 +125,37 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <h1>Add Task or Alert</h1>
+        <form class="ui form" action="/tasks/add" method="post">
+            <div class="fields">
+                <div class="field sixteen wide">
+                    <label>What task would you like to add?</label>
+                    <input type="text" name="message" placeholder="Enter Task here" required>
+                </div>
+            </div>
+            <div class="fields">
+                <div class="field eight wide">
+                    <label>Select Priority</label>
+                    <select class="ui fluid dropdown" name="isAlert" id="type">
+                        <option value="true">Alert</option>
+                        <option value="false">Task</option>
+                    </select>
+                </div>
+                <div class="field eight wide">
+                    <label>Select Type of Follow up</label>
+                    <select class="ui fluid dropdown" name="type" id="type">
+                        <option value="Phone">Phone</option>
+                        <option value="Chat">Chat</option>
+                        <option value="Message">Message</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="ui positive left labeled icon button"><i class="checkmark icon"></i> Add</button>
+            <span class="ui negative left labeled icon button" id="cancel-modal"><i class="cancel icon"></i> Cancel</span>
+        </form>
     </div>
 </div>
