@@ -199,7 +199,7 @@ router.post("/api/signup", (req, res) => {
 
 router.get("/physician/:id", isAuthenticated, (req, res) => {
     // res.render("physician");
-    db.doctors.findAll({
+    db.doctors.findOne({
         where: {
             id: req.params.id
         },
@@ -217,7 +217,7 @@ router.get("/physician/:id", isAuthenticated, (req, res) => {
 
 router.get("/physician", isAuthenticated, (req, res) => {
     if (req.user) {
-        db.doctors.findAll({
+        db.doctors.findOne({
             where: {
                 id: req.user.id
             },
@@ -229,7 +229,7 @@ router.get("/physician", isAuthenticated, (req, res) => {
                 doctor: result
             }
             console.log(hbsObject);
-            console.log(req.user.doctorId);
+            console.log(req.user);
             return res.render("doctor", hbsObject);
         })
     } else {
@@ -309,7 +309,7 @@ router.get("/patientdashboard", isAuthenticated, (req, res) => {
 });
 router.get("/settings", isAuthenticated, (req, res) => res.render("settings"));
 
-router.get("/specialists", (req, res) => {
+router.get("/specialists", isAuthenticated, (req, res) => {
     db.specialists.findAll().then((result) => {
         const hbsObject = {
             specialists: result
@@ -318,7 +318,16 @@ router.get("/specialists", (req, res) => {
     })
 });
 
-router.post("/specialists/add", (req, res) => {
+router.get("/specialists/add", isAuthenticated, (req, res) => {
+    db.specialists.findAll().then((result) => {
+        const hbsObject = {
+            specialists: result
+        };
+        res.render("specialists_new", hbsObject);
+    })
+});
+
+router.post("/specialists/add", isAuthenticated, (req, res) => {
     db.specialists.create({
             "first_name": req.body.firstName,
             "last_name": req.body.lastName,
@@ -334,8 +343,7 @@ router.post("/specialists/add", (req, res) => {
         })
 })
 
-router.delete("/specialists/delete/:id", (req, res) => {
-    // We just have to specify which todo we want to destroy with "where"
+router.delete("/specialists/delete/:id", isAuthenticated, (req, res) => {
     var theid = req.param.id;
     console.log(theid);
 
@@ -352,7 +360,39 @@ router.delete("/specialists/delete/:id", (req, res) => {
 
 });
 
-router.get("/assoc", (req, res) => {
+// ROUTES FOR TASK ADD AND DELETE //
+router.delete("/tasks/delete/:id", isAuthenticated, (req, res) => {
+    var theid = req.param.id;
+    console.log(theid);
+
+    db.alerts.destroy({
+        where: {
+            id: req.params.id
+        }
+    }).then(function (result) {
+        res.json({
+            success: true,
+            url: '/physician'
+        })
+    });
+
+});
+
+router.post("/tasks/add", isAuthenticated, (req, res) => {
+    console.log("testing2");
+    db.alerts.create({
+            "type": req.body.type,
+            "message": req.body.message,
+            "is_alert": req.body.isAlert,
+            "doctorId": req.user.id
+        })
+        .then(() => {
+            console.log("testing3");
+            return res.redirect("/physician");
+        })
+})
+
+router.get("/assoc", isAuthenticated, (req, res) => {
     db.doctors.findAll({
         where: {
             id: 1
