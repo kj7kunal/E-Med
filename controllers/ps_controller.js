@@ -147,7 +147,8 @@ router.post("/patients/add", isAuthenticated, (req, res) => {
     db.patient.create({
             "first_name": req.body.firstName,
             "last_name": req.body.lastName,
-            "dob": "June 1 2009",
+            "dob": req.body.dob,
+            "gender": req.body.gender,
             "street_address": req.body.streetAddress,
             "city": req.body.city,
             "gender": "F",

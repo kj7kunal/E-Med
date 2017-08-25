@@ -1,14 +1,14 @@
 {
     "development": {
         "username": "root",
-        "password": "",
+        "password": "mysql-teststuff",
         "database": "patientstack_db",
         "host": "localhost",
         "dialect": "mysql"
     },
     "test": {
         "username": "root",
-        "password": "",
+        "password": "mysql-teststuff",
         "database": "patientstack_db",
         "host": "127.0.0.1",
         "dialect": "mysql"
