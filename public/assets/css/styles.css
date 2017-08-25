@@ -1,15 +1,37 @@
+/*ALL PAGES*/
+
+body {
+    font-family: 'Muli', sans-serif;
+    /* background-color: #ffe6e6; */
+}
+
+
 /*SIDEBAR*/
-div#sidebar {
-    background-color: white;
+
+div#sidebar,
+div#navbar {
+    /* background-color: white; */
+    background-color: #ff6666;
     border-right-style: solid !important;
     border-right-color: #ff6666 !important;
+    margin: 0;
+    padding: 0;
 }
 
-div#sidebar i, p {
-    color: #ff6666;
+div#sidebar,
+div#navbar i,
+p {
+    /* color: #ff6666; */
+    color: white;
 }
 
-/*FOOTER*/
+div.stretched.row {
+    margin-left: 5em;
+}
+
+img.ui.image {
+    align-items: center;
+}
 
 p.footer {
     color: #FBF7F7;
@@ -23,16 +45,18 @@ div.ui.vertical.footer.segment {
     background-color: #ff6666 !important;
 }
 
-h4.ui.header {
-    align-content: center;
-}
 
 /*MY CARE AND VIEW PATIENT*/
-/* div.stretched.row {
-    margin-left: 5em;
-} */
 
-img.ui.image  {
+div.ui.three.column.divided.stackable.grid {
+    margin: 0;
+}
+
+div.stretched.row {
+    margin: 0
+}
+
+img.ui.image {
     align-items: center;
 }
 
@@ -40,38 +64,37 @@ h2.ui.center.aligned.icon.header {
     color: #ff6666;
 }
 
-div.ui.blue.segment {
-    border-style: solid !important;
-    border-color: #8fdbe5 !important;
+div.ui.red.segment {
+    /* border-style: solid !important;
+    /* border-color: #8fdbe5 !important; */
+    /*border-color: #ff3e3e; */
 }
-
-div#mcHeader {
-     background-color: #8fdbe5;
-}
-
 
 
 /*LOGOUT BUTTON*/
+
 div.ui.basic.button {
     float: right !important;
     color: #ff6666 !important;
 }
 
-/* Mobile */
+h4.ui.header {
+    align-content: center;
+}
 
- @media only screen and (max-width: 767px) {
 
+/* MOBILE */
+
+@media only screen and (max-width: 767px) {
     div.ui.visible.left.vertical.inverted.labeled.icon.sidebar.menu.visible {
         display: none;
     }
-
     div.ui.bottom.inverted.six.item.labeled.icon.sidebar.menu.visible {
-         position: fixed;
-         bottom: 0;
-         width: 100%;
-         visibility: visible;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        visibility: visible;
     }
-
     a.item {
         float: left;
         display: block;
@@ -79,21 +102,17 @@ div.ui.basic.button {
         font-size: 10px;
         bottom: 0;
     }
-
     img.ui.image {
         height: 50px;
         width: 50px;
     }
-
 }
 
-/* Computer / Desktop / iPad Landscape */
+
+/* COMPUTER / DESKTOP / IPAD LANDSCAPE */
 
 @media only screen and (min-width: 768px) {
-
     .ui.bottom.inverted.six.item.labeled.icon.sidebar.menu.visible {
         display: none;
     }
-    
 }
-

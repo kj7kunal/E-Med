@@ -1,4 +1,3 @@
-
 {{> nav }}
 <!--HEADER-->
 <div class="ui main container">
@@ -41,7 +40,7 @@
             {{> labresults}}
         </div>
         <div class="row">
-            <table class="ui red celled table">
+            <table class="ui teal celled table">
                 <thead>
                     <tr>
                         <th>Lab Set</th>
@@ -95,10 +94,11 @@
                     </tr>
                 </tbody>
             </table>
-        </div><!--row-->
+        </div>
+        <!--row-->
         <div class="row">
             <div class="six wide column">
-                <table class="ui green celled table">
+                <table class="ui teal celled table">
                     <thead>
                         <tr>
                             <th>Allergy</th>
@@ -114,9 +114,10 @@
                         </tr>
                     </tbody>
                 </table>
-            </div><!--column-->
+            </div>
+            <!--column-->
             <div class="ten wide column">
-                <table class="ui blue table">
+                <table class="ui teal table">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -132,22 +133,52 @@
                             <td>Hamburger salami bresaola, strip steak leberkas bacon rump corned beef alcatra.</td>
                             <td>{{patient.provider_name}}</td>
                         </tr>
-                        {{!-- <tr>
-                            <td>December 24, 2015</td>
-                            <td>{{patient.procedures}}</td>
-                            <td>jamieharingonton@yahoo.com</td>
-                            <td>{{patient.provider_name}}</td>
-                        </tr>
-                        <tr>
-                            <td>May 11, 2015</td>
-                            <td>{{patient.procedures}}</td>
-                            <td>jilsewris22@yahoo.com</td>
-                            <td>Yes</td>
-                        </tr> --}}
-                    </tbody>
                 </table>
-            </div><!--column-->
-        </div><!--row-->
-    </div><!--ui stackable grid-->
+            </div>
+            <!--column-->
+        </div>
+        <!--row-->
+        <div class="ui sixteen wide column">
+            <table class="ui teal table" id="table">
+                <thead>
+                    <tr>
+                        <th class="three wide">Prescriptions</th>
+                        <th class="three wide"></th>
+                        <th class="five wide"></th>
+                        <th class="five wide"></th>
+                    </tr>
+                    <tr>
+                        <th class="three wide">Name</th>
+                        <th class="three wide">Prescribed Date</th>
+                        <th class="five wide">Dose</th>
+                        <th class="five wide">Refill Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lipitor {{prescription.med_name}}</td>
+                        <td>August 21, 2017 {{prescription.prescribed_date}}</td>
+                        <td>10mg/day {{prescription.dose}}</td>
+                        <td>September 21, 2017 {{prescription.renew_date}}</td>
+                    </tr>
+                    {{!--
+                    <tr>
+                        <td>Drug 1 {{prescription.med_name}}</td>
+                        <td>August 21, 2017 {{prescription.prescribed_date}}</td>
+                        <td>10mg/day {{prescription.dose}}</td>
+                        <td>September 21, 2017 {{prescription.renew_date}}</td>
+                    </tr>
+                    <tr>
+                        <td>Drug 1 {{prescription.med_name}}</td>
+                        <td>August 21, 2017 {{prescription.prescribed_date}}</td>
+                        <td>10mg/day {{prescription.dose}}</td>
+                        <td>September 21, 2017 {{prescription.renew_date}}</td>
+                    </tr> --}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--ui stackable grid-->
 
-</div><!--ui main container-->
+</div>
+<!--ui main container-->

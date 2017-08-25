@@ -1,11 +1,10 @@
-{{!-- nav bar --}}
-{{> nav }}
+{{!-- nav bar --}} {{> nav }}
 
 <div class="main ui stackable grid container">
-    
-        <div class="ui container sixteen wide column">
-            <div class="ui raised blue segment">
-                <div class="row">
+
+    <div class="ui container sixteen wide column">
+        <div class="ui raised segment">
+            <div class="row">
                 <h1 class="ui header">
                     <img src="../assets/images/person.png" class="ui circular image"> Welcome Dr. James Dean
                     <a href="/">
@@ -17,28 +16,32 @@
     </div>
 
     <div class="eight wide column">
-        <table class="ui inverted red one column table" id="table">
-            <thead>
+        <table class="ui two column table" id="table">
+            <thead class="ui inverted">
                 <tr>
-                    <th><i class="alarm icon"></i>Alerts</th>
+                    <th class="twelve wide"><i class="alarm icon"></i>Alerts</th>
+                    <th class="four wide">Status</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><i class="mail outline icon"></i>New Message from Jamie</td>
+                    <td>Incomplete</td>
                 </tr>
                 <tr>
-                    <td><i class="mail outline icon"></i>New Message from Michael</td>
+                    <td><i class="phone icon"></i>Follow up call with Michael</td>
+                    <td>Incomplete</td>
                 </tr>
                 <tr>
                     <td><i class="mail outline icon"></i>New Message from Diana</td>
+                    <td>Incomplete</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <div class="eight wide column">
-        <table class="ui blue one column table" id="table">
+        <table class="ui teal one column table" id="table">
             <thead>
                 <tr>
                     <th><i class="checkmark box icon"></i>Tasks</th>
@@ -47,26 +50,26 @@
             <tbody>
                 <tr>
                     <td>
-                    <div class="ui checked checkbox">
-                        <input type="checkbox" checked="">
-                        <label>Follow up call with Josh</label>
-                    </div>
+                        <div class="ui checkbox">
+                            <input type="checkbox">
+                            <label>Follow up call with Josh</label>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    <div class="ui checked checkbox">
-                        <input type="checkbox" checked="">
-                        <label>Follow up call with Beth</label>
-                    </div>
+                        <div class="ui checked checkbox">
+                            <input type="checkbox">
+                            <label>Follow up call with Beth</label>
+                        </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    <div class="ui checked checkbox">
-                        <input type="checkbox" checked="">
-                        <label>Send in referral for Dave</label>
-                    </div>
+                        <div class="ui checked checkbox">
+                            <input type="checkbox">
+                            <label>Send in referral for Dave</label>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -74,7 +77,7 @@
     </div>
 
     <div class="ui sixteen wide column">
-        <table class="ui blue table" id="table">
+        <table class="ui teal table" id="table">
             <thead>
                 <tr>
                     <th class="three wide"><i class="alarm icon"></i>Upcoming Appointments</th>
