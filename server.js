@@ -96,8 +96,8 @@ hbs.registerHelper('ifEquals', function(arg1, arg2, options) {
 
 hbs.registerHelper('moment', require('helper-moment'));
 
-db.sequelize.sync({ force: true })
-    .then(fixtures)
+db.sequelize.sync( /*{ force: true }*/ )
+    // .then(fixtures)
     .then(() => {
         http.listen(port, () => { console.log(`==> 🌎 Listening on PORT ${port}. Visit http://localhost:${port}`.green) });
     });
