@@ -121,20 +121,20 @@ var colorNames = Object.keys(window.chartColors);
 // var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var color = Chart.helpers.color;
 var barChartData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
     datasets: [{
-        label: 'Apple Watch',
+        label: 'Steps (in thousands)',
         backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
         borderColor: window.chartColors.green,
         borderWidth: 1,
         data: [
-            (Math.floor(Math.random() * 60) + 1),
-            (Math.floor(Math.random() * 60) + 1),
-            (Math.floor(Math.random() * 60) + 1),
-            (Math.floor(Math.random() * 60) + 1),
-            (Math.floor(Math.random() * 60) + 1),
-            (Math.floor(Math.random() * 60) + 1),
-            (Math.floor(Math.random() * 60) + 1)
+            (Math.floor(Math.random() * 200) + 120),
+            (Math.floor(Math.random() * 200) + 120),
+            (Math.floor(Math.random() * 200) + 120),
+            (Math.floor(Math.random() * 200) + 120),
+            (Math.floor(Math.random() * 200) + 120),
+            (Math.floor(Math.random() * 200) + 120),
+            (Math.floor(Math.random() * 200) + 120)
         
         ]
     }]
@@ -153,7 +153,7 @@ window.onload = function() {
             },
             title: {
                 display: true,
-                text: 'Fitness Points'
+                text: 'Your Fitness'
             }
         }
     });

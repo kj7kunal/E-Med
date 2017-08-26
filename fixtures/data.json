@@ -3,7 +3,7 @@
         "data": {
             "first_name": "Bob",
             "last_name": "Smith",
-            "gender": "Male",
+            "gender": "M",
             "dob": "1967-01-12",
             "street_address": "20 Maple Avenue",
             "city": "San Pedro",
@@ -29,7 +29,7 @@
         "data": {
             "first_name": "Eugene",
             "last_name": "Richards",
-            "gender": "Male",
+            "gender": "M",
             "dob": "1987-10-11",
             "street_address": "601 Sherwood Ave. ",
             "city": "San Bernardino",
@@ -55,7 +55,7 @@
         "data": {
             "first_name": "Alberta",
             "last_name": "Wise",
-            "gender": "Female",
+            "gender": "F",
             "dob": "1984-13-08",
             "street_address": "3872 Rubaiyat Road",
             "city": "Grand Rapids",
@@ -81,7 +81,7 @@
         "data": {
             "first_name": "Raymond",
             "last_name": "Madrigal",
-            "gender": "Male",
+            "gender": "M",
             "dob": "1974-14-01",
             "street_address": "241 Indian Spring St.d",
             "city": "Pittsburg",
@@ -107,7 +107,7 @@
         "data": {
             "first_name": "Deborah",
             "last_name": "Sanderson",
-            "gender": "Female",
+            "gender": "F",
             "dob": "1961-28-07",
             "street_address": "369 Wentworth St.",
             "city": "Pomona",
