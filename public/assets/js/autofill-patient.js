@@ -1,6 +1,4 @@
-console.log("working autofill file");
-
-$("#autofill").on("click", function(event){
+$("#autofill").on("click", function(event) {
     event.preventDefault();
     $("input[name='firstName']").val("Test");
     $("input[name='lastName']").val("Test");

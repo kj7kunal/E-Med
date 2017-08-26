@@ -1,4 +1,3 @@
-console.log("app.js loaded");
 //---- Dropdown Animation Semantic UI ----//
 $('.dropdown').dropdown({
     transition: 'fade down'
@@ -18,7 +17,7 @@ function deleteSpecialist(event) {
     $.ajax({
         method: "DELETE",
         url: "/specialists/delete/" + id
-    }).done(function (result) {
+    }).done(function(result) {
         console.log(result);
         window.location.href = result.url;
     });
@@ -31,7 +30,7 @@ function deleteTask(event) {
     $.ajax({
         method: "DELETE",
         url: "/tasks/delete/" + id
-    }).done(function (result) {
+    }).done(function(result) {
         console.log(result);
         window.location.href = result.url;
     });
@@ -41,9 +40,9 @@ $(document).on("click", ".minus.icon", deleteSpecialist);
 // deletes tasks on physician page
 $(document).on("click", "input[type='checkbox']", deleteTask);
 // shows module on physician page
-$(document).on("click", "i.add.circle.icon", function(){
+$(document).on("click", "i.add.circle.icon", function() {
     $('.ui.modal').modal('show', {
-        onApprove : function() {
+        onApprove: function() {
             return false;
         }
     });
