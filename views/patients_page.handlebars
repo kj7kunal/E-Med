@@ -45,9 +45,9 @@
                 <thead>
                     <tr>
                         <th>Lab Set</th>
-                        <th>Specific Lab</th>
-                        <th>Result</th>
-                        <th>Normal Range</th>
+                        <th id="hide">Specific Lab</th>
+                        <th id="hide">Result</th>
+                        <th id="hide">Normal Range</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,8 +102,8 @@
                     <thead>
                         <tr>
                             <th>Allergy</th>
-                            <th>Severity</th>
-                            <th>Notes</th>
+                            <th id="hide">Severity</th>
+                            <th id="hide">Notes</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -119,10 +119,10 @@
                 <table class="ui teal table">
                     <thead>
                         <tr>
-                            <th>Date</th>
+                            <th id="hide">Date</th>
                             <th>Procedure</th>
-                            <th>Reason for Procedure</th>
-                            <th>Provider</th>
+                            <th id="hide">Reason for Procedure</th>
+                            <th id="hide">Provider</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -132,18 +132,6 @@
                             <td>Hamburger salami bresaola, strip steak leberkas bacon rump corned beef alcatra.</td>
                             <td>{{patient.provider_name}}</td>
                         </tr>
-                        {{!-- <tr>
-                            <td>December 24, 2015</td>
-                            <td>{{patient.procedures}}</td>
-                            <td>jamieharingonton@yahoo.com</td>
-                            <td>{{patient.provider_name}}</td>
-                        </tr>
-                        <tr>
-                            <td>May 11, 2015</td>
-                            <td>{{patient.procedures}}</td>
-                            <td>jilsewris22@yahoo.com</td>
-                            <td>Yes</td>
-                        </tr> --}}
                     </tbody>
                 </table>
             </div><!--column-->
