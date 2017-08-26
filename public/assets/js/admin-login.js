@@ -6,13 +6,11 @@ $(document).ready(function() {
 
     // When the form is submitted, we validate there's an email and password entered
     $("#adminLoginBtn").on("click", function(event) {
-        console.log("yup!");
         event.preventDefault();
         var userData = {
             email: emailInput.val().trim(),
             password: passwordInput.val().trim()
         };
-        console.log("correct? User: " + userData.email + "PW" + userData.password);
 
         if (!userData.email || !userData.password) {
             $('#emptyLoginAdmin').modal('show');
@@ -35,7 +33,7 @@ $(document).ready(function() {
             // If there's an error, log the error
         }).catch(function(err) {
             $('#incorrectLoginAdmin').modal('show');
-            console.log(err);
+            // console.log(err);
         });
     }
 

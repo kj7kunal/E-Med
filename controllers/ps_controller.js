@@ -38,9 +38,9 @@ router.get("/patients", isAuthenticated, (req, res) => {
             }
         }).then((result) => {
             const hbsObject = {
-                patient: result
-            }
-            // console.log(hbsObject);
+                    patient: result
+                }
+                // console.log(hbsObject);
             return res.render("patientDash", hbsObject);
         })
     } else {
@@ -94,11 +94,11 @@ router.get("/labresults", isAuthenticated, (req, res) => {
 });
 
 router.get("/patientsettings", isAuthenticated, (req, res) => {
-  res.render("patientset");
+    res.render("patientset");
 });
 
 router.get("/chat", isAuthenticated, (req, res) => {
-  res.render("patientchat");
+    res.render("patientchat");
 });
 
 
@@ -138,7 +138,6 @@ router.get("/patients/:id/lab_results", isAuthenticated, (req, res) => {
 });
 
 router.get("/patients/add", isAuthenticated, (req, res) => {
-    console.log("testing");
     res.render("patients_new")
 });
 
@@ -165,20 +164,11 @@ router.post("/patients/add", isAuthenticated, (req, res) => {
             "image": req.body.image
         })
         .then(() => {
-            console.log("testing3");
             return res.redirect("/physician/list");
         })
 })
 
 // --------------------- Login / Signup --------------------------
-
-// router.post("/api/login", passport.authenticate("local"), (req, res) => {
-
-//     res.send("/patients");
-
-//     // for when you need to respond with non json values 
-//     res.json({ id: req.user.id }) // specifically for json
-// });
 
 router.post("/api/login", passport.authenticate("user-local"), (req, res) => {
     return res.send("/patients");
@@ -210,7 +200,6 @@ router.get("/physician/:id", isAuthenticated, (req, res) => {
         const hbsObject = {
             doctor: result
         }
-        console.log(hbsObject);
         res.render("doctor", hbsObject);
     })
 });
@@ -228,8 +217,6 @@ router.get("/physician", isAuthenticated, (req, res) => {
             const hbsObject = {
                 doctor: result
             }
-            console.log(hbsObject);
-            console.log(req.user);
             return res.render("doctor", hbsObject);
         })
     } else {
@@ -338,7 +325,7 @@ router.post("/specialists/add", isAuthenticated, (req, res) => {
             "telephone": req.body.telephone,
             "image": req.body.image
         })
-        .then(function () {
+        .then(function() {
             res.redirect("/specialists");
         })
 })
@@ -351,7 +338,7 @@ router.delete("/specialists/delete/:id", isAuthenticated, (req, res) => {
         where: {
             id: req.params.id
         }
-    }).then(function (result) {
+    }).then(function(result) {
         res.json({
             success: true,
             url: '/specialists'
@@ -369,7 +356,7 @@ router.delete("/tasks/delete/:id", isAuthenticated, (req, res) => {
         where: {
             id: req.params.id
         }
-    }).then(function (result) {
+    }).then(function(result) {
         res.json({
             success: true,
             url: '/physician'
@@ -379,7 +366,6 @@ router.delete("/tasks/delete/:id", isAuthenticated, (req, res) => {
 });
 
 router.post("/tasks/add", isAuthenticated, (req, res) => {
-    console.log("testing2");
     db.alerts.create({
             "type": req.body.type,
             "message": req.body.message,
@@ -387,7 +373,6 @@ router.post("/tasks/add", isAuthenticated, (req, res) => {
             "doctorId": req.user.id
         })
         .then(() => {
-            console.log("testing3");
             return res.redirect("/physician");
         })
 })
@@ -400,13 +385,12 @@ router.get("/assoc", isAuthenticated, (req, res) => {
         include: [{
             model: db.alerts
         }]
-    }).then(function (match) {
+    }).then(function(match) {
         res.json(match);
     });
 });
 
 router.get("/patients/:id", isAuthenticated, (req, res) => {
-    console.log("hitting patient id")
     db.patient.findOne({
         where: {
             id: req.params.id

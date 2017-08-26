@@ -32,8 +32,6 @@ $(() => {
     })
 
     socket.on('new message', (username, avatar, data) => {
-        console.log("avater: " + avatar);
-
         mainContain.append('<div class="comment"><a class="avatar"><img src="' + avatar + '"></a><div class="content"><a class="author">' + username + '</a><div class="metadata"><span class="date"></span></div><div class="text">' + data.msg + '</div></div></div>');
         typingmessage.html("");
     });
