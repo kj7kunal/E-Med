@@ -8,9 +8,9 @@
     </div>
 
     <div class="sixteen wide column">
-        <table class="ui striped blue one column table" id="table">
+        <table class="ui striped teal one column table" id="table">
             <thead>
-                <tr class="sixteen wide column">
+                <tr id="hide" class="sixteen wide column">
                     <th class="two wide column">Image</th>
                     <th class="four wide column">Name</th>
                     <th class="two wide column">Gender</th>
@@ -32,8 +32,8 @@
                 {{/each}}
             </tbody>
         </table>
-        <div class="ui basic buttons">
-            <div class="ui right button">
+        <div id="add" class="ui basic buttons">
+            <div id="add" class="ui right button">
                 <a href="/patients/add"><i class="add user icon"></i> Add Patient</a>
             </div>
         </div>

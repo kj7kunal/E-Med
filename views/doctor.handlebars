@@ -3,24 +3,24 @@
 <div class="main ui stackable grid container">
 
     <div class="ui container sixteen wide column">
-        <div class="ui raised grey segment">
+        <div class="ui raised teal segment">
             <div class="row">
                 <h1 class="ui header">
-                    <img src="{{doctor.image}}" class="ui circular image"> {{!-- {{#each doctor}} --}} Welcome
-                    Dr. {{doctor.first_name}} {{doctor.last_name}} {{!-- {{/each}} --}}
-
-                    <div class="ui basic blue button"> <a href="/logout">Log Out</a></div>
+                    <img src="{{doctor.image}}" class="ui circular image"> {{!-- {{#each doctor}} --}} Welcome Dr. {{doctor.first_name}} {{doctor.last_name}} {{!-- {{/each}} --}}
+                    <a href="/">
+                        <div id="logout" class="ui basic button">Log Out</div>
+                    </a>
                 </h1>
             </div>
         </div>
     </div>
 
     <div class="eight wide column">
-        <table class="ui red two column table" id="table">
+        <table class="ui teal two column table" id="table">
             <thead class="ui inverted">
                 <tr>
                     <th class="twelve wide"><i class="alarm icon"></i>Alerts</th>
-                    <th class="four wide">Due Date</th>
+                    <th id="hide" class="four wide">Due Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,12 +45,12 @@
     </div>
 
     <div class="eight wide column">
-        <table class="ui blue one column table" id="table">
+        <table class="ui teal one column table" id="table">
             <thead>
                 <tr>
                     <th><i class="checkmark box icon"></i>Tasks</th>
-                    <th>Status</th>
-                    <th class="three wide column"><i class="add circle icon"></i></th>
+                    <th id="hide">Status</th>
+                    <th id="hide" class="three wide column"><i class="add circle icon"></i></th>
                 </tr>
             </thead>
             <tbody>
@@ -79,7 +79,7 @@
                     <th class="five wide"></th>
                     <th class="five wide"></th>
                 </tr>
-                <tr>
+                <tr id="hide">
                     <th class="three wide">Date</th>
                     <th class="three wide">Time</th>
                     <th class="five wide">Patient</th>

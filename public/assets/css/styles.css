@@ -1,17 +1,24 @@
+/*ALL PAGES*/
+
 body {
     font-family: 'Muli', sans-serif;
+
 }
 
 
 /*SIDEBAR*/
 
-div#sidebar {
-    background-color: white;
+div#sidebar,
+div#navbar {
+    /* background-color: white; */
+    background-color: #ff6666;
     border-right-style: solid !important;
     border-right-color: #ff6666 !important;
+    margin: 0;
+    padding: 0;
 }
 
-div#sidebar i,
+/* div#sidebar i,
 p {
     color: #ff6666;
 }
@@ -19,6 +26,13 @@ p {
 div#sidebar p {
     color: #5A5A5A;
     font-size: .7em;
+} */
+
+div#sidebar,
+div#navbar i,
+p {
+    /* color: #ff6666; */
+    color: white;
 }
 
 div.stretched.row {
@@ -41,13 +55,9 @@ div.ui.vertical.footer.segment {
     background-color: #ff6666 !important;
 }
 
-h4.ui.header {
-    align-content: center;
-}
 
 
 /*MY CARE AND VIEW PATIENT*/
-
 
 /* div.stretched.row {
     margin-left: 5em;
@@ -57,18 +67,21 @@ img.ui.image {
     align-items: center;
 }
 
-h2.ui.center.aligned.icon.header {
-    color: #ff6666;
+div.ui.three.column.divided.stackable.grid {
+    margin: 0;
 }
 
-div.ui.blue.segment {
-    border-style: solid !important;
-    border-color: #8fdbe5 !important;
+div.stretched.row {
+    margin: 0
 }
 
-div#mcHeader {
+img.ui.image {
+    align-items: center;
+}
+
+/* div#mcHeader {
     background-color: #8fdbe5;
-}
+} */
 
 #emptyLogin p,
 #adminUser p,
@@ -76,6 +89,16 @@ div#mcHeader {
 #incorrectLoginAdmin p,
 #incorrectLogin p {
     text-align: center;
+}
+
+h2.ui.center.aligned.icon.header {
+    color: #ff6666;
+}
+
+div.ui.red.segment {
+    /* border-style: solid !important;
+    /* border-color: #8fdbe5 !important; */
+    /*border-color: #ff3e3e; */
 }
 
 
@@ -86,14 +109,18 @@ div.ui.basic.button {
     color: #ff6666 !important;
 }
 
+h4.ui.header {
+    align-content: center;
+}
 
-/* Mobile */
 
+/* MOBILE */
 @media only screen and (max-width: 767px) {
     div.ui.visible.left.vertical.inverted.labeled.icon.sidebar.menu.visible {
         display: none;
     }
     div.ui.bottom.inverted.six.item.labeled.icon.sidebar.menu.visible {
+        /* position: relative; */
         position: fixed;
         bottom: 0;
         width: 100%;
@@ -110,25 +137,38 @@ div.ui.basic.button {
         height: 50px;
         width: 50px;
     }
+    div.ui.basic.button {
+        visibility: hidden;
+    }
+    th#hide {
+        /* visibility: hidden; */
+        display: none !important;
+    }
+    tr#hide {
+        display: none !important;
+        /* visibility: hidden; */
+    }
+    h1.ui.header {
+        font-size: 20px;
+    }
+    div#add {
+        position: absolute;
+        top: 0;
+        float: left !important;
+    }
+    table#table{
+        margin-top: 25px;
+    }
+    /* html {
+        margin-bottom: 50px !important;
+        padding-bottom: 20px !important;
+    } */
 }
 
 
-/* Computer / Desktop / iPad Landscape */
-
+/* COMPUTER / DESKTOP / IPAD LANDSCAPE */
 @media only screen and (min-width: 768px) {
     .ui.bottom.inverted.six.item.labeled.icon.sidebar.menu.visible {
         display: none;
     }
-}
-
-.main.ui.grid.container {
-    margin: 1em 0;
-}
-
-.ui.modal {
-    padding: 2em 3em 4em 3em;
-}
-
-.ui.modal label {
-    padding-top: 1em;
 }

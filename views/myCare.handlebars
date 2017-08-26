@@ -1,21 +1,11 @@
 {{> patientnav}}
 
 <div class="ui main container">
-    {{!-- <div class="row">
-        <a href="/">
-            <div id="logout" class="ui basic button">Log Out</div>
-        </a>
-    </div>
-    <div class="row">
-        <h2 class="ui center aligned icon header">
-            <i class="circular users icon"></i> {{patient.first_name}} {{patient.last_name}}
-        </h2>
-    </div> --}}
     <div class="ui container sixteen wide column">
-        <div class="ui raised blue segment" id="mcHeader">
+        <div class="ui raised teal segment" id="mcHeader">
             <div class="row">
                 <h1 class="ui centered header">
-                    <img src="../assets/images/person.png" class="ui circular image"> {{patient.first_name}} {{patient.last_name}}
+                    <img src="{{patient.image}}" class="ui circular image"> {{patient.first_name}} {{patient.last_name}}
                     <a href="/">
                         <div id="logout" class="ui basic button">Log Out</div>
                     </a>
@@ -29,7 +19,7 @@
     <div class="ui three column divided stackable grid">
         <div class="stretched row">
             <div class="column">
-                <div class="ui blue segment">
+                <div class="ui teal segment">
                     <a href="/record"><img class="ui centered image" src="/assets/images/clipboard.png" height="150" width="150"></a>
                     <a href="/record">
                         <h4 class="ui center aligned header">Medical Record</h4>
@@ -37,7 +27,7 @@
                 </div>
             </div>
             <div class="column">
-                <div class="ui blue segment">
+                <div class="ui teal segment">
                     <a href="/labresults"><img class="ui centered image" src="/assets/images/stethoscope.svg" height="150" width="150"></a>
                     <a href="/labresults">
                         <h4 class="ui center aligned header">Lab Results</h4>
@@ -45,7 +35,7 @@
                 </div>
             </div>
             <div class="column">
-                <div class="ui blue segment">
+                <div class="ui teal segment">
                     <a href=""><img class="ui centered image" src="/assets/images/notes.svg" height="150" width="150"></a>
                     <a href="">
                         <h4 class="ui center aligned header">My Documents</h4>
@@ -55,7 +45,7 @@
         </div>
         <div class="stretched row">
             <div class="column">
-                <div class="ui blue segment">
+                <div class="ui teal segment">
                     <a href=""><img class="ui centered image" src="/assets/images/referral.svg" height="150" width="150"></a>
                     <a href="">
                         <h4 class="ui center aligned header">Specialists</h4>
@@ -63,23 +53,22 @@
                 </div>
             </div>
             <div class="column">
-                <div class="ui blue segment">
-                    <a href="/chatview"><img class="ui centered image" src="/assets/images/message.svg" height="150" width="150"></a>
-                    <a href="/chatview">
+                <div class="ui teal segment">
+                    <a href="/chat"><img class="ui centered image" src="/assets/images/message.svg" height="150" width="150"></a>
+                    <a href="/chat">
                         <h4 class="ui center aligned header">Message</h4>
                     </a>
                 </div>
             </div>
             <div class="column">
-                <div class="ui blue segment">
+                <div class="ui teal segment">
                     <a href="tel:+18004644000"><img class="ui centered image" src="/assets/images/message.svg" height="150" width="150"></a>
                     <a href="tel:+18004644000">
                         <h4 class="ui center aligned header">Nurse Advice</h4>
                     </a>
                 </div>
             </div>
-           <div class="ui vertical footer segment">
-         <h6 class="ui aligned center header"><p class="footer">Copyright &copy; 2017 Squad</p></h6>
         </div>
-    </div><!--ui three column divided grid-->
-</div><!--ui main container-->
+        <!--ui three column divided grid-->
+    </div>
+    <!--ui main container-->

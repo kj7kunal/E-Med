@@ -1,78 +1,55 @@
-{{!-- <!--==============================LOG-IN FORM============================-->
-        <div id="log-sign-in">
-            <div class="pure-u-3-4">
-                <div class="pure-form" id="login-2">
-                    <input type="email" placeholder="Email Address" id="user-name">
-                    <input type="password" placeholder="Password" id="current-password">
-                    <button class="pure-button pure-button-active" id="btn-login">LOGIN</button>
-                </div>
+<style type="text/css">
+    body {
+        background-color: white;
+    }
+
+    body>.grid {
+        height: 50%;
+    }
+
+    .column {
+        max-width: 450px;
+    }
+
+    .ui.huge.header {
+        text-align: center;
+    }
+</style>
+
+<div class="ui basic segment">
+    <img class="ui medium centered image" src="assets/images/patient-stack.svg">
+</div>
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <h2 class="ui red image header">
+            <div class="content">
+                Log-in to your account
             </div>
-            <!--===================SIGN-UP FORM=======================================-->
-            <div class="pure-u-3-4">
-                <div class="pure-form" id="sign-up-2">
-                    <input type="email" placeholder="Email" id="user-email">
-                    <input type="password" placeholder="Password" id="user-password">
-                    <button class="pure-button pure-button-active" id="btn-add">SIGN UP</button>
-                </div>
-            </div>
-            <!-- end #log-sign-in -->
-        </div> --}}
-    <style type="text/css">
-        body {
-            background-color: white;
-        }
-
-        body>.grid {
-            height: 50%;
-        }
-
-        .column {
-            max-width: 450px;
-        }
-
-        .ui.huge.header {
-            text-align: center;
-        }
-    </style>
-
-    <div class="ui basic segment">
-        <img class="ui medium centered image" src="assets/images/logo.png">
-    </div>
-        <div class="ui middle aligned center aligned grid">
-            <div class="column">
-                <h2 class="ui red image header">
-                    <div class="content">
-                        Log-in to your account
+        </h2>
+        <form class="login ui form">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input id="email-input" type="email" name="email" placeholder="Username">
                     </div>
-                </h2>
-                <form class="login ui form">
-                    <div class="ui stacked segment">
-                        <div class="field">
-                            <div class="ui left icon input">
-                                <i class="user icon"></i>
-                                <input id="email-input" type="email" name="email" placeholder="Username">
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="ui left icon input">
-                                <i class="lock icon"></i>
-                                <input id="password-input" type="password" name="password" placeholder="Password">
-                            </div>
-                        </div>
-                        <div id="loginBtn"class="ui fluid large red submit button">Login</div>
-                    </div>
-
-                    <div class="ui error message"></div>
-
-                </form>
-
-                <div class="ui message">
-                    New user? <a href="#">Create Your Account</a>
                 </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input id="password-input" type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <div id="loginBtn" class="ui fluid large red submit button">Login</div>
             </div>
+
+            <div class="ui error message"></div>
+
+        </form>
+
+        <div class="ui message">
+            New user? <a href="#">Create Your Account</a>
         </div>
-    <div class="ui vertical footer segment">
-         <h6 class="ui aligned center header"><p class="footer">Copyright &copy; 2017 Squad</p></h6>
     </div>
 
 <div class="ui basic modal" id="incorrectLogin">
@@ -125,4 +102,9 @@
       Yes
     </div>
   </div>
+</div>
+<div class="ui vertical footer segment">
+    <h6 class="ui aligned center header">
+        <p class="footer">Copyright &copy; 2017 Squad</p>
+    </h6>
 </div>

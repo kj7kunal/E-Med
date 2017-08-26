@@ -1,8 +1,8 @@
 {{> patientnav}}
 
 <div class="main ui stackable grid container" id="main-container">
-    <div class="ui container sixteen wide column">        
-        <div class="ui raised blue segment">
+    <div class="ui container sixteen wide column">
+        <div class="ui raised teal segment">
             <div class="row">
                 <h1 class="ui header">
                     <img src="{{patient.image}}" class="ui circular image"> Welcome {{patient.first_name}} {{patient.last_name}}
@@ -14,11 +14,11 @@
         </div>
     </div>
 
-<div class="row">
+    <div class="row">
         <div class="five wide column">
             <div class="ui medium header">My Doctors</div>
             <div class="ui tiny aligned center cards">
-                <div class="red card">
+                <div class="teal card">
                     <div class="content">
                         <img class="right floated mini ui image" src="../assets/images/person.png">
                         <div class="header">
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="red card">
+                <div class="teal card">
                     <div class="content">
                         <img class="right floated mini ui image" src="../assets/images/person.png">
                         <div class="header">
@@ -59,18 +59,18 @@
                 </ul>
             </div>
         </div>
-    <div class="six wide column">
-        <table class="ui blue table" id="table">
-            <thead>
-                <tr>
-                    <th><i class="alarm icon"></i>Reminders</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Flu Vaccine</td>
-                    <td class="positive"><i class="icon checkmark"></td>
+        <div class="six wide column">
+            <table class="ui teal table" id="table">
+                <thead>
+                    <tr>
+                        <th><i class="alarm icon"></i>Reminders</th>
+                        <th id="hide">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Flu Vaccine</td>
+                        <td class="positive"><i class="icon checkmark"></td>
                 </tr>
                 <tr>
                     <td>Prescription Renewal for: Hydrochlorothiazide</td>
@@ -87,81 +87,82 @@
 </div>
 
   <div class="ui sixteen wide column">  
-        <table class="ui blue table" id="table">
+        <table class="ui teal table" id="table">
             <thead>
                 <tr>
                     <th class="three wide"><i class="alarm icon"></i>Upcoming Appointments</th>
-                    <th class="three wide"></th>
-                    <th class="five wide"></th>
-                    <th class="five wide"></th>
-                </tr>
-                <tr>
-                    <th class="three wide">Date</th>
-                    <th class="three wide">Appointment Type</th>
-                    <th class="five wide">Doctor</th>
-                    <th class="five wide">Notes From My Doctor</th>
-                </tr>
+                            <th class="three wide"></th>
+                            <th class="five wide"></th>
+                            <th class="five wide"></th>
+                    </tr>
+                    <tr id="hide">
+                        <th class="three wide">Date</th>
+                        <th class="three wide">Appointment Type</th>
+                        <th class="five wide">Doctor</th>
+                        <th class="five wide">Notes From My Doctor</th>
+                    </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>May 24, 2017</td>
-                    <td>Consultation</td>
-                    <td>Dr. Jones</td>
-                    <td>First visit. Please arrive 15 minutes early for paperwork.</td>
-                </tr>
-                <tr>
-                    <td>July 5, 2017</td>
-                    <td>Annual Physical</td>
-                    <td>Dr. Phil</td>
-                    <td>None</td>
-                </tr>
-                <tr>
-                    <td>August 5, 2017</td>
-                    <td>Physical Therapy</td>
-                    <td>Dr. Phil</td>
-                    <td>Referral for sports injury</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                    <tbody>
+                        <tr>
+                            <td>May 24, 2017</td>
+                            <td>Consultation</td>
+                            <td>Dr. Jones</td>
+                            <td>First visit. Please arrive 15 minutes early for paperwork.</td>
+                        </tr>
+                        <tr>
+                            <td>July 5, 2017</td>
+                            <td>Annual Physical</td>
+                            <td>Dr. Phil</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td>August 5, 2017</td>
+                            <td>Physical Therapy</td>
+                            <td>Dr. Phil</td>
+                            <td>Referral for sports injury</td>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
 
-    <div class="ui sixteen wide column">
-        <table class="ui red table" id="table">
-            <thead>
-                <tr>
-                    <th class="three wide">Prescriptions</th>
-                    <th class="three wide"></th>
-                    <th class="five wide"></th>
-                    <th class="five wide"></th>
-                </tr>
-                <tr>
-                    <th class="three wide">Name</th>
-                    <th class="three wide">Prescribed Date</th>
-                    <th class="five wide">Dose</th>
-                    <th class="five wide">Refill Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Drug 1 {{prescription.med_name}}</td>
-                    <td>August 21, 2017 {{prescription.prescribed_date}}</td>
-                    <td>10mg/day {{prescription.dose}}</td>
-                    <td>September 21, 2017 {{prescription.renew_date}}</td>
-                </tr>
-                {{!-- <tr>
-                    <td>Drug 1 {{prescription.med_name}}</td>
-                    <td>August 21, 2017 {{prescription.prescribed_date}}</td>
-                    <td>10mg/day {{prescription.dose}}</td>
-                    <td>September 21, 2017 {{prescription.renew_date}}</td>
-                </tr>
-                <tr>
-                    <td>Drug 1 {{prescription.med_name}}</td>
-                    <td>August 21, 2017 {{prescription.prescribed_date}}</td>
-                    <td>10mg/day {{prescription.dose}}</td>
-                    <td>September 21, 2017 {{prescription.renew_date}}</td>
-                </tr> --}}
-            </tbody>
-        </table>
+        <div class="ui sixteen wide column">
+            <table class="ui teal table" id="table">
+                <thead>
+                    <tr>
+                        <th class="three wide">Prescriptions</th>
+                        <th class="three wide"></th>
+                        <th class="five wide"></th>
+                        <th class="five wide"></th>
+                    </tr>
+                    <tr id="hide">
+                        <th class="three wide">Name</th>
+                        <th class="three wide">Prescribed Date</th>
+                        <th class="five wide">Dose</th>
+                        <th class="five wide">Refill Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lipitor {{prescription.med_name}}</td>
+                        <td>August 21, 2017 {{prescription.prescribed_date}}</td>
+                        <td>10mg/day {{prescription.dose}}</td>
+                        <td>September 21, 2017 {{prescription.renew_date}}</td>
+                    </tr>
+                    {{!--
+                    <tr>
+                        <td>Drug 1 {{prescription.med_name}}</td>
+                        <td>August 21, 2017 {{prescription.prescribed_date}}</td>
+                        <td>10mg/day {{prescription.dose}}</td>
+                        <td>September 21, 2017 {{prescription.renew_date}}</td>
+                    </tr>
+                    <tr>
+                        <td>Drug 1 {{prescription.med_name}}</td>
+                        <td>August 21, 2017 {{prescription.prescribed_date}}</td>
+                        <td>10mg/day {{prescription.dose}}</td>
+                        <td>September 21, 2017 {{prescription.renew_date}}</td>
+                    </tr> --}}
+                </tbody>
+            </table>
+        </div>
+
     </div>
-    
-</div>
