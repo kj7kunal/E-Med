@@ -3,6 +3,7 @@ $("#autofill").on("click", function(event) {
     $("input[name='firstName']").val("Test");
     $("input[name='lastName']").val("Test");
     $("input[name='dob']").val("11/15/1990");
+    $("input[name='gender']").val("Female");
     $("input[name='streetAddress']").val("Test");
     $("input[name='city']").val("New York");
     $("input[name='zip']").val("11215");
