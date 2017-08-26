@@ -18,7 +18,6 @@ $(document).ready(function() {
         }
 
         if (userData.email.endsWith(`@admin.com`)) {
-            console.log("really?");
             $('#adminUser').modal('show');
             return;
         }

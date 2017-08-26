@@ -15,6 +15,12 @@ $(document).ready(function() {
         console.log("correct? User: " + userData.email + "PW" + userData.password);
 
         if (!userData.email || !userData.password) {
+            $('#emptyLoginAdmin').modal('show');
+            return;
+        }
+
+        if (!userData.email.endsWith(`@admin.com`)) {
+            $('#adminUser').modal('show');
             return;
         }
 
