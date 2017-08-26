@@ -101,6 +101,14 @@ router.get("/chat", isAuthenticated, (req, res) => {
   res.render("patientchat");
 });
 
+router.get("/patientcalendar", isAuthenticated, (req, res) => {
+  res.render("patientcal");
+});
+
+router.get("/error", isAuthenticated, (req, res) => {
+  res.render("error");
+});
+
 
 //  ---------------- STAFF ROUTES ----------------------
 router.get("/physician/list", isAuthenticated, (req, res) => {
