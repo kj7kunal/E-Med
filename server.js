@@ -106,4 +106,3 @@ db.sequelize.sync( /*{ force: true }*/ )
     .then(() => {
         http.listen(port, () => { console.log(`==> 🌎 Listening on PORT ${port}. Visit http://localhost:${port}`.green) });
     });
-};
