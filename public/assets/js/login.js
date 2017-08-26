@@ -11,9 +11,14 @@ $(document).ready(function() {
             email: emailInput.val().trim(),
             password: passwordInput.val().trim()
         };
-        console.log("correct? User: " + userData.email + "PW" + userData.password);
 
         if (!userData.email || !userData.password) {
+            $('#emptyLogin').modal('show');
+            return;
+        }
+
+        if (userData.email.endsWith(`@admin.com`)) {
+            $('#adminUser').modal('show');
             return;
         }
 
@@ -29,11 +34,10 @@ $(document).ready(function() {
             email: email,
             password: password
         }).then(function(data) {
-            console.log('thened');
             window.location.replace(data);
             // If there's an error, log the error
         }).catch(function(err) {
-            console.log('catched')
+            $('#incorrectLogin').modal('show');
             console.log(err);
         });
     }

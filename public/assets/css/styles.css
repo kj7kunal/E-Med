@@ -1,17 +1,21 @@
 body {
-    font-family: 'Muli', sans-serif;    
+    font-family: 'Muli', sans-serif;
 }
 
+
 /*SIDEBAR*/
+
 div#sidebar {
     background-color: white;
     border-right-style: solid !important;
     border-right-color: #ff6666 !important;
 }
 
-div#sidebar i, p {
+div#sidebar i,
+p {
     color: #ff6666;
 }
+
 div#sidebar p {
     color: #5A5A5A;
     font-size: .7em;
@@ -21,7 +25,7 @@ div.stretched.row {
     margin-left: 5em;
 }
 
-img.ui.image  {
+img.ui.image {
     align-items: center;
 }
 
@@ -41,12 +45,15 @@ h4.ui.header {
     align-content: center;
 }
 
+
 /*MY CARE AND VIEW PATIENT*/
+
+
 /* div.stretched.row {
     margin-left: 5em;
 } */
 
-img.ui.image  {
+img.ui.image {
     align-items: center;
 }
 
@@ -60,31 +67,38 @@ div.ui.blue.segment {
 }
 
 div#mcHeader {
-     background-color: #8fdbe5;
+    background-color: #8fdbe5;
+}
+
+#emptyLogin p,
+#adminUser p,
+#emptyLoginAdmin p,
+#incorrectLoginAdmin p,
+#incorrectLogin p {
+    text-align: center;
 }
 
 
-
 /*LOGOUT BUTTON*/
+
 div.ui.basic.button {
     float: right !important;
     color: #ff6666 !important;
 }
 
-/* Mobile */
- @media only screen and (max-width: 767px) {
 
+/* Mobile */
+
+@media only screen and (max-width: 767px) {
     div.ui.visible.left.vertical.inverted.labeled.icon.sidebar.menu.visible {
         display: none;
     }
-
     div.ui.bottom.inverted.six.item.labeled.icon.sidebar.menu.visible {
-         position: fixed;
-         bottom: 0;
-         width: 100%;
-         visibility: visible;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        visibility: visible;
     }
-
     a.item {
         float: left;
         display: block;
@@ -92,15 +106,15 @@ div.ui.basic.button {
         font-size: 10px;
         bottom: 0;
     }
-
     img.ui.image {
         height: 50px;
         width: 50px;
     }
-
 }
 
+
 /* Computer / Desktop / iPad Landscape */
+
 @media only screen and (min-width: 768px) {
     .ui.bottom.inverted.six.item.labeled.icon.sidebar.menu.visible {
         display: none;

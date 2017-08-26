@@ -31,13 +31,13 @@
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input id="admin-email-input" type="email" name="email" placeholder="Username">
+                                <input id="admin-email-input" type="email" name="email" placeholder="Username" required>
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="lock icon"></i>
-                                <input id="admin-password-input" type="password" name="password" placeholder="Password">
+                                <input id="admin-password-input" type="password" name="password" placeholder="Password" required>
                             </div>
                         </div>
                         <div id="adminLoginBtn"class="ui fluid large red submit button">Login</div>
@@ -51,3 +51,55 @@
     <div class="ui vertical footer segment">
          <h6 class="ui aligned center header"><p>Copyright &copy; 2017 Squad</p></h6>
     </div>
+
+<div class="ui basic modal" id="incorrectLoginAdmin">
+  <div class="ui icon header">
+    <i class="archive icon"></i>
+    Incorrect Credentials
+  </div>
+  <div class="content">
+    <p>Please enter a correct Username & Password</p>
+  </div>
+  <div class="actions">
+    <div class="ui green ok inverted button">
+      <i class="checkmark icon"></i>
+      Try Again
+    </div>
+  </div>
+</div>
+
+<div class="ui basic modal" id="emptyLoginAdmin">
+  <div class="ui icon header">
+    <i class="archive icon"></i>
+    Empty Login
+  </div>
+  <div class="content">
+    <p>Please enter a Username & Password</p>
+  </div>
+  <div class="actions">
+    <div class="ui green ok inverted button">
+      <i class="checkmark icon"></i>
+      Try Again
+    </div>
+  </div>
+</div>
+
+<div class="ui basic modal" id="adminUser">
+  <div class="ui icon header">
+    <i class="archive icon"></i>
+   Non-Admin User?
+  </div>
+  <div class="content">
+    <p>It appears you're not an admin user, correct?</p>
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      No
+    </div>
+    <div class="ui green ok inverted button">
+       <a href="/"><i class="checkmark icon"></i>
+      Yes
+    </div>
+  </div>
+</div>
