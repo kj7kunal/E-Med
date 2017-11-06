@@ -6,6 +6,9 @@ Health Management for Patients and Primary Care Physicians
 
 patientstack is a web based patient management system that provides doctors and patients easy access to medical records and enables the patient and physician to communicate through a chat feature.
 
+### Demo
+![Models](./demo/patientstack-demo.gif)
+
 ### Collaborators
 
 * Hovsep Agop - [@hovsepa](https://github.com/hovsepa)
