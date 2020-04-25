@@ -23,6 +23,13 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             defaultValue: "patient",
         }
+    }, 
+    {
+        hooks: {
+            beforeCreate: function(user) {
+                user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+            }
+        }
     });
 
     User.associate = (models) => {
