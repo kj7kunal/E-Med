@@ -8,6 +8,7 @@ INSERT INTO `alerts` (`id`,`type`,`message`,`done`,`is_alert`,`createdAt`,`updat
 INSERT INTO `alerts` (`id`,`type`,`message`,`done`,`is_alert`,`createdAt`,`updatedAt`,`doctorId`) VALUES (6,'Chat','Confirm Josh\'s appointment time',0,0,'2017-08-25 07:02:33','2017-08-25 07:02:33',1);
 -- Admins
 INSERT INTO `Admins` (`id`,`email`,`password`,`type`,`createdAt`,`updatedAt`) VALUES (1,'admin@admin.com','$2a$10$sV2LEd50zGV7soUJ9M6LbeCesaWYYMsjjaD9HkanOc0ho0OQTuZXy','admin','2017-08-25 07:02:33','2017-08-25 07:02:33');
+INSERT INTO `Admins` (`id`,`email`,`password`,`type`,`createdAt`,`updatedAt`) VALUES (2,'combat.covid19kgp@gmail.com','$2a$10$sV2LEd50zGV7soUJ9M6LbeCesaWYYMsjjaD9HkanOc0ho0OQTuZXy','admin','2017-08-25 07:02:33','2017-08-25 07:02:33');
 -- Doctors
 INSERT INTO `doctors` (`id`,`first_name`,`last_name`,`telephone`,`image`,`createdAt`,`updatedAt`) VALUES (1,'Steve','Peterson','3103005890','http://www.lungmds.com/images/team/james-a-dean-md.png','2017-08-25 07:02:33','2017-08-25 07:02:33');
 INSERT INTO `doctors` (`id`,`first_name`,`last_name`,`telephone`,`image`,`createdAt`,`updatedAt`) VALUES (2,'Nancy','Cunningham','3103005890','https://media.bizj.us/view/img/10569204/nancy-cunningham-6133599*166xx480-640-80-0.jpg','2017-08-25 07:02:33','2017-08-25 07:02:33');

@@ -182,6 +182,14 @@
         }
     },
     {
+        "model": "Admin",
+        "data": {
+            "email": "combat.covid19kgp@gmail.com",
+            "password": "abc123",
+            "type": "admin"
+        }
+    },
+    {
         "model": "doctors",
         "data": {
             "first_name": "Steve",
