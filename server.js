@@ -101,8 +101,8 @@ app.use((req, res, next) => {
     res.render("error")
 });
 
-db.sequelize.sync( /*{ force: true }*/ )
-    // .then(fixtures)
+db.sequelize.sync( { force: true } )
+    .then(fixtures)
     .then(() => {
         http.listen(port, () => { console.log(`==> 🌎 Listening on PORT ${port}. Visit http://localhost:${port}`.green) });
     });

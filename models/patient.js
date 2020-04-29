@@ -80,7 +80,9 @@ module.exports = function(sequelize, DataTypes) {
     });
 
     Patient.associate = models => {
-        Patient.hasOne(models.User)
+        Patient.hasOne(models.User, {
+            foreignKey: { allowNull: false }
+        })
     }
 
     Patient.associate = models => {
@@ -91,8 +93,11 @@ module.exports = function(sequelize, DataTypes) {
         })
     }
 
-    Patient.associate = models => {
-        Patient.hasOne(models.appointment)
+    Patient.associate = (models) => {
+        Patient.hasMany(models.appointment, {
+            foreignKey: { allowNull: false, },
+            as: 'Patient_ID',
+        })
     }
 
     return Patient;

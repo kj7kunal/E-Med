@@ -18,10 +18,7 @@
             "emergency_contact_name": "Marth Smith",
             "emergency_contact_number": "3236574827",
             "provider_name": "Kaiser Permanente",
-            "policy_number": "Z903452",
-            "appointments": "",
-            "image": "http://interactive.wxxi.org/sites/default/files/images/highlights/smithr_105.jpg",
-            "visits_patient_id": ""
+            "image": "http://interactive.wxxi.org/sites/default/files/images/highlights/smithr_105.jpg"
         }
     },
     {
@@ -44,10 +41,7 @@
             "emergency_contact_name": "Barbara Richards",
             "emergency_contact_number": "3235126356",
             "provider_name": "Cigna",
-            "policy_number": "B40299485",
-            "appointments": "",
-            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Eugene_richards_2010.jpg/220px-Eugene_richards_2010.jpg",
-            "visits_patient_id": ""
+            "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Eugene_richards_2010.jpg/220px-Eugene_richards_2010.jpg"
         }
     },
     {
@@ -70,10 +64,7 @@
             "emergency_contact_name": "Steven Wise",
             "emergency_contact_number": "2132716073",
             "provider_name": "Blue Shield",
-            "policy_number": "Z40090335",
-            "appointments": "",
-            "image": "https://d1t3gia0in9tdj.cloudfront.net/photo/tributes/t/8/r/207x207/134938/b0794dc3831c4ef7abb200de6cb42cb2.jpg",
-            "visits_patient_id": ""
+            "image": "https://d1t3gia0in9tdj.cloudfront.net/photo/tributes/t/8/r/207x207/134938/b0794dc3831c4ef7abb200de6cb42cb2.jpg"
         }
     },
     {
@@ -96,10 +87,7 @@
             "emergency_contact_name": "Steven Wise",
             "emergency_contact_number": "2132716073",
             "provider_name": "Alta Med",
-            "policy_number": "Z40090335",
-            "appointments": "",
-            "image": "https://semantic-ui.com/images/avatar/large/jenny.jpg",
-            "visits_patient_id": ""
+            "image": "https://semantic-ui.com/images/avatar/large/jenny.jpg"
         }
     },
     {
@@ -122,10 +110,7 @@
             "emergency_contact_name": "Tiffany Wise",
             "emergency_contact_number": "2134982475",
             "provider_name": "Blue Cross",
-            "policy_number": "X49883785",
-            "image": "https://semantic-ui.com/images/avatar/large/elliot.jpg",
-            "appointments": "",
-            "visits_patient_id": ""
+            "image": "https://semantic-ui.com/images/avatar/large/elliot.jpg"
         }
     },
     {
@@ -176,7 +161,7 @@
     {
         "model": "Admin",
         "data": {
-            "email": "admin@admin.com",
+            "email": "aaadmin@admin.com",
             "password": "abc123",
             "type": "admin"
         }
@@ -267,7 +252,9 @@
         "model": "appointment",
         "data": {
             "type": "Annual Visit",
-            "date": "2017-09-10 10:00:00"
+            "date": "2017-09-10 10:00:00",
+            "patientId": 2,
+            "doctorId": 1
         }
     },
     {
@@ -275,17 +262,17 @@
         "data": {
             "type": "Follow-Up Visit",
             "date": "2017-09-10 11:00:00",
-            "patient_id": 2,
-            "doctor_Id": 1
+            "patientId": 2,
+            "doctorId": 1
         }
     },
     {
         "model": "appointment",
         "data": {
-            "type": "Follow-Up Visit",
+            "type": "Annual Visit",
             "date": "2017-09-10 11:00:00",
-            "patient_id": 3,
-            "doctor_Id": 1
+            "patientId": 3,
+            "doctorId": 2
         }
     },
     {
@@ -321,8 +308,7 @@
         "data": {
             "first_name": "Regina",
             "last_name": "Doctor",
-            "telephone": "323449090",
-            "appointments": ""
+            "telephone": "323449090"
         }
     },
     {
@@ -330,8 +316,7 @@
         "data": {
             "first_name": "Lollmao",
             "last_name": "Yollo",
-            "telephone": "626449090",
-            "appointments": ""
+            "telephone": "626449090"
         }
     },
     {

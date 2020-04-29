@@ -5,21 +5,22 @@ module.exports = function(sequelize, DataTypes) {
     })
 
     Appointment.associate = models => {
-        Appointment.belongsTo(models.doctors, {
+        Appointment.belongsTo(models.patient, {
             foreignKey: {
-                field: "doctor_id"
+                allowNull: false,
             },
-            type: DataTypes.INTEGER
+            as: 'patient',
         })
     }
 
-    Appointment.associate = models => {
-        Appointment.belongsTo(models.patient, {
+    Appointment.associate = (models) => {
+        Appointment.belongsTo(models.doctors, {
             foreignKey: {
-                field: "patient_id"
+                allowNull: false,
             },
-            type: DataTypes.INTEGER
+            as: 'doctor',
         })
     }
+
     return Appointment;
 }
