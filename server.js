@@ -6,6 +6,7 @@ const express = require('express'),
     moment = require('helper-moment'),
     exphbs = require("express-handlebars"),
     routes = require("./controllers/ps_controller.js"),
+    chatbot = require("./webhook"),
     app = express(),
     port = process.env.PORT || 3000,
     fixtures = require('./scripts/fixture_patient'),
@@ -17,7 +18,7 @@ const express = require('express'),
 
 app.use(express.static("public"));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
@@ -31,6 +32,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 app.use("/", routes);
+// app.use("/api/chat/", chatbot);
 
 let usernames = {};
 let connections = [];
@@ -99,10 +101,50 @@ hbs.registerHelper('moment', require('helper-moment'));
 app.use((req, res, next) => {
     res.status(404)
     res.render("error")
-});
+})
+
+// app.post("/testdf", function(req, res) {
+//     var speech =
+//         req.body.queryResult &&
+//         req.body.queryResult.parameters &&
+//         req.body.queryResult.parameters.echoText
+//             ? req.body.queryResult.parameters.echoText
+//             : "Seems like some problem. Speak again.";
+//
+//     var speechResponse = {
+//         google: {
+//             expectUserResponse: true,
+//             richResponse: {
+//                 items: [
+//                     {
+//                         simpleResponse: {
+//                             textToSpeech: speech
+//                         }
+//                     }
+//                 ]
+//             }
+//         }
+//     };
+//
+//     return res.json({
+//         payload: speechResponse,
+//         //data: speechResponse,
+//         fulfillmentText: speech,
+//         speech: speech,
+//         displayText: speech,
+//         source: "webhook-echo-sample"
+//     });
+// });
 
 db.sequelize.sync( { force: true } )
     .then(fixtures)
     .then(() => {
         http.listen(port, () => { console.log(`==> 🌎 Listening on PORT ${port}. Visit http://localhost:${port}`.green) });
     });
+
+process.on('SIGTERM', () => {
+    listener.close(() => {
+        console.log('Closing http server.');
+        process.exit(0);
+    });
+});

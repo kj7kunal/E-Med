@@ -6,4 +6,4 @@ views/.DS_Store
 config/config.json
 .idea
 .env
-
+config/credentials.json
