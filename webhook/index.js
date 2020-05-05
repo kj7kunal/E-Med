@@ -1,31 +1,31 @@
-const express = require("express"),
-    router = express.Router(),
-    db = require('../models');
-
-const dialogflowSessionClient =
-    require('./dialogflow_session_client.js');
-const path = require('path')
-const utils = require('./utils')
-
-const projectId = process.env.DIALOGFLOW_PROJECT;
-const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-
-const client = require('twilio')(accountSid, authToken);
-const MessagingResponse = require('twilio').twiml.MessagingResponse;
-const sessionClient = new dialogflowSessionClient(projectId);
-
-router.post('/api/chat/', async function(req, res) {
-    const body = req.body;
-    const text = body.Body;
-    const id = body.From;
-    const dialogflowResponse = (await sessionClient.detectIntent(
-        text, id, body)).fulfillmentText;
-    const twiml = new  MessagingResponse();
-    const message = twiml.message(dialogflowResponse);
-    res.send(twiml.toString());
-});
+// const express = require("express"),
+//     router = express.Router(),
+//     db = require('../models');
+//
+// const dialogflowSessionClient =
+//     require('./dialogflow_session_client.js');
+// const path = require('path')
+// const utils = require('./utils')
+//
+// const projectId = process.env.DIALOGFLOW_PROJECT;
+// const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+//
+// const client = require('twilio')(accountSid, authToken);
+// const MessagingResponse = require('twilio').twiml.MessagingResponse;
+// const sessionClient = new dialogflowSessionClient(projectId);
+//
+// router.post('/api/chat/', async function(req, res) {
+//     const body = req.body;
+//     const text = body.Body;
+//     const id = body.From;
+//     const dialogflowResponse = (await sessionClient.detectIntent(
+//         text, id, body)).fulfillmentText;
+//     const twiml = new  MessagingResponse();
+//     const message = twiml.message(dialogflowResponse);
+//     res.send(twiml.toString());
+// });
 
 // // Load the handlers from the handler folder
 // let handlers = {}
@@ -76,4 +76,4 @@ router.post('/api/chat/', async function(req, res) {
 // module.exports = requestHandler
 
 
-module.exports = router;
+// module.exports = router;

@@ -32,9 +32,7 @@
         "sequelize-cli": "^5.4.0",
         "sequelize-fixtures": "^1.1.1",
         "socket.io": "^2.3.0",
-        "twilio": "^3.43.0"
-    },
-    "devDependencies": {
-        "dialogflow": "^1.2.0"
+        "twilio": "^3.43.0",
+        "dialogflow": "1.2.0"
     }
 }
