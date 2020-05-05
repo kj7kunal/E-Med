@@ -216,7 +216,8 @@ router.get("/physician", isAuthenticated, (req, res) => {
                 id: req.user.id
             },
             include: [{
-                model: db.alerts
+                model: db.alerts,
+                as: 'Doctor_ID'
             }]
         }).then((result) => {
             const hbsObject = {
