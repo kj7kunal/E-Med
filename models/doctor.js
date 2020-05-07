@@ -25,14 +25,14 @@ module.exports = function(sequelize, DataTypes) {
     Doctor.associate = (models) => {
         Doctor.hasMany(models.alerts, {
             foreignKey: { allowNull: false, },
-            as: 'Doctor_ID',
+            as: 'alerts'
         })
     }
 
     Doctor.associate = (models) => {
         Doctor.hasMany(models.appointment, {
             foreignKey: { allowNull: false, },
-            as: 'Doctor_ID',
+            as: 'appointments'
         })
     }
 

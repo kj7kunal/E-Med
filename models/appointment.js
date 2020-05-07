@@ -8,8 +8,7 @@ module.exports = function(sequelize, DataTypes) {
         Appointment.belongsTo(models.patient, {
             foreignKey: {
                 allowNull: false,
-            },
-            as: 'patient',
+            }
         })
     }
 
@@ -17,8 +16,7 @@ module.exports = function(sequelize, DataTypes) {
         Appointment.belongsTo(models.doctors, {
             foreignKey: {
                 allowNull: false,
-            },
-            as: 'doctor',
+            }
         })
     }
 

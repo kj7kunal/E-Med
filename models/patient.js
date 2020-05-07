@@ -75,7 +75,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
         },
         provider_name: DataTypes.STRING,
-        appointments: DataTypes.STRING,
         image: DataTypes.TEXT
     });
 
@@ -96,7 +95,7 @@ module.exports = function(sequelize, DataTypes) {
     Patient.associate = (models) => {
         Patient.hasMany(models.appointment, {
             foreignKey: { allowNull: false, },
-            as: 'Patient_ID',
+            as: 'appointments',
         })
     }
 

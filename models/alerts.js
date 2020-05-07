@@ -30,8 +30,7 @@ module.exports = function(sequelize, DataTypes) {
         Alert.belongsTo(models.doctors, {
             foreignKey: {
                 allowNull: false,
-            },
-            as: 'doctor',
+            }
         })
     }
 

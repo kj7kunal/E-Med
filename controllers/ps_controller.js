@@ -165,7 +165,6 @@ router.post("/patients/add", isAuthenticated, (req, res) => {
             "emergency_contact_name": req.body.emergencyContactName,
             "emergency_contact_number": req.body.emergencyContactNumber,
             "provider_name": req.body.providerName,
-            "appointments": req.body.appointments,
             "image": req.body.image
         })
         .then(() => {
@@ -198,9 +197,10 @@ router.get("/physician/:id", isAuthenticated, (req, res) => {
         where: {
             id: req.params.id
         },
-        include: [{
-            model: db.alerts
-        }]
+        // include: {
+        //     model: db.alerts,
+        //     as: 'alerts'
+        // }
     }).then((result) => {
         const hbsObject = {
             doctor: result
@@ -215,10 +215,10 @@ router.get("/physician", isAuthenticated, (req, res) => {
             where: {
                 id: req.user.id
             },
-            include: [{
-                model: db.alerts,
-                as: 'Doctor_ID'
-            }]
+            // include: {
+            //     model: db.alerts,
+            //     as: 'alerts'
+            // }
         }).then((result) => {
             const hbsObject = {
                 doctor: result
@@ -388,9 +388,10 @@ router.get("/assoc", isAuthenticated, (req, res) => {
         where: {
             id: 1
         },
-        include: [{
-            model: db.alerts
-        }]
+        // include: {
+        //     model: db.alerts,
+        //     as: 'alerts'
+        // }
     }).then(function(match) {
         res.json(match);
     });
