@@ -32,7 +32,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 app.use("/", routes);
-// app.use("/api/chat/", chatbot);
+app.use("/", chatbot);
 
 let usernames = {};
 let connections = [];
