@@ -35,7 +35,7 @@ router.post('/api/chat/', async function(req, res) {
     }
 
     const twiml = new  MessagingResponse();
-    const message = twiml.message(dialogflowResponse);
+    const message = twiml.message(responseText);
     res.send(twiml.toString());
 });
 
