@@ -19,10 +19,21 @@ const sessionClient = new dialogflowSessionClient(projectId);
 router.post('/api/chat/', async function(req, res) {
     const body = req.body;
     const text = body.Body;
-    const id = body.From;
-    console.log(id);
+    const id = body.From; // User Whatsapp number (for auth stuff)
+
     const dialogflowResponse = (await sessionClient.detectIntent(
-        text, id, body)).fulfillmentText;
+        text, id, body)); // Gets intent
+    var responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
+
+    // INTENTS
+    // List of doctors intent
+    if (dialogflowResponse.intent.displayName === 'List of doctors') {
+        const doctors = await db.doctors.findAll({}).map(
+            el => el.get('first_name') + " " + el.get('last_name')
+        );
+        responseText = responseText + "\n" + doctors.join("\n");
+    }
+
     const twiml = new  MessagingResponse();
     const message = twiml.message(dialogflowResponse);
     res.send(twiml.toString());
