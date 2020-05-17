@@ -24,7 +24,8 @@ class UserRegistrationController {
         })
         .then(() => {
             return fulfillmentText;
-        });
+        })
+        .catch(err => return err);
   }
 
 
