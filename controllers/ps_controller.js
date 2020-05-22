@@ -20,7 +20,8 @@ router.get("/", (req, res) => {
 router.get("/admin", (req, res) => {
     if (req.user) {
         return res.redirect("/patients");
-    } else {
+    } 
+    else {
         return res.render("admin");
     }
 });

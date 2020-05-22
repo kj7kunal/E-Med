@@ -1,7 +1,7 @@
 const express = require("express"),
     router = express.Router(),
     db = require('../models');
-
+const check_num_indb = require('./handlers/test/sayani.js');
 const dialogflowSessionClient =
     require('./dialogflow_session_client.js');
 // const path = require('path')
@@ -9,8 +9,8 @@ const dialogflowSessionClient =
 
 const projectId = process.env.DIALOGFLOW_PROJECT;
 const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+const accountSid = process.env.TWILIO_ACCOUNT_SID || 'AC09cbfc8e14f69b85ece64eb5f78db0db';
+const authToken = process.env.TWILIO_AUTH_TOKEN || '3ade0e52b95f6a00ce1972daebb07e7a';
 
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
@@ -23,6 +23,7 @@ router.post('/api/chat/', async function(req, res) {
 
     const dialogflowResponse = (await sessionClient.detectIntent(
         text, id, body)); // Gets intent
+        //dialogflowResponse=check_num_indb(dialogflowResponse,id);
     var responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
 
     // INTENTS
