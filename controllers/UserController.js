@@ -10,7 +10,7 @@ class UserRegistrationController {
   
   newUserIntent(agent) {
     console.log("Storing new User in DB");
-    let fName = agent.parameters["given-name"];
+    let fName = agent.parameters["user-given-name"];
     let cNum = agent.parameters["user-contact"];
 
     if(db.user.findAll({where: {phone_number: cNum}}).length > 0) return "Phone Number already Exists";
@@ -31,9 +31,10 @@ class UserRegistrationController {
 
   newPatientIntent(agent) {
   	console.log("Storing new patient in DB");
-    let fName = agent.parameters["given-name"];
-    let lName = agent.parameters["last-name"];
+    let fName = agent.parameters["patient-given-name"];
+    let lName = agent.parameters["patient-last-name"];
     let cNum = agent.parameters["patient-contact"];
+    let uid = agent.parameters["user-id"];
 
     if(db.user.findAll({where: {phone_number: cNum}}).length > 0) return "Phone Number already Exists";
     fulfillmentText = "Thanks for adding " + fName + " " + lName + ".\
@@ -55,7 +56,9 @@ class UserRegistrationController {
             "weight": agent.parameters["weight"],
             "allergies": agent.parameters["allergies"],
             "procedures": agent.parameters["procedures"],
-            "blood_type": agent.parameters["blood-type"]
+            "blood_type": agent.parameters["blood-type"],
+            "user_id": uid,
+            "is_user" : (agent.parameters["is_user"].toLowerCase() === "yes")
         })
         .then(() => {
             return fulfillmentText;
@@ -64,10 +67,23 @@ class UserRegistrationController {
   }
 
   liste(agent) {
-    db.user.findAll().then(users => {
-      fulfillmentText = "These are the users";
+    db.patient.findAll({where: {uid: agent.parameters["user-id"]}}).then(patients => {
+      fulfillmentText = "These are your Patients: ";
+      patients.forEach((patient, i) => {
+        fulfillmentText = fulfillmentText + "\n\nPatient " + i + ": " + 
+          "\nfirst_name: " + patient.first_name +
+          "\nlast_name: " patient.last_name +
+          "\ndob: " + patient.dob +
+          "\ngender: " + patient.gender +
+          "\ntelephone: " + patient.last_name +
+          "\nheight: " + patient.height +
+          "\nweight: " + patient.weight + 
+          "\nallergies: " + patient.allergies + 
+          "\nprocedures: " + patient.procedures + 
+          "\nblood_type: " + patient.blood_type;
+      });
       return fulfillmentText;
-    });
+    }).catch(err => return err);
   }
 
   update(agent) {
@@ -87,10 +103,27 @@ class UserRegistrationController {
   }
 
   show(agent) {
-    const id = req.params.id;
-    db.Articles.findById(id).then(article =>
-      res.render("articles/show", { article })
-    );
+    let uid = agent.parameters["user-id"];
+    let fulfillmentText = "These are the details of your Patient: ";
+    db.patient.findAll({where: { user_id : uid, 
+                                  first_name: agent.parameters["patient-given-name"]}
+                                }).then(patients =>
+                                  if(patients.length == 1){
+                                  fulfillmentText = fulfillmentText +  
+                                                            "\nfirst_name: " + patient.first_name +
+                                                            "\nlast_name: " patient.last_name +
+                                                            "\ndob: " + patient.dob +
+                                                            "\ngender: " + patient.gender +
+                                                            "\ntelephone: " + patient.last_name +
+                                                            "\nheight: " + patient.height +
+                                                            "\nweight: " + patient.weight + 
+                                                            "\nallergies: " + patient.allergies + 
+                                                            "\nprocedures: " + patient.procedures + 
+                                                            "\nblood_type: " + patient.blood_type;
+                                  } else {
+                                    throw "Patient with that name does not exist";
+                                  }
+                                ).catch(err => return err);
   }
 }
 
