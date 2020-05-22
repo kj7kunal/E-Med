@@ -67,8 +67,9 @@ class UserRegistrationController {
   }
 
   liste(agent) {
+    let fulfillmentText = "These are your Patients: ";
     db.patient.findAll({where: {uid: agent.parameters["user-id"]}}).then(patients => {
-      fulfillmentText = "These are your Patients: ";
+      if (patients.length === 0) throw "You need to register a patient first. Would you like to register a new patient?";
       patients.forEach((patient, i) => {
         fulfillmentText = fulfillmentText + "\n\nPatient " + i + ": " + 
           "\nfirst_name: " + patient.first_name +
@@ -82,8 +83,8 @@ class UserRegistrationController {
           "\nprocedures: " + patient.procedures + 
           "\nblood_type: " + patient.blood_type;
       });
-      return fulfillmentText;
     }).catch(err => return err);
+    return fulfillmentText;
   }
 
   update(agent) {
