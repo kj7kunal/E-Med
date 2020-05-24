@@ -412,5 +412,210 @@
             "year": 2016,
             "test_value": 120
         }
+    },
+    {
+        "model": "userWA",
+        "data": {
+            "wa_phone_number": "919933812381",
+            "email": "test1@test.com",
+            "loc_lat": "28.610001",
+            "loc_long": "77.230003",
+            "first_name": "Rahul",
+            "last_name": "Modi"
+        }
+    },
+    {
+        "model": "userWA",
+        "data": {
+            "wa_phone_number": "919933444381",
+            "email": "test2@test.com",
+            "loc_lat": "19.076090",
+            "loc_long": "72.877426",
+            "first_name": "Narendra",
+            "last_name": "Gandhi"
+        }
+    },
+    {
+        "model": "userWA",
+        "data": {
+            "wa_phone_number": "919123454381",
+            "email": "doc1@test.com",
+            "loc_lat": "28.650001",
+            "loc_long": "77.530003",
+            "first_name": "Shireen",
+            "last_name": "Kalra"
+        }
+    },
+    {
+        "model": "userWA",
+        "data": {
+            "wa_phone_number": "919277277381",
+            "email": "doc2@test.com",
+            "loc_lat": "19.476090",
+            "loc_long": "72.277426",
+            "first_name": "Anirudh",
+            "last_name": "Narayan"
+        }
+    },
+    {
+        "model": "patientWA",
+        "data": {
+            "first_name": "Rahul",
+            "last_name": "Modi",
+            "userWAId": 1
+        }
+    },
+    {
+        "model": "patientWA",
+        "data": {
+            "first_name": "Narendra",
+            "last_name": "Gandhi",
+            "userWAId": 2
+        }
+    },
+    {
+        "model": "patientWA",
+        "data": {
+            "first_name": "Mamta",
+            "last_name": "Gandhi",
+            "userWAId": 2
+        }
+    },
+    {
+        "model": "patientInfoWA",
+        "data": {
+            "dob": "1988-03-02 00:00:00+00:00",
+            "sex": "M",
+            "phone_number": "919933444381",
+            "height_cm": 170,
+            "weight_kg": 87,
+            "blood_type": "O+",
+            "street_address": "12, Rajinder Place",
+            "city": "New Delhi",
+            "state": "Delhi",
+            "pinCode": 110001,
+            "emergency_contact_name": "Rahul Modi",
+            "emergency_contact_number": "919933444381",
+            "patientWAId": 1
+        }
+    },
+    {
+        "model": "patientInfoWA",
+        "data": {
+            "dob": "1982-03-02 00:00:00+00:00",
+            "sex": "M",
+            "phone_number": "919933812381",
+            "height_cm": 167,
+            "weight_kg": 77,
+            "blood_type": "B+",
+            "street_address": "17, Nariman Point",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pinCode": 400025,
+            "emergency_contact_name": "Narendra Gandhi",
+            "emergency_contact_number": "919933812381",
+            "patientWAId": 2
+        }
+    },
+    {
+        "model": "patientInfoWA",
+        "data": {
+            "dob": "1978-03-02 00:00:00+00:00",
+            "sex": "F",
+            "phone_number": "919933146231",
+            "height_cm": 160,
+            "weight_kg": 62,
+            "blood_type": "AB+",
+            "street_address": "13, Andheri West",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pinCode": 400022,
+            "emergency_contact_name": "Narendra Gandhi",
+            "emergency_contact_number": "919933812381",
+            "patientWAId": 3
+        }
+    },
+    {
+        "model": "clinicWA",
+        "data": {
+            "clinic_name": "ABC Clinic",
+            "phone_number": "919243446231",
+            "loc_lat": "28.650001",
+            "loc_long": "77.530003",
+            "street_address": "15-A, Connaught Place",
+            "city": "New Delhi",
+            "state": "Delhi",
+            "pinCode": 110001
+        }
+    },
+    {
+        "model": "clinicWA",
+        "data": {
+            "clinic_name": "DEF Clinic",
+            "phone_number": "919935546231",
+            "loc_lat": "19.476090",
+            "loc_long": "72.277426",
+            "street_address": "10-D, Bandra East",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pinCode": 400022
+        }
+    },
+    {
+        "model": "doctorWA",
+        "data": {
+            "office_telephone": "919345662381",
+            "doctorWAId": 3,
+            "clinicWAId": 1
+        }
+    },
+    {
+        "model": "doctorWA",
+        "data": {
+            "office_telephone": "919338383899",
+            "doctorWAId": 4,
+            "clinicWAId": 2
+        }
+    },
+    {
+        "model": "profileWA",
+        "data": {
+            "profile_name": "patient"
+        }
+    },
+    {
+        "model": "profileWA",
+        "data": {
+            "profile_name": "doctor"
+        }
+    },
+    {
+        "model": "userProfileWA",
+        "data": {
+            "profileWAId": 1,
+            "userWAId": 1
+        }
+    },
+    {
+        "model": "userProfileWA",
+        "data": {
+            "profileWAId": 1,
+            "userWAId": 2
+        }
+    },
+    {
+        "model": "userProfileWA",
+        "data": {
+            "profileWAId": 2,
+            "userWAId": 3
+        }
+    },
+    {
+        "model": "userProfileWA",
+        "data": {
+            "profileWAId": 2,
+            "userWAId": 4
+        }
     }
+
 ]
