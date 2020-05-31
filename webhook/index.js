@@ -9,8 +9,8 @@ const dialogflowSessionClient =
 
 const projectId = process.env.DIALOGFLOW_PROJECT;
 const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
-const accountSid = process.env.TWILIO_ACCOUNT_SID || 'AC09cbfc8e14f69b85ece64eb5f78db0db';
-const authToken = process.env.TWILIO_AUTH_TOKEN || '3ade0e52b95f6a00ce1972daebb07e7a';
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
@@ -24,36 +24,32 @@ router.post('/api/chat/', async function(req, res) {
     const dialogflowResponse = (await sessionClient.detectIntent(
         text, id, body)); // Gets intent
         //dialogflowResponse=check_num_indb(dialogflowResponse,id);
-        
-        db.userWAs.findOne({
-            where: {
-                wa_phone_number: id
-            }
-        }).then((result) => {
-            const hbsObject = {
-                    User: result
+        db.userWA
+            .findOne({
+                where: {
+                    wa_phone_number: id.substring(9);
                 }
-                if (result==null){
-                    dialogflowResponse.outputContext[0].name="projects/e-medicine-iitkgp-mvttlt/agent/sessions/"+id +"/contexts/not_reg";
-                    dialogflowResponse.outputContext[0].lifespanCount= 5;
-                    //dialogflowResponse.outputContext.parameters=[Object];
-                }
-                else if(result.dataValues.type =='doctor'){
-                    dialogflowResponse.outputContext[0].name="projects/e-medicine-iitkgp-mvttlt/agent/sessions/"+id +"/contexts/doctor";
-                    dialogflowResponse.outputContext[0].lifespanCount= 5;
-                    //dialogflowResponse.outputContext.parameters=[Object];
-                }
-                else if(result.dataValues.type =='patient'){
-                    dialogflowResponse.outputContext[0].name="projects/e-medicine-iitkgp-mvttlt/agent/sessions/"+id +"/contexts/patient";
-                    dialogflowResponse.outputContext[0].lifespanCount= 5;
-                    //dialogflowResponse.outputContext.parameters=[Object];
-                }
-            
-        })
-        .catch((e)=>{
-            console.log('\nERROR OCUURED\n');
-            console.log(e);
-        })
+            })
+            .then((result) => {
+                const hbsObject = {
+                        User: result
+                    }
+                    if (result==null){
+                        dialogflowResponse.outputContext[0].name="projects/e-medicine-iitkgp-mvttlt/agent/sessions/"+id +"/contexts/isNotUser";
+                        dialogflowResponse.outputContext[0].lifespanCount= 5;
+                        //dialogflowResponse.outputContext.parameters=[Object];
+                    }
+                    else{
+                        dialogflowResponse.outputContext[0].name="projects/e-medicine-iitkgp-mvttlt/agent/sessions/"+id +"/contexts/isUser";
+                        dialogflowResponse.outputContext[0].lifespanCount= 5;
+                        //dialogflowResponse.outputContext.parameters=[Object];
+                    }
+                    
+            })
+            .catch((e)=>{
+                console.log('\nERROR OCUURED\n');
+                console.log(e);
+            })
         
     
     var responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
@@ -66,8 +62,10 @@ router.post('/api/chat/', async function(req, res) {
         );
         responseText = responseText + "\n" + doctors.join("\n");
     }
+    
+    //isUser function
     const isUser=function(id){
-        db.userWA.findOne({where:{wa_phone_number: id}}).then((result)=>{
+        db.userWA.findOne({where:{wa_phone_number: id.substring(9);}}).then((result)=>{
             if(result!=null){
                 return false;
             }
@@ -76,35 +74,30 @@ router.post('/api/chat/', async function(req, res) {
             }
         })
     };
-    //user details
+    
+    //User details
     if (dialogflowResponse.intent.displayName === 'User Profile') {
-        db.userWA.findOne({where:{wa_phone_number: id}}).then((result)=>{
-            if(result!=null){
-                //console.log('Name: '+result.dataValues.first_name+' '+result.dataValues.last_name);
-                responseText = responseText + "\n" + 'Name: '+result.dataValues.first_name+' '+result.dataValues.last_name;
-                //console.log('WhatsApp phone number: '+result.dataValues.wa_phone_number);
-                responseText = responseText + "\n" + 'WhatsApp phone number: '+result.dataValues.wa_phone_number;
-                //console.log('Email: '+result.dataValues.email);
-                responseText = responseText + "\n" + 'Email: '+result.dataValues.email;
-            }
-            else{
-                responseText = responseText + "\n" + 'You are not a registered user. Please register to avail our service.\n';
-            }
+        db.userWA
+            .findOne({where:{wa_phone_number: id.substring(9);}}).then((result)=>{
+                if(result!=null){
+                    //console.log('Name: '+result.dataValues.first_name+' '+result.dataValues.last_name);
+                    responseText = responseText + "\n" + 'Name: '+result.dataValues.first_name+' '+result.dataValues.last_name;
+                    //console.log('WhatsApp phone number: '+result.dataValues.wa_phone_number);
+                    responseText = responseText + "\n" + 'WhatsApp phone number: '+result.dataValues.wa_phone_number;
+                    //console.log('Email: '+result.dataValues.email);
+                    responseText = responseText + "\n" + 'Email: '+result.dataValues.email;
+                }else{
+                    responseText = responseText + "\n" + 'You are not a registered user. Please register to avail our service.\n';
+                }
             
-        });
+            });
         //responseText = responseText + "\n" + doctors.join("\n");
     }
+    
     //More Info
     if (dialogflowResponse.intent.displayName === 'More Info') {
-
-        
-        responseText = responseText + "\n" + 'For anything you like to know about us please refer to the link below:\n https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Fcombat-covid-19-iit-kgp-initiative%2F%3Ffbclid%3DIwAR10hvzezNNmFFShdzj1PUEsMuzmQBCYcweJlKSQt-ujM7HPm9GjX1FLjew&h=AT3jSDMYRNPAqeNcYX6LQ2qUOUND3WnZbnG9-YyyzhVP1wUKZ7t-5mSUyA6nLmFusKdUiN2kl9lvHTJL_J8b9du7eIIJn3Cv25t3Jafeyw-a8jbv3SBOEqExlkehMCSjOgKtu1w0nr0bF_wu0Qmm2w';
-            
-        //responseText = responseText + "\n" + doctors.join("\n");
+        responseText = responseText + "\n" + 'For anything you like to know about us please refer to the link below:\n https://www.linkedin.com/company/combat-covid-19-iit-kgp-initiative/';
     }
-
-    
-    
 
     const twiml = new  MessagingResponse();
     const message = twiml.message(responseText);
