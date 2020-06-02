@@ -24,35 +24,33 @@ router.post('/api/chat/', async function(req, res) {
     const dialogflowResponse = (await sessionClient.detectIntent(
         text, id, body)); // Gets intent
         //dialogflowResponse=check_num_indb(dialogflowResponse,id);
-        db.userWA
-            .findOne({
-                where: {
-                    wa_phone_number: id.substring(9);
-                }
-            })
-            .then((result) => {
-                const hbsObject = {
-                        User: result
-                    }
-                    if (result==null){
-                        dialogflowResponse.outputContext[0].name="projects/e-medicine-iitkgp-mvttlt/agent/sessions/"+id +"/contexts/isNotUser";
-                        dialogflowResponse.outputContext[0].lifespanCount= 5;
-                        //dialogflowResponse.outputContext.parameters=[Object];
-                    }
-                    else{
-                        dialogflowResponse.outputContext[0].name="projects/e-medicine-iitkgp-mvttlt/agent/sessions/"+id +"/contexts/isUser";
-                        dialogflowResponse.outputContext[0].lifespanCount= 5;
-                        //dialogflowResponse.outputContext.parameters=[Object];
-                    }
-                    
-            })
-            .catch((e)=>{
-                console.log('\nERROR OCUURED\n');
-                console.log(e);
-            })
         
+        //Redirects to different intents depending on number present in db
+        isUser(id,function(err,result){
+            //console.log(result);
+            if(result==null){
+                dialogflowResponse.outputContext[0].name="projects/e-medicine-iitkgp-mvttlt/agent/sessions/"+id +"/contexts/isNotUser";
+                dialogflowResponse.outputContext[0].lifespanCount= 5;
+            }
+            else{
+                dialogflowResponse.outputContext[0].name="projects/e-medicine-iitkgp-mvttlt/agent/sessions/"+id +"/contexts/isUser";
+                dialogflowResponse.outputContext[0].lifespanCount= 5;
+            }
+        }); 
+                
     
     var responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
+
+    //Check if phone number is in the database
+    function isUser(id, callback) {
+        db.userWA.findOne({
+            where:{wa_phone_number: id.substring(10)}
+        })
+        .then(response => {
+        //console.log(response);//the object with the data I need
+        return callback(null, response);
+        });
+    };
 
     // INTENTS
     // List of doctors intent
@@ -63,38 +61,25 @@ router.post('/api/chat/', async function(req, res) {
         responseText = responseText + "\n" + doctors.join("\n");
     }
     
-    //isUser function
-    const isUser=function(id){
-        db.userWA.findOne({where:{wa_phone_number: id.substring(9);}}).then((result)=>{
-            if(result!=null){
-                return false;
-            }
-            else{
-                return true;
-            }
-        })
-    };
     
-    //User details
+    //User details Intent
     if (dialogflowResponse.intent.displayName === 'User Profile') {
-        db.userWA
-            .findOne({where:{wa_phone_number: id.substring(9);}}).then((result)=>{
-                if(result!=null){
-                    //console.log('Name: '+result.dataValues.first_name+' '+result.dataValues.last_name);
-                    responseText = responseText + "\n" + 'Name: '+result.dataValues.first_name+' '+result.dataValues.last_name;
-                    //console.log('WhatsApp phone number: '+result.dataValues.wa_phone_number);
-                    responseText = responseText + "\n" + 'WhatsApp phone number: '+result.dataValues.wa_phone_number;
-                    //console.log('Email: '+result.dataValues.email);
-                    responseText = responseText + "\n" + 'Email: '+result.dataValues.email;
-                }else{
-                    responseText = responseText + "\n" + 'You are not a registered user. Please register to avail our service.\n';
-                }
-            
-            });
-        //responseText = responseText + "\n" + doctors.join("\n");
+
+        isUser(id,function(err,result){
+            if(result!=null){
+                
+                responseText = responseText + "\n" + 'Name: '+result.dataValues.first_name+' '+result.dataValues.last_name;
+                responseText = responseText + "\n" + 'WhatsApp phone number: '+result.dataValues.wa_phone_number;
+                responseText = responseText + "\n" + 'Email: '+result.dataValues.email;
+            }else{
+                responseText = responseText + "\n" + 'You are not a registered user. Please register to avail our service.\n';
+            }
+        
+        });
+        
     }
     
-    //More Info
+    //More Info Intent
     if (dialogflowResponse.intent.displayName === 'More Info') {
         responseText = responseText + "\n" + 'For anything you like to know about us please refer to the link below:\n https://www.linkedin.com/company/combat-covid-19-iit-kgp-initiative/';
     }
