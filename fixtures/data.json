@@ -458,6 +458,17 @@
         }
     },
     {
+        "model": "userWA",
+        "data": {
+            "wa_phone_number": "919933887695",
+            "email": "doc3@test.com",
+            "loc_lat": "19.476090",
+            "loc_long": "72.277426",
+            "first_name": "Perry",
+            "last_name": "Platypus"
+        }
+    },
+    {
         "model": "patientWA",
         "data": {
             "first_name": "Rahul",
