@@ -25,20 +25,6 @@ router.post('/api/chat/', async function(req, res) {
         text, id, body)); // Gets intent
         //dialogflowResponse=check_num_indb(dialogflowResponse,id);
         
-        //Redirects to different intents depending on number present in db
-        isUser(id,function(err,result){
-            //console.log(result);
-            if(result==null){
-                dialogflowResponse.outputContext[0].name="projects/e-medicine-iitkgp-mvttlt/agent/sessions/"+id +"/contexts/isNotUser";
-                dialogflowResponse.outputContext[0].lifespanCount= 5;
-            }
-            else{
-                dialogflowResponse.outputContext[0].name="projects/e-medicine-iitkgp-mvttlt/agent/sessions/"+id +"/contexts/isUser";
-                dialogflowResponse.outputContext[0].lifespanCount= 5;
-            }
-        }); 
-                
-    
     var responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
 
     //Check if phone number is in the database
@@ -47,12 +33,26 @@ router.post('/api/chat/', async function(req, res) {
             where:{wa_phone_number: id.substring(10)}
         })
         .then(response => {
-        //console.log(response);//the object with the data I need
-        return callback(null, response);
+            return callback(response);
         });
     };
 
     // INTENTS
+    // Default Welcome Intent
+    if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') {
+
+        //Redirects to different intents depending on number present in db
+        isUser(id,function(result){
+            if(result==null){
+                responseText=responseText+'\n1. Would you like to register?\n2. More Information';
+            }
+            else{
+                responseText=responseText+'\n3. PATIENT\n4. PATIENT FIRST WORKFLOW\n5. PATIENT NEXT WORKFLOW';
+            }
+        });
+    }
+
+
     // List of doctors intent
     if (dialogflowResponse.intent.displayName === 'List of doctors') {
         const doctors = await db.doctors.findAll({}).map(
@@ -65,7 +65,7 @@ router.post('/api/chat/', async function(req, res) {
     //User details Intent
     if (dialogflowResponse.intent.displayName === 'User Profile') {
 
-        isUser(id,function(err,result){
+        isUser(id,function(result){
             if(result!=null){
                 
                 responseText = responseText + "\n" + 'Name: '+result.dataValues.first_name+' '+result.dataValues.last_name;
