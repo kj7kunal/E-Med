@@ -26,19 +26,19 @@ router.post('/api/chat/', async function(req, res) {
     let responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
     const twiml = new MessagingResponse();
 
-    //Check if phone number is in the database
+    //Check if incoming phone number is in the database
     function isUser(id, callback) {
         db.userWA.findOne({
-            where:{
+            where: {
                 wa_phone_number: id
             }
         })
-            .then(response => {
-                return callback(response);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        .then(response => {
+            return callback(response);
+        })
+        .catch(error => {
+            console.error(error);
+        });
     };
 
     // INTENTS
@@ -48,10 +48,10 @@ router.post('/api/chat/', async function(req, res) {
         //Redirects to different intents depending on number present in db
         isUser(id.substring(10),function(result){
             if(result!=null){
-                responseText = responseText +'\n(3) PATIENT\n(4) PATIENT FIRST WORKFLOW\n(5) PATIENT NEXT WORKFLOW';
+                responseText = responseText +'\n\n(3) PATIENT\n(4) PATIENT FIRST WORKFLOW\n(5) PATIENT NEXT WORKFLOW';
             }
             else{
-                responseText = responseText +'\n(1) Would you like to register?\n(2) More Information';
+                responseText = responseText +'\n\n(1) Would you like to register?\n(2) More Information';
             }
 
             const message = twiml.message(responseText);
