@@ -17,6 +17,7 @@
         "body-parser": "^1.19.0",
         "chart.js": "^2.9.3",
         "colors": "^1.4.0",
+        "dialogflow": "1.2.0",
         "express": "^4.17.1",
         "express-handlebars": "3.0.0",
         "express-session": "^1.17.1",
@@ -32,7 +33,6 @@
         "sequelize-cli": "^5.4.0",
         "sequelize-fixtures": "^1.1.1",
         "socket.io": "^2.3.0",
-        "twilio": "^3.43.0",
-        "dialogflow": "1.2.0"
+        "twilio": "^3.43.0"
     }
 }
