@@ -23,7 +23,8 @@ router.post('/api/chat/', async function(req, res) {
 
     const dialogflowResponse = (await sessionClient.detectIntent(
         text, id, body)); // Gets intent
-    var responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
+    let responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
+    const twiml = new MessagingResponse();
 
     //Check if phone number is in the database
     function isUser(id, callback) {
@@ -32,9 +33,12 @@ router.post('/api/chat/', async function(req, res) {
                 wa_phone_number: id
             }
         })
-        .then(response => {
-            return callback(response);
-        });
+            .then(response => {
+                return callback(response);
+            })
+            .catch(error => {
+                console.error(error);
+            });
     };
 
     // INTENTS
@@ -49,6 +53,9 @@ router.post('/api/chat/', async function(req, res) {
             else{
                 responseText = responseText +'\n(1) Would you like to register?\n(2) More Information';
             }
+
+            const message = twiml.message(responseText);
+            res.send(twiml.toString());
         });
     }
 
@@ -59,15 +66,18 @@ router.post('/api/chat/', async function(req, res) {
             el => el.get('first_name') + " " + el.get('last_name')
         );
         responseText = responseText + "\n" + doctors.join("\n");
+
+        const message = twiml.message(responseText);
+        res.send(twiml.toString());
     }
-    
-    
+
+
     //User details Intent
     if (dialogflowResponse.intent.displayName === 'User Profile') {
 
         isUser(id.substring(10),function(result){
             if(result!=null){
-                
+
                 responseText = responseText + "\n" + 'Name: '+result.dataValues.first_name+' '+result.dataValues.last_name;
                 responseText = responseText + "\n" + 'WhatsApp phone number: '+result.dataValues.wa_phone_number;
                 responseText = responseText + "\n" + 'Email: '+result.dataValues.email;
@@ -75,19 +85,19 @@ router.post('/api/chat/', async function(req, res) {
             else {
                 responseText = responseText + "\n" + 'You are not a registered user. Please register to avail our service.\n';
             }
-        
+
+            const message = twiml.message(responseText);
+            res.send(twiml.toString());
         });
-        
     }
-    
+
     //More Info Intent
     if (dialogflowResponse.intent.displayName === 'More Info') {
         responseText = responseText + "\n" + 'For anything you like to know about us please refer to the link below:\n https://www.linkedin.com/company/combat-covid-19-iit-kgp-initiative/';
+        const message = twiml.message(responseText);
+        res.send(twiml.toString());
     }
 
-    const twiml = new  MessagingResponse();
-    const message = twiml.message(responseText);
-    res.send(twiml.toString());
 });
 
 // // Load the handlers from the handler folder
