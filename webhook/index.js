@@ -1,11 +1,11 @@
 const express = require("express"),
     router = express.Router(),
     db = require('../models');
-//const check_num_indb = require('./handlers/test/sayani.js');
+
 const dialogflowSessionClient =
     require('./dialogflow_session_client.js');
- const path = require('path')
- const utils = require('./utils')
+// const path = require('path')
+// const utils = require('./utils')
 
 const projectId = process.env.DIALOGFLOW_PROJECT;
 const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
@@ -23,14 +23,14 @@ router.post('/api/chat/', async function(req, res) {
 
     const dialogflowResponse = (await sessionClient.detectIntent(
         text, id, body)); // Gets intent
-        //dialogflowResponse=check_num_indb(dialogflowResponse,id);
-        
     var responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
 
     //Check if phone number is in the database
     function isUser(id, callback) {
         db.userWA.findOne({
-            where:{wa_phone_number: id.substring(10)}
+            where:{
+                wa_phone_number: id
+            }
         })
         .then(response => {
             return callback(response);
@@ -42,12 +42,12 @@ router.post('/api/chat/', async function(req, res) {
     if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') {
 
         //Redirects to different intents depending on number present in db
-        isUser(id,function(result){
-            if(result==null){
-                responseText=responseText+'\n1. Would you like to register?\n2. More Information';
+        isUser(id.substring(10),function(result){
+            if(result!=null){
+                responseText = responseText +'\n(3) PATIENT\n(4) PATIENT FIRST WORKFLOW\n(5) PATIENT NEXT WORKFLOW';
             }
             else{
-                responseText=responseText+'\n3. PATIENT\n4. PATIENT FIRST WORKFLOW\n5. PATIENT NEXT WORKFLOW';
+                responseText = responseText +'\n(1) Would you like to register?\n(2) More Information';
             }
         });
     }
@@ -65,13 +65,14 @@ router.post('/api/chat/', async function(req, res) {
     //User details Intent
     if (dialogflowResponse.intent.displayName === 'User Profile') {
 
-        isUser(id,function(result){
+        isUser(id.substring(10),function(result){
             if(result!=null){
                 
                 responseText = responseText + "\n" + 'Name: '+result.dataValues.first_name+' '+result.dataValues.last_name;
                 responseText = responseText + "\n" + 'WhatsApp phone number: '+result.dataValues.wa_phone_number;
                 responseText = responseText + "\n" + 'Email: '+result.dataValues.email;
-            }else{
+            }
+            else {
                 responseText = responseText + "\n" + 'You are not a registered user. Please register to avail our service.\n';
             }
         
