@@ -59,9 +59,8 @@ router.post('/api/chat/', async function(req, res) {
         });
     }
 
-
     // List of doctors intent
-    if (dialogflowResponse.intent.displayName === 'List of doctors') {
+    else if (dialogflowResponse.intent.displayName === 'List of doctors') {
         const doctors = await db.doctors.findAll({}).map(
             el => el.get('first_name') + " " + el.get('last_name')
         );
@@ -71,9 +70,8 @@ router.post('/api/chat/', async function(req, res) {
         res.send(twiml.toString());
     }
 
-
     //User details Intent
-    if (dialogflowResponse.intent.displayName === 'User Profile') {
+    else if (dialogflowResponse.intent.displayName === 'User Profile') {
 
         isUser(id.substring(10),function(result){
             if(result!=null){
@@ -91,9 +89,8 @@ router.post('/api/chat/', async function(req, res) {
         });
     }
 
-    //More Info Intent
-    if (dialogflowResponse.intent.displayName === 'More Info') {
-        responseText = responseText + "\n" + 'For anything you like to know about us please refer to the link below:\n https://www.linkedin.com/company/combat-covid-19-iit-kgp-initiative/';
+    // Intents with static response handled from dialogflow console
+    else {
         const message = twiml.message(responseText);
         res.send(twiml.toString());
     }
