@@ -3,6 +3,12 @@ const express = require("express"),
     db = require('../models'),
     dialogflow = require('dialogflow');
 
+const dialogflow = require('dialogflow');
+const dialogflowSessionClient =
+    require('./dialogflow_session_client.js');
+// const path = require('path')
+// const utils = require('./utils')
+
 const projectId = process.env.DIALOGFLOW_PROJECT;
 const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
