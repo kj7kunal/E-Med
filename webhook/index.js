@@ -128,10 +128,6 @@ router.post('/api/chat/', async function(req, res) {
     else {
         responseText = dialogflowResponse.fulfillmentText;
     }
-
-    const message = twiml.message(responseText);
-    res.send(twiml.toString);
-
     const message = twiml.message(responseText);
     res.send(twiml.toString());
 });
