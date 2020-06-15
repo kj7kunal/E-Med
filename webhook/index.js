@@ -2,6 +2,7 @@ const express = require("express"),
     router = express.Router(),
     db = require('../models');
 
+const dialogflow = require('dialogflow');
 const dialogflowSessionClient =
     require('./dialogflow_session_client.js');
 // const path = require('path')
@@ -15,15 +16,29 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const sessionClient = new dialogflowSessionClient(projectId);
+const contextClient - new dialogflow.v2.ContextsClient();
+
+const userController = require('../controllers/UserController.js');
 
 router.post('/api/chat/', async function(req, res) {
     const body = req.body;
     const text = body.Body;
     const id = body.From; // User Whatsapp number (for auth stuff)
+    let responseText = "";
+
+    const formattedParent = contextClient.sessionPath(projectId, id)
+    contextClient.listContexts({parent: formattedParent})
+        .then(responses => {
+            const cNames = responses[0];
+            for (cName of cNames)
+                if (cName == "share_loc")
+                    responseText = userController.addLocation(body);
+        })
+        .catch(err => responseText = err);
 
     const dialogflowResponse = (await sessionClient.detectIntent(
         text, id, body)); // Gets intent
-    let responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
+    responseText += dialogflowResponse.fulfillmentText; // Gets default fulfillment text
     const twiml = new MessagingResponse();
 
     //Check if incoming phone number is in the database
@@ -88,12 +103,26 @@ router.post('/api/chat/', async function(req, res) {
             res.send(twiml.toString());
         });
     }
-
-    // Intents with static response handled from dialogflow console
-    else {
-        const message = twiml.message(responseText);
-        res.send(twiml.toString());
+    else if (dialogflowResponse.intent.displayName === 'register_yourself') { // Register Yourself Intent
+        responseText = userController.addPatientInfoIntent(dialogflowResponse, body);
     }
+    else if (dialogflowResponse.intent.displayName === 'check_patient_profile') { // Check single patient // Needs more work
+        responseText = userController.show(dialogflowResponse, body);
+    }
+    else if (dialogflowResponse.intent.displayName === 'list_of_patients') { // Complete list fo all patients
+        responseText = userController.liste(dialogflowResponse, body);
+    }
+    else if (dialogflowResponse.intent.displayName === 'register_another_patient') { // Register a new Patient
+        responseText = userController.newPatientIntent(dialogflowResponse, body);
+    }
+    else if (dialogflowResponse.intent.displayName === 'user_details') { // New User Intent
+        responseText = userController.newUserIntent(dialogflowResponse, body);
+    }
+    // Intents with static response handled from dialogflow console
+    else responseText = dialogflowResponse.fulfillmentText;
+
+    const message = twiml.message(responseText);
+    res.send(twiml.toString);
 
 });
 
