@@ -43,8 +43,8 @@ router.post('/api/chat/', async function(req, res) {
     contextClient.listContexts({parent: formattedParent})
         .then(responses => {
             const cNames = responses[0];
-            for (cName of cNames)
-                if (cName == "share_loc")
+            for (cName of cNames){
+                if (cName == "share_loc"){
                     responseText = userController.addLocation(body);
                     const contextName = client.contextPath(projectId, id, cName);
                     contextClient.deleteContext({name: contextName})
@@ -68,14 +68,29 @@ router.post('/api/chat/', async function(req, res) {
         responseText = dialogflowResponse.fulfillmentText;
     }
     // Default Welcome Intent
-    else if (dialogflowResponse.intent.displayName === 'Default Welcome Intent')
-        responseText = await startController.welcome(dialogflowResponse, id.substring(10));
-    // List of doctors intent
-    else if (dialogflowResponse.intent.displayName === 'List of doctors') {
-        const doctors = await db.doctors.findAll({}).map(
-            el => el.get('first_name') + " " + el.get('last_name')
-        );
-        responseText = responseText + "\n" + doctors.join("\n");
+    else if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') {
+
+        //Redirects to different intents depending on number present in db
+        utils.isUser(id.substring(10),function(result){
+            if(result!=null){
+                responseText = ('Welcome back, ' +result.dataValues.first_name+' '+result.dataValues.last_name + '!\n'
+                                +'How can we help you today? Please choose from the following options:\n'
+                                +'(1) Register a new patient\n'
+                                +'(2) Check/Update existing patient\n'
+                                +'(3) Book a new consultation\n'
+                                +'(4) Follow up on existing consultation\n'
+                                +'(5) More Information about us\n');
+            }
+            else{
+                responseText = ('Welcome to E-Medic, a non-profit initiative to provide primary healthcare during COVID-19.\n'
+                                + 'How can we help you today? Please choose from the following options:\n'
+                                +'(1) Register as a user\n'
+                                +'(2) More Information about us\n');
+            }
+
+            const message = twiml.message(responseText);
+            res.send(twiml.toString());
+        });
     }
 
     //User details Intent
