@@ -9,6 +9,12 @@ const dialogflowSessionClient =
 // const path = require('path')
 // const utils = require('./utils')
 
+const dialogflow = require('dialogflow');
+const dialogflowSessionClient =
+    require('./dialogflow_session_client.js');
+// const path = require('path')
+// const utils = require('./utils')
+
 const projectId = process.env.DIALOGFLOW_PROJECT;
 const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -62,7 +68,7 @@ router.post('/api/chat/', async function(req, res) {
         responseText = dialogflowResponse.fulfillmentText;
     }
     // Default Welcome Intent
-    else if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') 
+    else if (dialogflowResponse.intent.displayName === 'Default Welcome Intent')
         responseText = await startController.welcome(dialogflowResponse, id.substring(10));
     // List of doctors intent
     else if (dialogflowResponse.intent.displayName === 'List of doctors') {
