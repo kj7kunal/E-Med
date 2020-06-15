@@ -9,6 +9,12 @@ const dialogflowSessionClient =
 // const path = require('path')
 // const utils = require('./utils')
 
+const dialogflow = require('dialogflow');
+const dialogflowSessionClient =
+    require('./dialogflow_session_client.js');
+// const path = require('path')
+// const utils = require('./utils')
+
 const projectId = process.env.DIALOGFLOW_PROJECT;
 const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -122,6 +128,23 @@ router.post('/api/chat/', async function(req, res) {
     else {
         responseText = dialogflowResponse.fulfillmentText;
     }
+    else if (dialogflowResponse.intent.displayName === 'check_patient_profile') { // Check single patient // Needs more work
+        responseText = userController.show(dialogflowResponse, body);
+    }
+    else if (dialogflowResponse.intent.displayName === 'list_of_patients') { // Complete list fo all patients
+        responseText = userController.liste(dialogflowResponse, body);
+    }
+    else if (dialogflowResponse.intent.displayName === 'register_another_patient') { // Register a new Patient
+        responseText = userController.newPatientIntent(dialogflowResponse, body);
+    }
+    else if (dialogflowResponse.intent.displayName === 'user_details') { // New User Intent
+        responseText = userController.newUserIntent(dialogflowResponse, body);
+    }
+    // Intents with static response handled from dialogflow console
+    else responseText = dialogflowResponse.fulfillmentText;
+
+    const message = twiml.message(responseText);
+    res.send(twiml.toString);
 
     const message = twiml.message(responseText);
     res.send(twiml.toString());

@@ -152,14 +152,14 @@ class UserRegistrationController {
     .catch(err => return err);
   }
 
-  show(agent) {
-    let uid = agent.parameters["user-id"];
+  show(agent, body) {
+    let user = await db.userWA.findOne(where: {phone_number: body.From.toSring()});
     let fulfillmentText = "These are the details of your Patient: ";
-    db.patientWA.findAll({where: { user_id : uid, 
+    db.patientWA.findAll({where: { user_id : user.id, 
                                   first_name: agent.parameters["patient-given-name"]}
                                 }).then(patients =>
                                   if(patients.length == 1){
-                                  fulfillmentText = fulfillmentText +  
+                                    fulfillmentText = fulfillmentText +  
                                                             "\nfirst_name: " + patient.first_name +
                                                             "\nlast_name: " patient.last_name +
                                                             "\ndob: " + patient.dob +
@@ -170,6 +170,7 @@ class UserRegistrationController {
                                                             "\nallergies: " + patient.allergies + 
                                                             "\nprocedures: " + patient.procedures + 
                                                             "\nblood_type: " + patient.blood_type;
+                                    return fulfillmentText;
                                   } else {
                                     throw "Patient with that name does not exist";
                                   }
