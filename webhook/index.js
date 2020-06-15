@@ -43,8 +43,8 @@ router.post('/api/chat/', async function(req, res) {
     contextClient.listContexts({parent: formattedParent})
         .then(responses => {
             const cNames = responses[0];
-            for (cName of cNames){
-                if (cName == "share_loc"){
+            for (cName of cNames)
+                if (cName == "share_loc")
                     responseText = userController.addLocation(body);
                     const contextName = client.contextPath(projectId, id, cName);
                     contextClient.deleteContext({name: contextName})
