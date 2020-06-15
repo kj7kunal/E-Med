@@ -31,9 +31,13 @@ router.post('/api/chat/', async function(req, res) {
     contextClient.listContexts({parent: formattedParent})
         .then(responses => {
             const cNames = responses[0];
-            for (cName of cNames)
-                if (cName == "share_loc")
+            for (cName of cNames){
+                if (cName == "share_loc"){
                     responseText = userController.addLocation(body);
+                    contextClient.deleteContext({parent: formattedParent})
+                        .catch(err => responseText += ("\n" + err));
+                }
+            }
         })
         .catch(err => responseText = err);
 
@@ -43,6 +47,10 @@ router.post('/api/chat/', async function(req, res) {
     const twiml = new MessagingResponse();
 
     // INTENTS
+    // Directly send response if paramenters not complete.
+    if(!dialogflowResponse.queryResult.allRequiredParamsPresent){
+        responseText = dialogflowResponse.queryResult.fulfillmentText;
+    }
     // Default Welcome Intent
     if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') {
         responseText = await startController.welcome(dialogflowResponse, id.substring(10));
@@ -58,19 +66,19 @@ router.post('/api/chat/', async function(req, res) {
         responseText = dialogflowResponse.fulfillmentText;
     }
     else if (dialogflowResponse.intent.displayName === 'check_patient_profile') { // Check single patient // Needs more work
-        responseText = userController.show(dialogflowResponse, body);
+        responseText = userController.show(dialogflowResponse.queryResult, body);
     }
     else if (dialogflowResponse.intent.displayName === 'list_of_patients') { // Complete list fo all patients
-        responseText = userController.liste(dialogflowResponse, body);
+        responseText = userController.liste(dialogflowResponse.queryResult, body);
     }
     else if (dialogflowResponse.intent.displayName === 'register_another_patient') { // Register a new Patient
-        responseText = userController.newPatientIntent(dialogflowResponse, body);
+        responseText = userController.newPatientIntent(dialogflowResponse.queryResult, body);
     }
     else if (dialogflowResponse.intent.displayName === 'user_details') { // New User Intent
-        responseText = userController.newUserIntent(dialogflowResponse, body);
+        responseText = userController.newUserIntent(dialogflowResponse.queryResult, body);
     }
     // Intents with static response handled from dialogflow console
-    else responseText = dialogflowResponse.fulfillmentText;
+    else responseText = dialogflowResponse.queryResult.fulfillmentText;
 
     const message = twiml.message(responseText);
     res.send(twiml.toString);
