@@ -143,7 +143,7 @@ router.post('/api/chat/', async function(req, res) {
         responseText = await userController.newUserIntent(dialogflowResponse, body);
     }
     // Intents with static response handled from dialogflow console
-    else responseText = dialogflowResponse.fulfillmentText;
+    else responseText = dialogflowResponse.queryResult.fulfillmentText;
 
     const message = twiml.message(responseText);
     res.send(twiml.toString());
