@@ -23,20 +23,78 @@ router.post('/api/chat/', async function(req, res) {
 
     const dialogflowResponse = (await sessionClient.detectIntent(
         text, id, body)); // Gets intent
-    var responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
+    let responseText = dialogflowResponse.fulfillmentText; // Gets default fulfillment text
+    const twiml = new MessagingResponse();
+
+    //Check if incoming phone number is in the database
+    function isUser(id, callback) {
+        db.userWA.findOne({
+            where: {
+                wa_phone_number: id
+            }
+        })
+        .then(response => {
+            return callback(response);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    };
 
     // INTENTS
+    // Default Welcome Intent
+    if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') {
+
+        //Redirects to different intents depending on number present in db
+        isUser(id.substring(10),function(result){
+            if(result!=null){
+                responseText = responseText +'\n\n(3) PATIENT\n(4) PATIENT FIRST WORKFLOW\n(5) PATIENT NEXT WORKFLOW';
+            }
+            else{
+                responseText = responseText +'\n\n(1) Would you like to register?\n(2) More Information';
+            }
+
+            const message = twiml.message(responseText);
+            res.send(twiml.toString());
+        });
+    }
+
     // List of doctors intent
-    if (dialogflowResponse.intent.displayName === 'List of doctors') {
+    else if (dialogflowResponse.intent.displayName === 'List of doctors') {
         const doctors = await db.doctors.findAll({}).map(
             el => el.get('first_name') + " " + el.get('last_name')
         );
         responseText = responseText + "\n" + doctors.join("\n");
+
+        const message = twiml.message(responseText);
+        res.send(twiml.toString());
     }
 
-    const twiml = new  MessagingResponse();
-    const message = twiml.message(responseText);
-    res.send(twiml.toString());
+    //User details Intent
+    else if (dialogflowResponse.intent.displayName === 'User Profile') {
+
+        isUser(id.substring(10),function(result){
+            if(result!=null){
+
+                responseText = responseText + "\n" + 'Name: '+result.dataValues.first_name+' '+result.dataValues.last_name;
+                responseText = responseText + "\n" + 'WhatsApp phone number: '+result.dataValues.wa_phone_number;
+                responseText = responseText + "\n" + 'Email: '+result.dataValues.email;
+            }
+            else {
+                responseText = responseText + "\n" + 'You are not a registered user. Please register to avail our service.\n';
+            }
+
+            const message = twiml.message(responseText);
+            res.send(twiml.toString());
+        });
+    }
+
+    // Intents with static response handled from dialogflow console
+    else {
+        const message = twiml.message(responseText);
+        res.send(twiml.toString());
+    }
+
 });
 
 // // Load the handlers from the handler folder
