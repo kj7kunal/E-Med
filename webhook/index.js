@@ -107,19 +107,19 @@ router.post('/api/chat/', async function(req, res) {
         });
     }
     else if (dialogflowResponse.intent.displayName === 'register_yourself') { // Register Yourself Intent
-        responseText = userController.addPatientInfoIntent(dialogflowResponse.queryResult, body);
+        responseText = await userController.addPatientInfoIntent(dialogflowResponse.queryResult, body);
     }
     else if (dialogflowResponse.intent.displayName === 'check_patient_profile') { // Check single patient // Needs more work
-        responseText = userController.show(dialogflowResponse.queryResult, body);
+        responseText = await userController.show(dialogflowResponse.queryResult, body);
     }
     else if (dialogflowResponse.intent.displayName === 'list_of_patients') { // Complete list fo all patients
-        responseText = userController.liste(dialogflowResponse.queryResult, body);
+        responseText = await userController.liste(dialogflowResponse.queryResult, body);
     }
     else if (dialogflowResponse.intent.displayName === 'register_another_patient') { // Register a new Patient
-        responseText = userController.newPatientIntent(dialogflowResponse.queryResult, body);
+        responseText = await userController.newPatientIntent(dialogflowResponse.queryResult, body);
     }
     else if (dialogflowResponse.intent.displayName === 'user_details') { // New User Intent
-        responseText = userController.newUserIntent(dialogflowResponse.queryResult, body);
+        responseText = await userController.newUserIntent(dialogflowResponse.queryResult, body);
     }
     // Intents with static response handled from dialogflow console
     else responseText = dialogflowResponse.queryResult.fulfillmentText;
