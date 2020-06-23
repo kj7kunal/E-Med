@@ -112,6 +112,7 @@ class ConsultController {
     else{
       return "There are no previous consultations press n to consult different doctor."
     }
+  }
 }
 
 module.exports = ConsultController;
