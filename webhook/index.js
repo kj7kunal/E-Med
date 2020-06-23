@@ -55,6 +55,26 @@ router.post('/api/chat/', async function(req, res) {
                     contextClient.deleteContext({name: contextName})
                         .catch(err => responseText += ("\n" + err));
                 }
+                if(cName == "book_consultation"){
+                    let user = await db.userWA.findOne(where: {
+                        wa_phone_number: id
+                    });
+                    db.patientWA.findAll({where: { user_id : user.id}).then(patients =>
+                      if(patients.length != 0){
+                        contextClient.deleteAllContexts({parent: formattedParent}).catch(err => {
+                          console.error(err);
+                        });
+                        const context = "check_patient";
+                        const request = {
+                          parent: formattedParent,
+                          context: context,
+                        };
+                        contextClient.createContext(request).catch(err => {
+                          console.error(err);
+                        });
+                      }
+                    )
+                }
             }
         })
         .catch(err => responseText = err);
@@ -125,6 +145,13 @@ router.post('/api/chat/', async function(req, res) {
     }
     else if (dialogflowResponse.intent.displayName === 'list_of_patients_while_consultation') { // Complete list fo all patients
         responseText = await userController.liste(dialogflowResponse.queryResult, body);
+    }
+    // Patient First Workflow Intents
+    else if (dialogflowResponse.intent.displayName === 'book_consultation') { // Book Consultation
+        responseText = await consultController.bookConsulation(dialogflowResponse.queryResult, body);
+    }
+    else if (dialogflowResponse.intent.displayName === 'patient_info') { // List of patients for consultation
+        responseText = await consultController.patientInfo(dialogflowResponse.queryResult, body);
     }
     // Intents with static response handled from dialogflow console
     else {
