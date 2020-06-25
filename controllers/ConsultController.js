@@ -56,6 +56,14 @@ class ConsultController {
                                   }
                                 ).catch(err => return err);
   }
+
+patientInfo(agent, body) {
+    let user = await db.userWA.findOne(where: {phone_number: body.From.toSring()});
+    let fulfillmentText = "These are the details of your Patient: ";
+  }
+
 }
+
+
 
 module.exports = ConsultController;
