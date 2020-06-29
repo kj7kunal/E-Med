@@ -9,7 +9,7 @@ class ConsultController {
   bookConsulation(agent, body){
     let fulfillmentText = "Let’s get you connected to the Hospital soon! ";
     let user = await db.userWA.findOne(where: {phone_number: body.From.toSring()});
-    db.patientWA.findAll({where: { user_id : user.id }).then(patients =>
+    db.patientWA.findAll({where: { user_id : user.id }}).then(patients => {
                                   if(patients.length == 0){
                                     fulfillmentText = fulfillmentText + "\nWe don't have any patients registered with us. What would you like to do?\
                                     \n 1. Register a patient?\
@@ -25,7 +25,7 @@ class ConsultController {
                                     });
                                   }
                                   return fulfillmentText;
-                                ).catch(err => return err);
+                                }).catch(err => return err);
   }
 
   patientInfo(agent, body) {
@@ -33,7 +33,7 @@ class ConsultController {
     let fulfillmentText = "These are the details of your Patient: ";
     db.patientWA.findAll({where: { user_id : user.id,
                                   first_name: agent.parameters["patient-given-name"]}
-                                }).then(patients =>
+                                }).then(patients => {
                                   if(patients.length == 1){
                                     fulfillmentText = fulfillmentText +
                                                             "\nfirst_name: " + patient.first_name +
@@ -54,16 +54,45 @@ class ConsultController {
                                   } else {
                                     throw "Patient with that name does not exist";
                                   }
-                                ).catch(err => return err);
+                                }).catch(err => return err);
   }
 
-patientInfo(agent, body) {
-    let user = await db.userWA.findOne(where: {phone_number: body.From.toSring()});
-    let fulfillmentText = "These are the details of your Patient: ";
-  }
 
+  doctorInfo(agent){
+    let fulfillmentText = "Here's what we found. Reply the number to choose:";
+    db.Doctor.findAll(where: {first_name: agent.parameters["doctors-first-name"] 
+                              last_name: agent.parameter["doctors-last-name"]
+                              }).then(doctors => {
+                                if(doctors.length == 0) throw "Sorry. Dr" + agent.parameters["doctors-first-name"] + " " + 
+                                                                agent.parameter["doctors-last-name"] + " is not present on our platform.\n" +
+                                                                "Please use the invite link to help them join." ;
+                                let i=1;
+                                doctors.forEach((doctor, i) => {
+                                  fulfillmentText += "\n " + i + ". Dr." + doctor.first_name + " " + doctor.last_name;
+                                })
+                              }).catch(err => return err);
+
+                          fulfillmentText+= "\nReply " + (i+1) + " if you can't find the doctor you are looking for.";
+                          return fulfillmentText;
 }
 
+
+  clinicInfo(agent){
+    let fulfillmentText = "Here's what we found. Reply the number to choose:";
+    db.Clinic.findAll(where: {clinic_name: agent.parameters["clinic-given-name"]
+                              }).then(clinics => {
+                                if(clinics.length==0)throw "Sorry. Hospital "+ agent.parameters["clinic-given-name"] + 
+                                                  " is not present on our platform.\n Please use the invite link to help them join." ;
+                                let i=1;
+                                clinics.forEach((clinic, i) => {
+                                  fulfillmentText += "\n " + i + ". " + clinic.clinic_name + + " Hospital";
+                                })
+                              }).catch(err => return err);
+
+                            fulfillmentText+= "\nReply " + (i+1) + " if you can't find the hospital you are looking for.";
+                            return fulfillmentText;
+    }
+}
 
 
 module.exports = ConsultController;
