@@ -45,26 +45,6 @@ router.post('/api/chat/', async function(req, res) {
                     contextClient.deleteContext({name: contextName})
                         .catch(err => responseText += ("\n" + err));
                 }
-                if(cName == "book_consultation"){
-                    let user = await db.userWA.findOne(where: {
-                        wa_phone_number: id
-                    });
-                    db.patientWA.findAll({where: { user_id : user.id}).then(patients =>
-                      if(patients.length != 0){
-                        contextClient.deleteAllContexts({parent: formattedParent}).catch(err => {
-                          console.error(err);
-                        });
-                        const context = "check_patient";
-                        const request = {
-                          parent: formattedParent,
-                          context: context,
-                        };
-                        contextClient.createContext(request).catch(err => {
-                          console.error(err);
-                        });
-                      }
-                    )
-                }
             }
         })
         .catch(err => responseText = err);
@@ -118,10 +98,20 @@ router.post('/api/chat/', async function(req, res) {
     }
     // Patient First Workflow Intents
     else if (dialogflowResponse.intent.displayName === 'book_consultation') { // Book Consultation
-        responseText = await consultController.bookConsulation(dialogflowResponse.queryResult, body);
+        responseText = await consultController.bookConsulation(dialogflowResponse.queryResult, body, contextClient, formattedParent);
     }
     else if (dialogflowResponse.intent.displayName === 'patient_info') { // List of patients for consultation
         responseText = await consultController.patientInfo(dialogflowResponse.queryResult, body);
+    }
+    // Patient Next Workflow Intents
+    else if (dialogflowResponse.intent.displayName === 'n+1 consultation') { // next consultation
+        responseText = await consultController.nextConsultation(dialogflowResponse.queryResult, body);
+    }
+    else if (dialogflowResponse.intent.displayName === 'patient_details') { // patient details
+        responseText = await consultController.patientInfo(dialogflowResponse.queryResult, body);
+    }
+    else if (dialogflowResponse.intent.displayName === 'past_consultations') { // previous consultations of user
+        responseText = await consultController.pastConsultations(dialogflowResponse.queryResult, body);
     }
     // Intents with static response handled from dialogflow console
     else {
