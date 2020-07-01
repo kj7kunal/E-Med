@@ -144,6 +144,9 @@ router.post('/api/chat/', async function(req, res) {
     else if (dialogflowResponse.intent.displayName === 'past_consultations') { // previous consultations of user
         responseText = await consultController.pastConsultations(dialogflowResponse.queryResult, body);
     }
+    else if (dialogflowResponse.intent.displayName === 'list_of_patients_while_consultation') { // Complete list fo all patients
+        responseText = await userController.liste(dialogflowResponse.queryResult, body);
+    }
     // Intents with static response handled from dialogflow console
     else responseText = dialogflowResponse.queryResult.fulfillmentText;
 

@@ -114,7 +114,7 @@ class ConsultController {
                                       "\nlast_name: " + doctor.last_name;
                                     });
                                     fulfillmentText = fulfillmentText +
-                                    "Reply back with the name of the doctor you wish to consult with. To consult a different doctor press";
+                                    "Reply back with the name of the doctor you wish to consult with. To consult a different doctor press n.";
                                   }
                                   return fulfillmentText;
                                 ).catch(err => return err);
