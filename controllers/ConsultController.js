@@ -60,7 +60,7 @@ class ConsultController {
 
   doctorInfo(agent){
     let fulfillmentText = "Here's what we found. Reply the number to choose:";
-    db.Doctor.findAll(where: {first_name: agent.parameters["doctors-first-name"] 
+    db.DoctorWA.findAll(where: {first_name: agent.parameters["doctors-first-name"] 
                               last_name: agent.parameter["doctors-last-name"]
                               }).then(doctors => {
                                 if(doctors.length == 0) throw "Sorry. Dr" + agent.parameters["doctors-first-name"] + " " + 
@@ -92,6 +92,25 @@ class ConsultController {
                             fulfillmentText+= "\nReply " + (i+1) + " if you can't find the hospital you are looking for.";
                             return fulfillmentText;
     }
+
+  DoctorPostClinicSelection(agent){
+    let fulfillmentText = "Hospital " + agent.parameters["clinic-given-name"] + " has the following doctors.\
+                            \nReply back the number you wish to choose.";
+    let clinic = db.Clinic.findOne(where : {clinic_name : agent.parameters["clinic-given-name"]});
+
+    if(clinic.length == 0) throw "Sorry. Hospital "+ agent.parameters["clinic-given-name"] + 
+                                 " is not present on our platform.\n Please use the invite link to help them join." ;
+
+    db.DoctorWA.findAll(where : {Clinic_id : clinic.id}).then(doctors => {
+                                 let i=1;
+                                 doctors.forEach((doctor, i) => {
+                                  fulfillmentText += "\n " + i + ". Dr." + doctor.first_name + " " + doctor.last_name;
+                                 })
+                                }).catch(err => return err);
+                              fulfillmentText = "\nReply " + (i+1) + " if you wish to browse for more doctors.\n" + 
+                                                "Reply" + (i+2) + " if you wish to choose a different hospital.";
+                            return fulfillmentText;
+  }
 }
 
 
