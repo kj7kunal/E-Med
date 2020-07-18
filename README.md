@@ -4,11 +4,11 @@ Making Telemedicine Accessible - Accelerating the reach of primary healthcare in
 
 ### Overview
 
-E-Medic is primarily a WhatsApp chatbot with an integrated web application for facilitating online consultations 
-and zero-contact physical hospital visits. 
+E-Medic is primarily a WhatsApp chatbot with an integrated web application for facilitating online consultations
+and zero-contact physical hospital visits.
 
 ### Demo
-![Models](./demo/patientstack-demo.gif)
+![Models](./demo/emed_webapp.gif)
 
 ### Collaborators
 
