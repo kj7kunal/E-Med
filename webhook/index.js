@@ -34,8 +34,8 @@ router.post('/api/chat/', async function(req, res) {
         //Redirects to different intents depending on number present in db
         utils.isUser(id.substring(10),function(result){
             if(result!=null){
-                responseText = ('Welcome back, ' +result.dataValues.first_name+' '+result.dataValues.last_name
-                                + 'How can we help you today? Please choose from the following options:\n'
+                responseText = ('Welcome back, ' +result.dataValues.first_name+' '+result.dataValues.last_name + '!\n'
+                                +'How can we help you today? Please choose from the following options:\n'
                                 +'(1) Register a new patient\n'
                                 +'(2) Check/Update existing patient\n'
                                 +'(3) Book a new consultation\n'
