@@ -7,17 +7,21 @@ Making Telemedicine Accessible - Accelerating the reach of primary healthcare in
 E-Medic is primarily a WhatsApp chatbot with an integrated web application for facilitating online consultations
 and zero-contact physical hospital visits.
 
-### Demo
-![Models](./demo/emed_webapp.gif)
+### Demo - Whatsapp
+![Whatsapp](./demo/emed_whatsapp.gif)
+
+### Demo - Webapp
+![Webapp](./demo/emed_webapp.gif)
 
 ### Collaborators
 
 * Kunal Jain - [@kj7kunal](https://github.com/kj7kunal)
 * Nirmaan Sarkar - [@pikujs](https://github.com/pikujs)
 
-### Models Structure
-
+### Models Structure - Whatsapp
 ![Models_WA_Chatbot](./db/models_wa.png)
+
+### Models Structure - Webapp
 ![Models_Webapp](./db/models.png)
 
 
