@@ -1,4 +1,4 @@
-const db = require('../models');
+const db = require('../../models');
 
 module.exports = {
 //Check if incoming phone number is in the database
