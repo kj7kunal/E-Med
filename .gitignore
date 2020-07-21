@@ -7,3 +7,4 @@ config/config.json
 .idea
 .env
 config/credentials.json
+config/config.json
