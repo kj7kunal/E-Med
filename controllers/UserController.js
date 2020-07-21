@@ -25,25 +25,26 @@ class UserRegistrationController {
         .then(() => {
             return fulfillmentText;
         })
-        .catch(err => return err);
+        .catch((err) => {return err;});
   }
 
   addLocation(body){    
+    let fulfillmentText = "Updated Location";
     db.userWA.update({
-      loc_long: body.Logitude.toSring(),
-      loc_lat: body.Latitude.toSring()
+      "loc_long": body.Logitude.toSring(),
+      "loc_lat": body.Latitude.toSring()
     }, { where: {"phone_number": body.From.toSring()}})
-    .then({
-      return "Updated Location";
+    .then(() => {
+      return fulfillmentText;
     })
-    .catch(err => return err);
+    .catch((err) => {return err;});
   }
 
-  newPatientIntent(agent, body) {
+  async newPatientIntent(agent, body) {
   	console.log("Storing new patient in DB");
     let fName = agent.parameters["patient-given-name"];
     let lName = agent.parameters["patient-last-name"];
-    let parentUser = await db.userWA.findOne(where: {phone_number: body.From.toSring()});
+    let parentUser = await db.userWA.findOne({where: {phone_number: body.From.toSring()}});
 
     fulfillmentText = "Thanks for adding " + fName + " " + lName + ".\
         \nYou can now proceed to book a consultation for your registered patients. What would you like to do today?\
@@ -57,20 +58,20 @@ class UserRegistrationController {
 
     db.patientWA.create({
             "first_name": fName,
-            "last_name": lName
+            "last_name": lName,
             "userWAid": parentUser.id,
             "is_user" : (agent.parameters["is_user"].toLowerCase() === "yes")
         })
         .then(() => {
             return fulfillmentText;
         })
-        .catch(err => return err);
+        .catch(err => {return err;});
   }
 
-  addPatientInfoIntent(agent, body){
+  async addPatientInfoIntent(agent, body){
     let cNum = agent.parameters["patient-contact"];
-    let pUser = await db.userWA.findOne(where: {phone_number: body.From.toSring()});
-    let patient = await db.patientWA.findOne(where: {User_id: pUser.id});
+    let pUser = await db.userWA.findOne({where: {phone_number: body.From.toSring()}});
+    let patient = await db.patientWA.findOne({where: {User_id: pUser.id}});
 
     fulfillmentText = "Thanks for adding " + fName + " " + lName + ".\
         \nYou can now proceed to book a consultation for your registered patients. What would you like to do today?\
@@ -95,73 +96,74 @@ class UserRegistrationController {
         .then(() => {
             return fulfillmentText;
         })
-        .catch(err => return err);
+        .catch(err => {return err;});
   }
 
-  updateAilAllergies(agent, body){
-    let user = await db.userWA.findOne(where: {phone_number: body.From.toSring()});
-    let patient = await db.patientWA.findOne(where: {userWAid: user.id});
+  async updateAilAllergies(agent, body){
+    let user = await db.userWA.findOne({where: {phone_number: body.From.toSring()}});
+    let patient = await db.patientWA.findOne({where: {userWAid: user.id}});
     
-    let fulfillmentText = "We have updated your Allergies and Ailments. Do you want to Consult a doctor? (More Options here)"
+    let fulfillmentText = "We have updated your Allergies and Ailments. Do you want to Consult a doctor? (More Options here)";
 
     db.patientInfoWA.update({
       Ailments: agent.parameters["Ailments"],
       Allergies: agent.parameters["Allergies"]
     }, { where: {"patientWAid": patient.id}})
-    .then({
+    .then(() => {
       return fulfillmentText;
     })
-    .catch(err => return err);
+    .catch(err => {return err;});
   }
 
-  liste(agent, body) {
+  async liste(agent, body) {
     let fulfillmentText = "These are your Patients: ";
-    let user = await db.userWA.findOne(where: {phone_number: body.From.toSring()});
-    db.patientWA.findAll({where: {User_id: user.id}}).then(patients => {
-      if (patients.length === 0) throw "You need to register a patient first. Would you like to register a new patient?";
-      patients.forEach((patient, i) => {
-        fulfillmentText = fulfillmentText + "\n\nPatient " + i + ": " + 
-          "\nfirst_name: " + patient.first_name +
-          "\nlast_name: " patient.last_name +
-          "\ndob: " + patient.dob +
-          "\ngender: " + patient.gender +
-          "\ntelephone: " + patient.last_name +
-          "\nheight: " + patient.height +
-          "\nweight: " + patient.weight + 
-          "\nallergies: " + patient.allergies + 
-          "\nprocedures: " + patient.procedures + 
-          "\nblood_type: " + patient.blood_type;
-      });
-    }).catch(err => return err);
+    let user = await db.userWA.findOne({where: {wa_phone_number: body.From.toString()}});
+    let patients = await db.patientWA.findAll({where: {User_id: user.id}}).catch(err => {return err;});
+    
+    if (patients.length === 0) return "You need to register a patient first. Would you like to register a new patient?";
+    for(let i=0;i< patients.length;i++) {
+      let patient = patients[i];
+      fulfillmentText = fulfillmentText + "\n\nPatient " + (i+1).toString() + ": " + 
+        "\nfirst_name: " + patient.first_name +
+        "\nlast_name: " + patient.last_name;
+      let pInfo = await db.patientInfoWA.findOne({where: {patientWAid: patient.id}}).catch(err => {return err;});
+      fulfillmentText += "\ndob: " + pInfo.dob +
+        "\ngender: " + pInfo.sex +
+        "\Contact: " + pInfo.phone_number +
+        "\nheight: " + pInfo.height_cm + " cm" + 
+        "\nweight: " + pInfo.weight_kg + " kg" +
+        "\nblood_type: " + pInfo.blood_type;
+    };
     return fulfillmentText;
   }
 
   update(agent) {
     let cNum = agent.parameters["telephone"];
     //if(db.userWA.findAll({where: {phone_number: cNum}}).length > 0) return "Phone Number already Exists";
-    db.patientWA.update(agent.parameters, where: {telephone: cNum})
-      .then(() => return "Patient Updated")
-      .catch(err => return err);
+    db.patientWA.update(agent.parameters, {where: {telephone: cNum}})
+      .then(() => {return "Patient Updated";})
+      .catch(err => {return err;});
   }
   
   remove(agent) {
     let cNum = agent.parameters["telephone"];
     db.patientWA.destroy({
       where: { telephone: cNum }
-    }).then(() => return "Patient Deleted")
-    .catch(err => return err);
+    }).then(() => {return "Patient Deleted";})
+    .catch(err => {return err;});
   }
 
-  show(agent, body) {
-    let user = await db.userWA.findOne(where: {phone_number: body.From.toSring()});
+  async show(agent, body) {
+    let user = await db.userWA.findOne({where: {phone_number: body.From.toSring()}});
     let fulfillmentText = "These are the details of your Patient: ";
     db.patientWA.findAll({where: { user_id : user.id, 
                                   first_name: agent.parameters["patient-given-name"]}
-                                }).then(patients =>
+                                }).then(patients => {
                                   if(patients.length == 1){
+                                    let patient = patients[0];
                                     fulfillmentText = fulfillmentText +  
                                                             "\nfirst_name: " + patient.first_name +
-                                                            "\nlast_name: " patient.last_name +
+                                                            "\nlast_name: " + patient.last_name +
                                                             "\ndob: " + patient.dob +
                                                             "\ngender: " + patient.gender +
                                                             "\ntelephone: " + patient.last_name +
@@ -172,9 +174,9 @@ class UserRegistrationController {
                                                             "\nblood_type: " + patient.blood_type;
                                     return fulfillmentText;
                                   } else {
-                                    throw "Patient with that name does not exist";
+                                    throw "Unique Patient with that name does not exist.";
                                   }
-                                ).catch(err => return err);
+                                }).catch((err) => {return err;});
   }
 }
 

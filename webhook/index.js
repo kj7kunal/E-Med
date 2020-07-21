@@ -15,10 +15,10 @@ const dialogflowSessionClient =
 // const path = require('path')
 // const utils = require('./utils')
 
-const projectId = process.env.DIALOGFLOW_PROJECT;
-const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+const projectId = process.env.DIALOGFLOW_PROJECT || "e-medicine-iitkgp-mvttlt";
+const phoneNumber = process.env.TWILIO_PHONE_NUMBER || "+919876543210";
+const accountSid = process.env.TWILIO_ACCOUNT_SID || "ACcountSID";
+const authToken = process.env.TWILIO_AUTH_TOKEN || "TWILIO_AUTH_TOKEN";
 
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
@@ -37,14 +37,17 @@ router.post('/api/chat/', async function(req, res) {
     const text = body.Body;
     console.log("Message Received: " + text);
     const id = body.From; // User Whatsapp number (for auth stuff)
+    console.log("Message from: " + id);
     let responseText = "";
 
-    const formattedParent = contextClient.sessionPath(projectId, id)
+    const formattedParent = contextClient.sessionPath(projectId, id);
     contextClient.listContexts({parent: formattedParent})
         .then(responses => {
-            const cNames = responses[0];
+          const cNames = responses[0];
             for (cName of cNames){
-                if (cName == "share_loc"){
+                let ctxtName = cName.name.split("/").slice(-1).pop();
+                console.log(ctxtName);
+                if ( ctxtName == "share_loc"){
                     responseText = userController.addLocation(body);
                     const contextName = client.contextPath(projectId, id, cName);
                     contextClient.deleteContext({name: contextName})
@@ -71,25 +74,17 @@ router.post('/api/chat/', async function(req, res) {
     else if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') {
 
         //Redirects to different intents depending on number present in db
-        utils.isUser(id.substring(10),function(result){
+        isUser(id.substring(10),function(result){
             if(result!=null){
-                responseText = ('Welcome back, ' +result.dataValues.first_name+' '+result.dataValues.last_name + '!\n'
-                                +'How can we help you today? Please choose from the following options:\n'
-                                +'(1) Register a new patient\n'
-                                +'(2) Check/Update existing patient\n'
-                                +'(3) Book a new consultation\n'
-                                +'(4) Follow up on existing consultation\n'
-                                +'(5) More Information about us\n');
+                responseText = responseText +'\n\n(3) PATIENT\n(4) PATIENT FIRST WORKFLOW\n(5) PATIENT NEXT WORKFLOW';
             }
             else{
-                responseText = ('Welcome to E-Medic, a non-profit initiative to provide primary healthcare during COVID-19.\n'
-                                + 'How can we help you today? Please choose from the following options:\n'
-                                +'(1) Register as a user\n'
-                                +'(2) More Information about us\n');
+                responseText = responseText +'\n\n(1) Would you like to register?\n(2) More Information';
             }
 
-            const message = twiml.message(responseText);
-            res.send(twiml.toString());
+            //const message = twiml.message(responseText);
+            //res.send(twiml.toString());
+            //res.send(message);
         });
     }
 
