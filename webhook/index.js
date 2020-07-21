@@ -1,7 +1,6 @@
 const express = require("express"),
     router = express.Router(),
-    db = require('../models'),
-    utils = require("./handlers/utils.js");
+    db = require('../models');
 
 const dialogflow = require('dialogflow');
 const dialogflowSessionClient =
@@ -9,30 +8,36 @@ const dialogflowSessionClient =
 // const path = require('path')
 // const utils = require('./utils')
 
-const projectId = process.env.DIALOGFLOW_PROJECT;
-const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+const projectId = process.env.DIALOGFLOW_PROJECT || "e-medicine-iitkgp-mvttlt";
+const phoneNumber = process.env.TWILIO_PHONE_NUMBER || "+919876543210";
+const accountSid = process.env.TWILIO_ACCOUNT_SID || "ACcountSID";
+const authToken = process.env.TWILIO_AUTH_TOKEN || "TWILIO_AUTH_TOKEN";
 
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
-const sessionClient = new dialogflowSessionClient(projectId);
-const contextClient - new dialogflow.v2.ContextsClient();
+const keyFilename = "./config/credentials.json";
+const sessionClient = new dialogflowSessionClient(projectId, keyFilename);
+const contextClient = new dialogflow.v2.ContextsClient({projectId, keyFilename: keyFilename});
 
-const userController = require('../controllers/UserController.js');
+const userRegistrationController = require('../controllers/UserController.js');
+const userController = new userRegistrationController();
 
 router.post('/api/chat/', async function(req, res) {
     const body = req.body;
     const text = body.Body;
+    console.log("Message Received: " + text);
     const id = body.From; // User Whatsapp number (for auth stuff)
+    console.log("Message from: " + id);
     let responseText = "";
 
-    const formattedParent = contextClient.sessionPath(projectId, id)
+    const formattedParent = contextClient.sessionPath(projectId, id);
     contextClient.listContexts({parent: formattedParent})
         .then(responses => {
-            const cNames = responses[0];
+          const cNames = responses[0];
             for (cName of cNames){
-                if (cName == "share_loc"){
+                let ctxtName = cName.name.split("/").slice(-1).pop();
+                console.log(ctxtName);
+                if ( ctxtName == "share_loc"){
                     responseText = userController.addLocation(body);
                     contextClient.deleteContext({parent: formattedParent})
                         .catch(err => responseText += ("\n" + err));
@@ -41,39 +46,50 @@ router.post('/api/chat/', async function(req, res) {
         })
         .catch(err => responseText = err);
 
-    const dialogflowResponse = (await sessionClient.detectIntent(
-        text, id, body)); // Gets intent
+    const dialogflowResponse = await sessionClient.detectIntent(text, id, body).catch(err => {console.log(err);}); // Gets intent
+    console.log(dialogflowResponse);
     responseText += dialogflowResponse.fulfillmentText; // Gets default fulfillment text
-    const twiml = new MessagingResponse();
+    const twiml = new MessagingResponse(); // Comment for twilio
+
+    //Check if incoming phone number is in the database
+    function isUser(id, callback) {
+        db.userWA.findOne({
+            where: {
+                wa_phone_number: id
+            }
+        })
+        .then(response => {
+            return callback(response);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    };
+
+    // Setting the Intent for Testing Purposes:
+    if (body.intent)
+        dialogflowResponse.intent.displayName = body.intent;
 
     // INTENTS
     // Directly send response if paramenters not complete.
-    if(!dialogflowResponse.queryResult.allRequiredParamsPresent){
-        responseText = dialogflowResponse.queryResult.fulfillmentText;
+    if(!dialogflowResponse.allRequiredParamsPresent){
+        responseText = dialogflowResponse.fulfillmentText;
     }
     // Default Welcome Intent
     else if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') {
 
         //Redirects to different intents depending on number present in db
-        utils.isUser(id.substring(10),function(result){
+        isUser(id.substring(10),function(result){
             if(result!=null){
-                responseText = ('Welcome back, ' +result.dataValues.first_name+' '+result.dataValues.last_name + '!\n'
-                                +'How can we help you today? Please choose from the following options:\n'
-                                +'(1) Register a new patient\n'
-                                +'(2) Check/Update existing patient\n'
-                                +'(3) Book a new consultation\n'
-                                +'(4) Follow up on existing consultation\n'
-                                +'(5) More Information about us\n');
+                responseText = responseText +'\n\n(3) PATIENT\n(4) PATIENT FIRST WORKFLOW\n(5) PATIENT NEXT WORKFLOW';
             }
             else{
-                responseText = ('Welcome to E-Medic, a non-profit initiative to provide primary healthcare during COVID-19.\n'
-                                + 'How can we help you today? Please choose from the following options:\n'
-                                +'(1) Register as a user\n'
-                                +'(2) More Information about us\n');
+                responseText = responseText +'\n\n(1) Would you like to register?\n(2) More Information';
             }
 
-            const message = twiml.message(responseText);
-            res.send(twiml.toString());
+            //const message = twiml.message(responseText);
+            //res.send(twiml.toString());
+            //res.send(message);
         });
     }
 
@@ -84,14 +100,14 @@ router.post('/api/chat/', async function(req, res) {
         );
         responseText = responseText + "\n" + doctors.join("\n");
 
-        const message = twiml.message(responseText);
-        res.send(twiml.toString());
+        //const message = twiml.message(responseText);
+        //res.send(twiml.toString());
     }
 
     //User details Intent
     else if (dialogflowResponse.intent.displayName === 'User Profile') {
 
-        utils.isUser(id.substring(10),function(result){
+        isUser(id.substring(10),function(result){
             if(result!=null){
 
                 responseText = responseText + "\n" + 'Name: '+result.dataValues.first_name+' '+result.dataValues.last_name;
@@ -107,25 +123,26 @@ router.post('/api/chat/', async function(req, res) {
         });
     }
     else if (dialogflowResponse.intent.displayName === 'register_yourself') { // Register Yourself Intent
-        responseText = await userController.addPatientInfoIntent(dialogflowResponse.queryResult, body);
+        responseText = await userController.addPatientInfoIntent(dialogflowResponse, body);
     }
     else if (dialogflowResponse.intent.displayName === 'check_patient_profile') { // Check single patient // Needs more work
-        responseText = await userController.show(dialogflowResponse.queryResult, body);
+        responseText = await userController.show(dialogflowResponse, body);
     }
     else if (dialogflowResponse.intent.displayName === 'list_of_patients') { // Complete list fo all patients
-        responseText = await userController.liste(dialogflowResponse.queryResult, body);
+        responseText = await userController.liste(dialogflowResponse, body);
     }
     else if (dialogflowResponse.intent.displayName === 'register_another_patient') { // Register a new Patient
-        responseText = await userController.newPatientIntent(dialogflowResponse.queryResult, body);
+        responseText = await userController.newPatientIntent(dialogflowResponse, body);
     }
     else if (dialogflowResponse.intent.displayName === 'user_details') { // New User Intent
-        responseText = await userController.newUserIntent(dialogflowResponse.queryResult, body);
+        responseText = await userController.newUserIntent(dialogflowResponse, body);
     }
     // Intents with static response handled from dialogflow console
-    else responseText = dialogflowResponse.queryResult.fulfillmentText;
+    else responseText = dialogflowResponse.fulfillmentText;
 
     const message = twiml.message(responseText);
-    res.send(twiml.toString);
+    res.send(twiml.toString());
+    //res.send(responseText);
 
 });
 
