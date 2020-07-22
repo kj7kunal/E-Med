@@ -1,29 +1,23 @@
-# E-Medic &middot; [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
+# patient stack &middot; [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 
-Making Telemedicine Accessible - Accelerating the reach of primary healthcare in the post-Covid19 India
+Health Management for Patients and Primary Care Physicians
 
 ### Overview
 
-E-Medic is primarily a WhatsApp chatbot with an integrated web application for facilitating online consultations
-and zero-contact physical hospital visits.
+patientstack is a web based patient management system that provides doctors and patients easy access to medical records and enables the patient and physician to communicate through a chat feature.
 
-### Demo - Whatsapp
-![Whatsapp](./demo/emed_whatsapp.gif)
-
-### Demo - Webapp
-![Webapp](./demo/emed_webapp.gif)
+### Demo
+![Models](./demo/patientstack-demo.gif)
 
 ### Collaborators
 
-* Kunal Jain - [@kj7kunal](https://github.com/kj7kunal)
-* Nirmaan Sarkar - [@pikujs](https://github.com/pikujs)
+* Hovsep Agop - [@hovsepa](https://github.com/hovsepa)
+* Kathy Guerrero - [@kguerre](https://github.com/kguerre)
+* Narin Sundarabhaya - [@ricopella](https://github.com/ricopella)
 
-### Models Structure - Whatsapp
-![Models_WA_Chatbot](./db/models_wa.png)
+### Models Structure
 
-### Models Structure - Webapp
-![Models_Webapp](./db/models.png)
-
+![Models](./db/models.png)
 
 # Packages Used
 
@@ -42,13 +36,13 @@ and zero-contact physical hospital visits.
 
 # History
 
-Version 0.1 (07/14/20)
+Version 0.1 (8/14/17)
 
 # License
 
 The MIT License (MIT)
 
-Copyright (c) 2020 Combat COVID-19
+Copyright (c) 2017 patient stack
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
