@@ -1,6 +1,6 @@
 # E-Medic
 
-Making Telemedicine Accessible - Accelerating the reach of primary healthcare in the post-Covid19 India
+Health Management for Patients and Primary Care Physicians
 
 <div align="center">
     <a href="https://e-med.herokuapp.com/">
@@ -10,26 +10,20 @@ Making Telemedicine Accessible - Accelerating the reach of primary healthcare in
 
 ### Overview
 
-E-Medic is primarily a WhatsApp chatbot with an integrated web application for facilitating online consultations
-and zero-contact physical hospital visits.
+patientstack is a web based patient management system that provides doctors and patients easy access to medical records and enables the patient and physician to communicate through a chat feature.
 
-### Demo - Whatsapp
-![Whatsapp](./demo/emed_whatsapp.gif)
-
-### Demo - Webapp
-![Webapp](./demo/emed_webapp.gif)
+### Demo
+![Models](./demo/patientstack-demo.gif)
 
 ### Collaborators
 
-* Kunal Jain - [@kj7kunal](https://github.com/kj7kunal)
-* Nirmaan Sarkar - [@pikujs](https://github.com/pikujs)
+* Hovsep Agop - [@hovsepa](https://github.com/hovsepa)
+* Kathy Guerrero - [@kguerre](https://github.com/kguerre)
+* Narin Sundarabhaya - [@ricopella](https://github.com/ricopella)
 
-### Models Structure - Whatsapp
-![Models_WA_Chatbot](./db/models_wa.png)
+### Models Structure
 
-### Models Structure - Webapp
-![Models_Webapp](./db/models.png)
-
+![Models](./db/models.png)
 
 # Packages Used
 
