@@ -15,10 +15,10 @@ const dialogflowSessionClient =
 // const path = require('path')
 // const utils = require('./utils')
 
-const projectId = process.env.DIALOGFLOW_PROJECT || "e-medicine-iitkgp-mvttlt";
-const phoneNumber = process.env.TWILIO_PHONE_NUMBER || "+919876543210";
-const accountSid = process.env.TWILIO_ACCOUNT_SID || "ACcountSID";
-const authToken = process.env.TWILIO_AUTH_TOKEN || "TWILIO_AUTH_TOKEN";
+const projectId = process.env.DIALOGFLOW_PROJECT;
+const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 const dialogflowSessionClient = require('./dialogflow_session_client.js'),
     sessionClient = new dialogflowSessionClient(projectId),
@@ -40,13 +40,12 @@ router.post('/api/chat/', async function(req, res) {
     const text = body.Body;
     console.log("Message Received: " + text); //remove before deploying
     const id = body.From; // User Whatsapp number (for auth stuff)
-    console.log("Message from: " + id);
     let responseText = "";
 
-    const formattedParent = contextClient.sessionPath(projectId, id);
+    const formattedParent = contextClient.sessionPath(projectId, id)
     contextClient.listContexts({parent: formattedParent})
         .then(responses => {
-          const cNames = responses[0];
+            const cNames = responses[0];
             for (cName of cNames){
                 let ctxtName = cName.name.split("/").slice(-1).pop();
                 console.log(ctxtName);
@@ -76,8 +75,8 @@ router.post('/api/chat/', async function(req, res) {
     */
     // INTENTS
     // Directly send response if paramenters not complete.
-    if(!dialogflowResponse.allRequiredParamsPresent){
-        responseText = dialogflowResponse.fulfillmentText;
+    if(!dialogflowResponse.queryResult.allRequiredParamsPresent){
+        responseText = dialogflowResponse.queryResult.fulfillmentText;
     }
     // Default Welcome Intent
     else if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') {
