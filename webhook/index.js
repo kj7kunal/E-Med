@@ -1,6 +1,7 @@
 const express = require("express"),
     router = express.Router(),
-    db = require('../models');
+    db = require('../models'),
+    utils = require("./handlers/utils.js");
 
 const dialogflow = require('dialogflow');
 const dialogflowSessionClient =
@@ -51,21 +52,6 @@ router.post('/api/chat/', async function(req, res) {
     responseText += dialogflowResponse.fulfillmentText; // Gets default fulfillment text
     const twiml = new MessagingResponse(); // Comment for twilio
 
-    //Check if incoming phone number is in the database
-    function isUser(id, callback) {
-        db.userWA.findOne({
-            where: {
-                wa_phone_number: id
-            }
-        })
-        .then(response => {
-            return callback(response);
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    };
-
     // Setting the Intent for Testing Purposes:
     if (body.intent)
         dialogflowResponse.intent.displayName = body.intent;
@@ -79,12 +65,21 @@ router.post('/api/chat/', async function(req, res) {
     else if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') {
 
         //Redirects to different intents depending on number present in db
-        isUser(id.substring(10),function(result){
+        utils.isUser(id.substring(10),function(result){
             if(result!=null){
-                responseText = responseText +'\n\n(3) PATIENT\n(4) PATIENT FIRST WORKFLOW\n(5) PATIENT NEXT WORKFLOW';
+                responseText = ('Welcome back, ' +result.dataValues.first_name+' '+result.dataValues.last_name + '!\n'
+                                +'How can we help you today? Please choose from the following options:\n'
+                                +'(1) Register a new patient\n'
+                                +'(2) Check/Update existing patient\n'
+                                +'(3) Book a new consultation\n'
+                                +'(4) Follow up on existing consultation\n'
+                                +'(5) More Information about us\n');
             }
             else{
-                responseText = responseText +'\n\n(1) Would you like to register?\n(2) More Information';
+                responseText = ('Welcome to E-Medic, a non-profit initiative to provide primary healthcare during COVID-19.\n'
+                                + 'How can we help you today? Please choose from the following options:\n'
+                                +'(1) Register as a user\n'
+                                +'(2) More Information about us\n');
             }
 
             //const message = twiml.message(responseText);
@@ -107,7 +102,7 @@ router.post('/api/chat/', async function(req, res) {
     //User details Intent
     else if (dialogflowResponse.intent.displayName === 'User Profile') {
 
-        isUser(id.substring(10),function(result){
+        utils.isUser(id.substring(10),function(result){
             if(result!=null){
 
                 responseText = responseText + "\n" + 'Name: '+result.dataValues.first_name+' '+result.dataValues.last_name;
