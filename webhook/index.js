@@ -8,18 +8,18 @@ const dialogflowSessionClient =
 // const path = require('path')
 // const utils = require('./utils')
 
-const projectId = process.env.DIALOGFLOW_PROJECT || "e-medicine-iitkgp-mvttlt";
-const phoneNumber = process.env.TWILIO_PHONE_NUMBER || "+919876543210";
-const accountSid = process.env.TWILIO_ACCOUNT_SID || "ACcountSID";
-const authToken = process.env.TWILIO_AUTH_TOKEN || "TWILIO_AUTH_TOKEN";
+const projectId = process.env.DIALOGFLOW_PROJECT;
+const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 const client = require('twilio')(accountSid, authToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 const keyFilename = "./config/credentials.json";
-const sessionClient = new dialogflowSessionClient(projectId, keyFilename);
+const sessionClient = new dialogflowSessionClient(projectId);
 const contextClient = new dialogflow.v2.ContextsClient({projectId, keyFilename: keyFilename});
 
-const userRegistrationController = require('../controllers/UserController.js');
+const userRegistrationController = require('./handlers/UserController.js');
 const userController = new userRegistrationController();
 
 router.post('/api/chat/', async function(req, res) {

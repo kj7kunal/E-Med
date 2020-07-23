@@ -1,19 +1,14 @@
-const express = require("express"),
-    router = express.Router(),
-    db = require('../models'),
-    isAuthenticated = require("../config/middleware/isAuthenticated"),
-    passport = require("../config/passport");
-
-//const { WebhookClient } = require('dialogflow-fulfillment');
+const db = require('../../models');
 
 class UserRegistrationController {
   
-  newUserIntent(agent, body) {
+  async newUserIntent(agent, body) {
     console.log("Storing new User in DB");
     let fName = agent.parameters["user-given-name"];
-    let cNum = body.From.toSring();
+    let cNum = body.From;
 
-    if(db.userWA.findAll({where: {phone_number: cNum}}).length > 0) return "Phone Number already Exists";
+    let usercheck = await db.userWA.findAll({where: {wa_phone_number: cNum}});
+    if(usercheck.length > 0) return "Phone Number already Exists";
     fulfillmentText = "Hi " + fName + ", welcome to E-Medic. Please check your mail for a confirmation email from us.\
             \nMeanwhile please share your location in the chat. Clip Icon -> Location";
     db.userWA.create({
@@ -33,7 +28,7 @@ class UserRegistrationController {
     db.userWA.update({
       "loc_long": body.Logitude.toSring(),
       "loc_lat": body.Latitude.toSring()
-    }, { where: {"phone_number": body.From.toSring()}})
+    }, { where: {"wa_phone_number": body.From}})
     .then(() => {
       return fulfillmentText;
     })
@@ -44,7 +39,7 @@ class UserRegistrationController {
   	console.log("Storing new patient in DB");
     let fName = agent.parameters["patient-given-name"];
     let lName = agent.parameters["patient-last-name"];
-    let parentUser = await db.userWA.findOne({where: {phone_number: body.From.toSring()}});
+    let parentUser = await db.userWA.findOne({where: {wa_phone_number: body.From}});
 
     fulfillmentText = "Thanks for adding " + fName + " " + lName + ".\
         \nYou can now proceed to book a consultation for your registered patients. What would you like to do today?\
@@ -70,7 +65,7 @@ class UserRegistrationController {
 
   async addPatientInfoIntent(agent, body){
     let cNum = agent.parameters["patient-contact"];
-    let pUser = await db.userWA.findOne({where: {phone_number: body.From.toSring()}});
+    let pUser = await db.userWA.findOne({where: {wa_phone_number: body.From}});
     let patient = await db.patientWA.findOne({where: {User_id: pUser.id}});
 
     fulfillmentText = "Thanks for adding " + fName + " " + lName + ".\
@@ -87,7 +82,7 @@ class UserRegistrationController {
             "last_name": lName,
             "dob": agent.parameters["dob"],
             "sex": agent.parameters["gender"],
-            "telephone": cNum,
+            "phone_number": cNum,
             "height_cm": agent.parameters["height"],
             "weight_kg": agent.parameters["weight"],
             "blood_type": agent.parameters["blood-type"],
@@ -100,7 +95,7 @@ class UserRegistrationController {
   }
 
   async updateAilAllergies(agent, body){
-    let user = await db.userWA.findOne({where: {phone_number: body.From.toSring()}});
+    let user = await db.userWA.findOne({where: {wa_phone_number: body.From.toSring()}});
     let patient = await db.patientWA.findOne({where: {userWAid: user.id}});
     
     let fulfillmentText = "We have updated your Allergies and Ailments. Do you want to Consult a doctor? (More Options here)";
@@ -140,7 +135,7 @@ class UserRegistrationController {
   update(agent) {
     let cNum = agent.parameters["telephone"];
     //if(db.userWA.findAll({where: {phone_number: cNum}}).length > 0) return "Phone Number already Exists";
-    db.patientWA.update(agent.parameters, {where: {telephone: cNum}})
+    db.patientWA.update(agent.parameters, {where: {phone_number: cNum}})
       .then(() => {return "Patient Updated";})
       .catch(err => {return err;});
   }
@@ -154,23 +149,22 @@ class UserRegistrationController {
   }
 
   async show(agent, body) {
-    let user = await db.userWA.findOne({where: {phone_number: body.From.toSring()}});
+    let user = await db.userWA.findOne({where: {wa_phone_number: body.From}});
     let fulfillmentText = "These are the details of your Patient: ";
     db.patientWA.findAll({where: { user_id : user.id, 
                                   first_name: agent.parameters["patient-given-name"]}
                                 }).then(patients => {
                                   if(patients.length == 1){
-                                    let patient = patients[0];
+                                    let patwa = patients[0];
+                                    let patient = await db.patientInfoWA.findOne({where: {patientWAid: patwa.id}});
                                     fulfillmentText = fulfillmentText +  
-                                                            "\nfirst_name: " + patient.first_name +
-                                                            "\nlast_name: " + patient.last_name +
+                                                            "\nfirst_name: " + patwa.first_name +
+                                                            "\nlast_name: " + patwa.last_name +
                                                             "\ndob: " + patient.dob +
-                                                            "\ngender: " + patient.gender +
-                                                            "\ntelephone: " + patient.last_name +
-                                                            "\nheight: " + patient.height +
-                                                            "\nweight: " + patient.weight + 
-                                                            "\nallergies: " + patient.allergies + 
-                                                            "\nprocedures: " + patient.procedures + 
+                                                            "\ngender: " + patient.sex +
+                                                            "\ntelephone: " + patient.phone_number +
+                                                            "\nheight: " + patient.height_cm +
+                                                            "\nweight: " + patient.weight_kg +  
                                                             "\nblood_type: " + patient.blood_type;
                                     return fulfillmentText;
                                   } else {
@@ -181,25 +175,3 @@ class UserRegistrationController {
 }
 
 module.exports = UserRegistrationController;
-
-
-  /*function cardFunc(agent) {
-    agent.add(`This message is from Dialogflow's Cloud Functions for Firebase inline editor!`);
-    agent.add(new Card({
-        title: `Title: this is a card title`,
-        imageUrl: 'https://dialogflow.com/images/api_home_laptop.svg',
-        text: `This is the body text of a card.  You can even use line\n  breaks and emoji! 💁`,
-        buttonText: 'This is a button',
-        buttonUrl: 'https://docs.dialogflow.com/'
-      });
-    );
-    agent.add(new Suggestion(`Quick Reply`));
-    agent.add(new Suggestion(`Suggestion`));
-    agent.setContext({ name: 'weather', lifespan: 2, parameters: { city: 'Rome' }});
-  }
-  let intentMap = new Map();
-  intentMap.set('Default Welcome Intent', welcome);
-  intentMap.set('UserInfo', storeUserInfo);
-  intentMap.set('appointmentscheduler', schAppoint)
-  agent.handleRequest(intentMap);
-  */

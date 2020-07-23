@@ -6,10 +6,7 @@ const jsonToProto = require('./json_to_proto')
 module.exports = class DialogflowSessionClient {
 
     constructor(projectId, keyFile){
-        this.sessionClient = new dialogflow.SessionsClient({
-            projectId,
-            keyFilename: keyFile
-        });
+        this.sessionClient = new dialogflow.SessionsClient();
         this.projectId = projectId;
     }
 
@@ -48,10 +45,10 @@ module.exports = class DialogflowSessionClient {
     }
 
     async detectIntent(text, sessionId, payload) {
-        //const sessionPath = this.sessionClient.sessionPath(
-        //    this.projectId, sessionId); // path is = "projects/<Project ID>/agent/sessions/<Session ID>"
-        //const request = this.constructRequest(text, sessionPath, payload);
-        const request = this.constructRequest(text, "projects/e-medicine-iitkgp-mvttlt/agent/sessions/" + sessionId.toString(), payload);
+        const sessionPath = this.sessionClient.sessionPath(
+            this.projectId, sessionId); // path is = "projects/<Project ID>/agent/sessions/<Session ID>"
+        const request = this.constructRequest(text, sessionPath, payload);
+        //const request = this.constructRequest(text, "projects/e-medicine-iitkgp-mvttlt/agent/sessions/" + sessionId.toString(), payload);
         return await this.detectIntentHelper(request);
     }
 
