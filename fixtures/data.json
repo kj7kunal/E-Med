@@ -306,16 +306,16 @@
     {
         "model": "doctors",
         "data": {
-            "first_name": "Elliot",
-            "last_name": "Fu",
+            "first_name": "Regina",
+            "last_name": "Doctor",
             "telephone": "323449090"
         }
     },
     {
         "model": "doctors",
         "data": {
-            "first_name": "Jenny",
-            "last_name": "Hess",
+            "first_name": "Lollmao",
+            "last_name": "Yollo",
             "telephone": "626449090"
         }
     },
