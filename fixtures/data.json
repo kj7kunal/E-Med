@@ -418,8 +418,7 @@
         "data": {
             "wa_phone_number": "919933812381",
             "email": "test1@test.com",
-            "loc_lat": "28.610001",
-            "loc_long": "77.230003",
+            "perm_address": "7, Tughlak Marg, New Delhi 110011",
             "first_name": "Rahul",
             "last_name": "Modi"
         }
@@ -429,8 +428,7 @@
         "data": {
             "wa_phone_number": "919933444381",
             "email": "test2@test.com",
-            "loc_lat": "19.076090",
-            "loc_long": "72.877426",
+            "perm_address": "12 Lok Kalyan Lane, New Delhi 110001",
             "first_name": "Narendra",
             "last_name": "Gandhi"
         }
@@ -440,8 +438,7 @@
         "data": {
             "wa_phone_number": "919123454381",
             "email": "doc1@test.com",
-            "loc_lat": "28.650001",
-            "loc_long": "77.530003",
+            "perm_address": "9 Rajinder Nagar, New Delhi 110010",
             "first_name": "Shireen",
             "last_name": "Kalra"
         }
@@ -451,8 +448,7 @@
         "data": {
             "wa_phone_number": "919277277381",
             "email": "doc2@test.com",
-            "loc_lat": "19.476090",
-            "loc_long": "72.277426",
+            "perm_address": "77 Bhulabhai Desai Road, Mumbai 400026",
             "first_name": "Anirudh",
             "last_name": "Narayan"
         }
@@ -462,8 +458,7 @@
         "data": {
             "wa_phone_number": "919933887695",
             "email": "doc3@test.com",
-            "loc_lat": "19.476090",
-            "loc_long": "72.277426",
+            "perm_address": "2308 Maple Drive, Tri-State Area (IN) 46231",
             "first_name": "Perry",
             "last_name": "Platypus"
         }
