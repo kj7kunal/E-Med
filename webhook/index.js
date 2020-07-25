@@ -29,6 +29,7 @@ const userController = new userRegistrationController();
 router.post('/api/chat/', async function(req, res) {
     const body = req.body;
     const text = body.Body;
+    console.log("Message Received: " + text);
     const id = body.From; // User Whatsapp number (for auth stuff)
     let responseText = "";
 
