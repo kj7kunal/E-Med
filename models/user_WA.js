@@ -19,10 +19,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: true
         },
-        loc_long: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         first_name: {
             type: DataTypes.STRING,
             allowNull: false,
