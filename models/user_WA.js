@@ -15,9 +15,9 @@ module.exports = function(sequelize, DataTypes) {
                 isEmail: true
             }
         },
-        loc_lat: {
+        perm_address: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         loc_long: {
             type: DataTypes.STRING,
