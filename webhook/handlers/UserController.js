@@ -9,7 +9,7 @@ class UserRegistrationController {
 
     let usercheck = await db.userWA.findAll({where: {wa_phone_number: cNum}});
     if(usercheck.length > 0) return "Phone Number already Exists";
-    fulfillmentText = "Hi " + fName + ", welcome to E-Medic. Please check your mail for a confirmation email from us.\
+    let fulfillmentText = "Hi " + fName + ", welcome to E-Medic. Please check your mail for a confirmation email from us.\
             \nMeanwhile please share your location in the chat. Clip Icon -> Location";
     db.userWA.create({
             "first_name": fName,
@@ -41,7 +41,7 @@ class UserRegistrationController {
     let lName = agent.parameters["patient-last-name"];
     let parentUser = await db.userWA.findOne({where: {wa_phone_number: body.From}});
 
-    fulfillmentText = "Thanks for adding " + fName + " " + lName + ".\
+    let fulfillmentText = "Thanks for adding " + fName + " " + lName + ".\
         \nYou can now proceed to book a consultation for your registered patients. What would you like to do today?\
         \n1. Register another patient?\
         \n2. Book New Consultation?\
@@ -68,7 +68,7 @@ class UserRegistrationController {
     let pUser = await db.userWA.findOne({where: {wa_phone_number: body.From}});
     let patient = await db.patientWA.findOne({where: {User_id: pUser.id}});
 
-    fulfillmentText = "Thanks for adding " + fName + " " + lName + ".\
+    let fulfillmentText = "Thanks for adding " + fName + " " + lName + ".\
         \nYou can now proceed to book a consultation for your registered patients. What would you like to do today?\
         \n1. Register another patient?\
         \n2. Book New Consultation?\
