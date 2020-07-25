@@ -23,22 +23,6 @@ class StartWorkflowController {
         }
         return fulfillmentText;
     }
-
-    // async showUserDetails(agent, id) {
-    //     // Shows registered user information
-    //     let user = await db.userWA.findOne({where: {wa_phone_number: id}});
-    //     let fulfillmentText = "";
-    //     if(user!=null){
-    //         fulfillmentText = ('Name: '+result.dataValues.first_name+' '+result.dataValues.last_name +'\n'
-    //             + 'WhatsApp phone number: '+result.dataValues.wa_phone_number +'\n'
-    //             + 'Email: '+result.dataValues.email +'\n'
-    //             + 'Permanent Address: '+result.dataValues.perm_address +'\n');
-    //     }
-    //     else {
-    //         fulfillmentText = 'You are not a registered user. Please register to avail our service.\n';
-    //     }
-    //     return fulfillmentText;
-    // }
 }
 
 module.exports = StartWorkflowController;
