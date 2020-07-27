@@ -3,7 +3,7 @@
 Making Telemedicine Accessible - Accelerating the reach of primary healthcare in the post-Covid19 India
 
 <div align="center">
-    <a href="https://e-med.herokuapp.com//">
+    <a href="https://e-med.herokuapp.com/">
         <img src="./public/assets/images/E-Med_1.svg" width="175">
     </a>
 </div>
@@ -51,7 +51,7 @@ and zero-contact physical hospital visits.
 Version 0.0.1 (07/14/20)
 
 <div align="center">
-    <a href="https://e-med.herokuapp.com//">
+    <a href="https://e-med.herokuapp.com/">
         <img src="./public/assets/images/E-Med_1.svg" width="175">
     </a>
 </div>
