@@ -10,8 +10,9 @@
         "type": "git",
         "url": "https://github.com/kj7kunal/E-Med.git"
     },
-    "author": "",
-    "license": "MIT",
+    "author": "Combat COVID-19",
+    "license": "UNLICENSED",
+    "private": true,
     "dependencies": {
         "bcrypt": "4.0.1",
         "body-parser": "^1.19.0",
