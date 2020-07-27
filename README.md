@@ -1,6 +1,12 @@
-# E-Medic &middot; [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
+# E-Medic
 
 Making Telemedicine Accessible - Accelerating the reach of primary healthcare in the post-Covid19 India
+
+<div align="center">
+    <a href="https://e-med.herokuapp.com//">
+        <img src="./public/assets/images/E-Med_1.svg" width="175">
+    </a>
+</div>
 
 ### Overview
 
@@ -42,16 +48,10 @@ and zero-contact physical hospital visits.
 
 # History
 
-Version 0.1 (07/14/20)
+Version 0.0.1 (07/14/20)
 
-# License
-
-The MIT License (MIT)
-
-Copyright (c) 2020 Combat COVID-19
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+<div align="center">
+    <a href="https://e-med.herokuapp.com//">
+        <img src="./public/assets/images/E-Med_1.svg" width="175">
+    </a>
+</div>
