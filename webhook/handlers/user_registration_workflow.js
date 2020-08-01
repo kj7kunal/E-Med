@@ -176,11 +176,11 @@ class UserRegistrationController {
     // Shows registered user information
     let user = await db.userWA.findOne({where: {wa_phone_number: id}});
     let fulfillmentText = "";
-    if(user!=null){
-        fulfillmentText = ('Name: '+result.dataValues.first_name+' '+result.dataValues.last_name +'\n'
-            + 'WhatsApp phone number: '+result.dataValues.wa_phone_number +'\n'
-            + 'Email: '+result.dataValues.email +'\n'
-            + 'Permanent Address: '+result.dataValues.perm_address +'\n');
+    if (user!=null) {
+        fulfillmentText = ('Name: '+user.dataValues.first_name+' '+user.dataValues.last_name +'\n'
+            + 'WhatsApp phone number: '+user.dataValues.wa_phone_number +'\n'
+            + 'Email: '+user.dataValues.email +'\n'
+            + 'Permanent Address: '+user.dataValues.perm_address +'\n');
     }
     else {
         fulfillmentText = 'You are not a registered user. Please register to avail our service.\n';

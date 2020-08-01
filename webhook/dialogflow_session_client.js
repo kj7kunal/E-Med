@@ -48,7 +48,7 @@ module.exports = class DialogflowSessionClient {
         const sessionPath = this.sessionClient.sessionPath(
             this.projectId, sessionId); // path is = "projects/<Project ID>/agent/sessions/<Session ID>"
         const request = this.constructRequest(text, sessionPath, payload);
-        //const request = this.constructRequest(text, "projects/e-medicine-iitkgp-mvttlt/agent/sessions/" + sessionId.toString(), payload);
+        //const request = this.constructRequest(text, "projects/<Project ID>/agent/sessions/" + sessionId.toString(), payload);
         return await this.detectIntentHelper(request);
     }
 
