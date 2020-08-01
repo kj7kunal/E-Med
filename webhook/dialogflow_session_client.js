@@ -5,7 +5,7 @@ const dialogflow = require('dialogflow');
 const jsonToProto = require('./json_to_proto')
 module.exports = class DialogflowSessionClient {
 
-    constructor(projectId, keyFile){
+    constructor(projectId){
         this.sessionClient = new dialogflow.SessionsClient();
         this.projectId = projectId;
     }
