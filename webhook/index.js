@@ -32,6 +32,8 @@ const StartWorkflowController = require('./handlers/start_workflow.js'),
 const userRegistrationController = require('./handlers/UserController.js');
 const userController = new userRegistrationController();
 
+const consultController = require('./controllers/ConsultController.js');
+
 router.post('/api/chat/', async function(req, res) {
     const body = req.body;
     const text = body.Body;
@@ -115,17 +117,17 @@ router.post('/api/chat/', async function(req, res) {
     }
     // Patient First Workflow Intents
     else if (dialogflowResponse.intent.displayName === 'book_consultation') { // Book Consultation
-        responseText = await consultController.bookConsulation(dialogflowResponse.queryResult, body, contextClient, formattedParent);
+        responseText = await consultController.bookConsulation(dialogflowResponse, id, contextClient, formattedParent);
     }
     else if (dialogflowResponse.intent.displayName === 'patient_info') { // List of patients for consultation
-        responseText = await consultController.patientInfo(dialogflowResponse.queryResult, body);
+        responseText = await consultController.patientInfo(dialogflowResponse, id);
     }
     // Patient Next Workflow Intents
     else if (dialogflowResponse.intent.displayName === 'n+1 consultation') { // next consultation
-        responseText = await consultController.nextConsultation(dialogflowResponse.queryResult, body);
+        responseText = await consultController.nextConsultation(dialogflowResponse, id, contextClient, formattedParent);
     }
     else if (dialogflowResponse.intent.displayName === 'patient_details') { // patient details
-        responseText = await consultController.patientInfo(dialogflowResponse.queryResult, body);
+        responseText = await consultController.patientInfo(dialogflowResponse, id);
     }
     else if (dialogflowResponse.intent.displayName === 'past_consultations') { // previous consultations of user
         responseText = await consultController.pastConsultations(dialogflowResponse.queryResult, body);
