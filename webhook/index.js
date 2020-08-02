@@ -47,6 +47,10 @@ router.post('/api/chat/', async function(req, res) {
         text, id, body)); // Gets intent
     const twiml = new MessagingResponse();
 
+    console.log("DF Response: " + dialogflowResponse); //remove before deploying
+    console.log("Agent parameters: " + dialogflowResponse.parameters); //remove before deploying
+
+
     /* Setting the Intent for Testing Purposes:
     if (body.intent)
         dialogflowResponse.intent.displayName = body.intent;

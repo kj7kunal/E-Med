@@ -219,7 +219,7 @@ class UserRegistrationController {
             "\nBlood_type: " + patient_profile.blood_type +
             "\nAddress: " + patient_profile.street_address +
             "\nCity: " + patient_profile.city +
-            " State: " + patient_profile.state +
+            ", State: " + patient_profile.state +
             "\nPinCode: " + patient_profile.pincode +
             "\nEmergency Contact Name: " + patient_profile.emergency_contact_name +
             "\nEmergency Contact Number: " + patient_profile.emergency_contact_number);
