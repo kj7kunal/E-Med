@@ -13,7 +13,7 @@ const dialogflowSessionClient = require('./dialogflow_session_client.js'),
     client = require('twilio')(accountSid, authToken),
     MessagingResponse = require('twilio').twiml.MessagingResponse;
 
-const contextClient = new dialogflow.v2.ContextsClient(projectId);
+// const contextClient = new dialogflow.v2.ContextsClient(projectId);
 
 const StartWorkflowController = require('./handlers/start_workflow.js'),
     startController = new StartWorkflowController();
@@ -70,19 +70,19 @@ router.post('/api/chat/', async function(req, res) {
     }
     // Confirm and Create New Patient Intent
     else if (dialogflowResponse.intent.displayName === 'Confirm New Patient') {
-        responseText = await userRegController.newPatient(dialogflowResponse, id.substring(10));
+        responseText = await userRegController.createNewPatient(dialogflowResponse, id.substring(10));
     }
     // Confirm and Add Patient Detailed Information Intent
     else if (dialogflowResponse.intent.displayName === 'Confirm Patient Details') {
         responseText = await userRegController.addPatientInfo(dialogflowResponse, id.substring(10));
     }
-    // Check Single Patient Profile // Needs more work
-    else if (dialogflowResponse.intent.displayName === 'Patient Profile') {
-        responseText = await userRegController.checkPatientDetails(dialogflowResponse, id.substring(10));
-    }
     // List User Patients
     else if (dialogflowResponse.intent.displayName === 'List of Patients') {
         responseText = await userRegController.listUserPatients(dialogflowResponse, id.substring(10));
+    }
+    // Check Single Patient Profile (need to add update patient prompt later)
+    else if (dialogflowResponse.intent.displayName === 'Patient Profile') {
+        responseText = await userRegController.checkPatientDetails(dialogflowResponse, id.substring(10));
     }
     // Intents with static response handled from dialogflow console
     else {
