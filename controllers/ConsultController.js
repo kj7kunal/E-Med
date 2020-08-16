@@ -94,7 +94,7 @@ class ConsultController {
   }
 
   async pastConsultations(agent, id){
-    let user = await db.userWA.findOne({where: {wa_phone_number: id}});
+    let user = await db.userWA.findOne(where: {wa_phone_number: id});
     let fulfillmentText = "These are the names of doctors from your previous consultations: ";
     let appointments = await db.appointment.findAll({where: { patientId : user.id}});
     if(appointments.length != 0){
@@ -112,7 +112,6 @@ class ConsultController {
     else{
       return "There are no previous consultations press n to consult different doctor."
     }
-  }
 }
 
 module.exports = ConsultController;
