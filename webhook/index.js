@@ -3,17 +3,6 @@ const express = require("express"),
     db = require('../models'),
     dialogflow = require('dialogflow');
 
-const dialogflow = require('dialogflow');
-const dialogflowSessionClient =
-    require('./dialogflow_session_client.js');
-// const path = require('path')
-// const utils = require('./utils')
-
-const dialogflow = require('dialogflow');
-const dialogflowSessionClient =
-    require('./dialogflow_session_client.js');
-// const path = require('path')
-// const utils = require('./utils')
 
 const projectId = process.env.DIALOGFLOW_PROJECT;
 const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
@@ -25,7 +14,7 @@ const dialogflowSessionClient = require('./dialogflow_session_client.js'),
     client = require('twilio')(accountSid, authToken),
     MessagingResponse = require('twilio').twiml.MessagingResponse;
 
-// const contextClient = new dialogflow.v2.ContextsClient(projectId);
+const contextClient = new dialogflow.v2.ContextsClient(projectId);
 
 const StartWorkflowController = require('./handlers/start_workflow.js'),
     startController = new StartWorkflowController();
@@ -33,7 +22,8 @@ const StartWorkflowController = require('./handlers/start_workflow.js'),
 const UserRegistrationController = require('./handlers/user_registration_workflow.js'),
     userRegController = new UserRegistrationController();
 
-const consultController = require('./controllers/ConsultController.js');
+const consultWorkflowController = require('./controllers/ConsultController.js');
+const consultController = new consultWorkflowController();
 
 router.post('/api/chat/', async function(req, res) {
     const body = req.body;
@@ -61,7 +51,7 @@ router.post('/api/chat/', async function(req, res) {
 
     const dialogflowResponse = (await sessionClient.detectIntent(
         text, id, body)); // Gets intent
-    const twiml = new MessagingResponse();
+    //const twiml = new MessagingResponse();
 
     console.log("DF Response: ");
     console.log(dialogflowResponse); //remove before deploying
@@ -121,10 +111,10 @@ router.post('/api/chat/', async function(req, res) {
         responseText = await consultController.patientInfo(dialogflowResponse, id);
     }
     else if (dialogflowResponse.intent.displayName === 'past_consultations') { // previous consultations of user
-        responseText = await consultController.pastConsultations(dialogflowResponse.queryResult, body);
+        responseText = await consultController.pastConsultations(dialogflowResponse, body);
     }
     else if (dialogflowResponse.intent.displayName === 'list_of_patients_while_consultation') { // Complete list fo all patients
-        responseText = await userController.liste(dialogflowResponse.queryResult, body);
+        responseText = await userController.liste(dialogflowResponse, body);
     }
     // Patient First Workflow Intents
     else if (dialogflowResponse.intent.displayName === 'book_consultation') { // Book Consultation
@@ -150,8 +140,9 @@ router.post('/api/chat/', async function(req, res) {
     else {
         responseText = dialogflowResponse.fulfillmentText;
     }
-    const message = twiml.message(responseText);
-    res.send(twiml.toString());
+    //const message = twiml.message(responseText);
+    //res.send(twiml.toString);
+    res.send(responseText);
 });
 
 module.exports = router;
