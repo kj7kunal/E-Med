@@ -4,22 +4,28 @@ class UserRegistrationController {
   
     async createNewUser(agent, id) {
         console.log("Storing new User in DB");
-        let fName = agent.parameters["user-given-name"];
+
+        let paramContextName = 'userreg_confirm_new_user';
+        let parameters = agent.outputContexts.filter(d =>
+            d.name.split("/").slice(-1)[0] === paramContextName)[0].parameters["fields"];
+
+        let name = parameters["name"].stringValue.trim().split(" ");
+        if (name.length === 1) name[1] = "";
 
         let userCheck = await db.userWA.findOne({where: {wa_phone_number: id}});
         if (userCheck!=null) {
             return "You are already registered on our system!\n";
         }
 
-        let fulfillmentText = ('Welcome to E-Medic, ' + fName + '.\n'
+        let fulfillmentText = ('Welcome to E-Medic, ' + name[0] + '.\n'
             + 'We have registered you to our system and you will be receiving a confirmation email shortly.\n');
 
-        db.userWA.create({
-                "first_name": fName,
-                "last_name": agent.parameters["last-name"],
-                "email": agent.parameters["email"],
+        return await db.userWA.create({
+                "first_name": name.slice(0, -1).join(' '),
+                "last_name": name[name.length - 1],
+                "email": parameters["email"].stringValue,
                 "wa_phone_number": id,
-                "perm_address": agent.parameters["perm-address"]
+                "perm_address": parameters["perm-address"].stringValue
             })
             .then(() => {
                 return fulfillmentText;
