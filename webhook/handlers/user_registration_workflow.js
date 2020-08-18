@@ -80,7 +80,7 @@ class UserRegistrationController {
         let parentUser = await db.userWA.findOne({where: {wa_phone_number: id}});
 
         let existingCheck = await db.patientWA.findOne({where: {
-                                                    User_id: parentUser.id,
+                                                    userWAId: parentUser.id,
                                                     first_name: fName,
                                                     last_name: lName
                                                   }});
@@ -102,7 +102,7 @@ class UserRegistrationController {
         return await db.patientWA.create({
                 "first_name": fName,
                 "last_name": lName,
-                "User_id": parentUser.id
+                "userWAId": parentUser.id
             })
             .then(() => {
                 return fulfillmentText;
