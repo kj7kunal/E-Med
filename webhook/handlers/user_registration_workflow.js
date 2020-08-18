@@ -11,18 +11,20 @@ class UserRegistrationController {
 
         let name = parameters["name"].stringValue.trim().split(" ");
         if (name.length === 1) name[1] = "";
+        let fName = name.slice(0, -1).join(' ');
+        let lName = name[name.length - 1];
 
         let userCheck = await db.userWA.findOne({where: {wa_phone_number: id}});
         if (userCheck!=null) {
             return "You are already registered on our system!\n";
         }
 
-        let fulfillmentText = ('Welcome to E-Medic, ' + name[0] + '.\n'
+        let fulfillmentText = ('Welcome to E-Medic, ' + fName + '.\n'
             + 'We have registered you to our system and you will be receiving a confirmation email shortly.\n');
 
         return await db.userWA.create({
-                "first_name": name.slice(0, -1).join(' '),
-                "last_name": name[name.length - 1],
+                "first_name": fName,
+                "last_name": lName,
                 "email": parameters["email"].stringValue,
                 "wa_phone_number": id,
                 "perm_address": parameters["perm-address"].stringValue
@@ -65,20 +67,30 @@ class UserRegistrationController {
 
     async createNewPatient(agent, id) {
         console.log("Storing new patient in DB");
-        let fName = agent.parameters["patient-given-name"];
-        let lName = agent.parameters["patient-last-name"];
+
+        let paramContextName = 'userreg_confirm_new_patient';
+        let parameters = agent.outputContexts.filter(d =>
+            d.name.split("/").slice(-1)[0] === paramContextName)[0].parameters["fields"];
+
+        let name = parameters["name"].stringValue.trim().split(" ");
+        if (name.length === 1) name[1] = "";
+        let fName = name.slice(0, -1).join(' ');
+        let lName = name[name.length - 1];
+
         let parentUser = await db.userWA.findOne({where: {wa_phone_number: id}});
 
         let existingCheck = await db.patientWA.findOne({where: {
                                                     User_id: parentUser.id,
-                                                    first_name: fName
+                                                    first_name: fName,
+                                                    last_name: lName
                                                   }});
         if (existingCheck!=null) {
             return "You have already registered a patient with this name. Please try again with a different name/alias.\n";
         }
 
         let fulfillmentText = ('Okay! Thanks for adding ' + fName + '.\n'
-            +'You can now proceed to book a consultation for your registered patients!\n'
+            +'You can update details about the patient by choosing option (3) \n'
+            +'or directly proceed to book a consultation for them by choosing option (4)!\n'
             +'What else would you like to do today?\n'
             +'(1) Register another patient\n'
             +'(2) List registered patients\n'
@@ -87,7 +99,7 @@ class UserRegistrationController {
             +'(5) Follow up on existing consultation\n'
             +'(6) More Information about us\n');
 
-        db.patientWA.create({
+        return await db.patientWA.create({
                 "first_name": fName,
                 "last_name": lName,
                 "User_id": parentUser.id
