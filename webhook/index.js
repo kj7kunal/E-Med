@@ -112,63 +112,23 @@ router.post('/api/chat/', async function(req, res) {
     }
     // Patient First Workflow Intents
     else if (dialogflowResponse.intent.displayName === 'book_consultation') { // Book Consultation
-        responseText = await consultController.bookConsulation(dialogflowResponse, id, contextClient, formattedParent);
+        responseText = await consultController.bookConsulation(dialogflowResponse, id.substring(10), contextClient, formattedParent);
     }
     else if (dialogflowResponse.intent.displayName === 'patient_info') { // List of patients for consultation
-        responseText = await consultController.patientInfo(dialogflowResponse, id);
+        responseText = await consultController.patientInfo(dialogflowResponse, id.substring(10));
     }
     // Patient Next Workflow Intents
     else if (dialogflowResponse.intent.displayName === 'n+1 consultation') { // next consultation
-        responseText = await consultController.nextConsultation(dialogflowResponse, id, contextClient, formattedParent);
+        responseText = await consultController.nextConsultation(dialogflowResponse, id.substring(10), contextClient, formattedParent);
     }
     else if (dialogflowResponse.intent.displayName === 'patient_details') { // patient details
-        responseText = await consultController.patientInfo(dialogflowResponse, id);
+        responseText = await consultController.patientInfo(dialogflowResponse, id.substring(10));
     }
     else if (dialogflowResponse.intent.displayName === 'past_consultations') { // previous consultations of user
-        responseText = await consultController.pastConsultations(dialogflowResponse, body);
+        responseText = await consultController.pastConsultations(dialogflowResponse, id.substring(10));
     }
     else if (dialogflowResponse.intent.displayName === 'list_of_patients_while_consultation') { // Complete list fo all patients
-        responseText = await userController.liste(dialogflowResponse, body);
-    }
-    // Patient First Workflow Intents
-    else if (dialogflowResponse.intent.displayName === 'book_consultation') { // Book Consultation
-        responseText = await consultController.bookConsulation(dialogflowResponse.queryResult, body, contextClient, formattedParent);
-    }
-    else if (dialogflowResponse.intent.displayName === 'patient_info') { // List of patients for consultation
-        responseText = await consultController.patientInfo(dialogflowResponse.queryResult, body);
-    }
-    // Patient Next Workflow Intents
-    else if (dialogflowResponse.intent.displayName === 'n+1 consultation') { // next consultation
-        responseText = await consultController.nextConsultation(dialogflowResponse.queryResult, body);
-    }
-    else if (dialogflowResponse.intent.displayName === 'patient_details') { // patient details
-        responseText = await consultController.patientInfo(dialogflowResponse.queryResult, body);
-    }
-    else if (dialogflowResponse.intent.displayName === 'past_consultations') { // previous consultations of user
-        responseText = await consultController.pastConsultations(dialogflowResponse.queryResult, body);
-    }
-    else if (dialogflowResponse.intent.displayName === 'list_of_patients_while_consultation') { // Complete list fo all patients
-        responseText = await userController.liste(dialogflowResponse.queryResult, body);
-    }
-    // Patient First Workflow Intents
-    else if (dialogflowResponse.intent.displayName === 'book_consultation') { // Book Consultation
-        responseText = await consultController.bookConsulation(dialogflowResponse, id, contextClient, formattedParent);
-    }
-    else if (dialogflowResponse.intent.displayName === 'patient_info') { // List of patients for consultation
-        responseText = await consultController.patientInfo(dialogflowResponse, id);
-    }
-    // Patient Next Workflow Intents
-    else if (dialogflowResponse.intent.displayName === 'n+1 consultation') { // next consultation
-        responseText = await consultController.nextConsultation(dialogflowResponse, id, contextClient, formattedParent);
-    }
-    else if (dialogflowResponse.intent.displayName === 'patient_details') { // patient details
-        responseText = await consultController.patientInfo(dialogflowResponse, id);
-    }
-    else if (dialogflowResponse.intent.displayName === 'past_consultations') { // previous consultations of user
-        responseText = await consultController.pastConsultations(dialogflowResponse.queryResult, body);
-    }
-    else if (dialogflowResponse.intent.displayName === 'list_of_patients_while_consultation') { // Complete list fo all patients
-        responseText = await userController.liste(dialogflowResponse.queryResult, body);
+        responseText = await userRegController.listUserPatients(dialogflowResponse, id.substring(10));
     }
     // Intents with static response handled from dialogflow console
     else {
