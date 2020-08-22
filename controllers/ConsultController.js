@@ -2,7 +2,7 @@ const db = require('../models')
 
 class ConsultController {
 
-  async bookConsulation(agent, id, contextClient, formattedParent){
+  async bookConsulation(agent, id){
     let fulfillmentText = "";
     let user = await db.userWA.findOne({where: {wa_phone_number: id}});
     let patients = await db.patientWA.findAll({where: { user_id : user.id }});
@@ -10,25 +10,16 @@ class ConsultController {
             fulfillmentText = fulfillmentText + "We don't have any patients registered with us. What would you like to do?\
             \n 1. Register a patient?\
             \n 2. Connect with the Hospital immediately?\
-            \n 3. Need help?";
+            \n 3. More info?";
         }
         else
         {
-            let c = await contextClient.deleteAllContexts({parent: formattedParent});
-            agent.intent.outputContexts = c;
-            let context = "check_patient";
-            let request = {
-              parent: formattedParent,
-              context: context,
-            };
-            let a = await contextClient.createContext(request);
-            agent.intent.outputContexts = a;
             patients.forEach((patient, i) => {
                 fulfillmentText = fulfillmentText + "\nWe have following patient profiles with us: \n" + i + 1  + ": " +
                 "First name: " + patient.first_name +
                 "\nLast name: " + patient.last_name;
             });
-            fulfillmentText = fulfillmentText + "\nReply back the name of patient you wish to book a consult for.";
+            fulfillmentText = fulfillmentText + "\nReply back the full name of the patient you wish to book a consult for or add a new patient.";
         }
         return fulfillmentText;
   }
@@ -36,8 +27,16 @@ class ConsultController {
   async patientInfo(agent, id){
     let user = await db.userWA.findOne({where: {wa_phone_number: id}});
     let fulfillmentText = "";
+    let paramContextName = 'patfirst_choose_patient';
+    let parameters = agent.outputContexts.filter(d =>
+        d.name.split("/").slice(-1)[0] === paramContextName)[0].parameters["fields"];
+
+    let name = parameters["name"].stringValue.trim().split(" ");
+    if (name.length === 1) name[1] = "";
+    let fName = name.slice(0, -1).join(' ');
+    let lName = name[name.length - 1];
     let patient = await db.patientWA.findOne({where: { user_id : user.id,
-      first_name: agent.parameters["patient-given-name"]}});
+      first_name: fName, last_name: lName}});
     let patientInfo = await db.patientInfoWA.findOne({where: { patientWAId: patient.id }});
     if(patient)
     {
@@ -48,7 +47,7 @@ class ConsultController {
         "\nGender: " + patientInfo.sex +
         "\nTelephone: " + patientInfo.phone_number +
         "\nHeight(in cm): " + patientInfo.height_cm +
-        "\nweight(in kg): " + patientInfo.weight_kg +
+        "\nWeight(in kg): " + patientInfo.weight_kg +
         "\nBlood group: " + patientInfo.blood_type +
         "\nWhat would you like to do further?\
          \n1. Edit the patient details?\
@@ -57,12 +56,12 @@ class ConsultController {
     }
     else
     {
-        fulfillmentText = "patient with the given name does not exist. Press 2 to go back and select another patient.";
+        fulfillmentText = "patient with the given name does not exist. Go back and select another patient.";
     }
     return fulfillmentText;
   }
 
-  async nextConsultation(agent, id){
+  /*async nextConsultation(agent, id){
     let fulfillmentText = "";
     let user = await db.userWA.findOne({where: {wa_phone_number: id}});
     let patients = await db.patientWA.findAll({where: { user_id : user.id }});
@@ -74,15 +73,6 @@ class ConsultController {
         }
         else
         {
-            let c = await contextClient.deleteAllContexts({parent: formattedParent});
-            agent.intent.outputContexts = c;
-            let context = "patient";
-            let request = {
-              parent: formattedParent,
-              context: context,
-            };
-            let a = await contextClient.createContext(request);
-            agent.intent.outputContexts = a;
             patients.forEach((patient, i) => {
                 fulfillmentText = fulfillmentText + "\nWe have following patient profiles with us: \n" + i + 1  + ": " +
                 "First name: " + patient.first_name +
@@ -113,6 +103,6 @@ class ConsultController {
       return "There are no previous consultations press n to consult different doctor."
     }
   }
-}
+}*/
 
 module.exports = ConsultController;

@@ -111,24 +111,13 @@ router.post('/api/chat/', async function(req, res) {
         responseText = await userRegController.checkPatientDetails(dialogflowResponse, id.substring(10));
     }
     // Patient First Workflow Intents
-    else if (dialogflowResponse.intent.displayName === 'book_consultation') { // Book Consultation
-        responseText = await consultController.bookConsulation(dialogflowResponse, id.substring(10), contextClient, formattedParent);
+    // check if patients are registered and give list of patient already registered
+    else if (dialogflowResponse.intent.displayName === 'patFirst.book_consultation') {
+        responseText = await consultController.bookConsulation(dialogflowResponse, id.substring(10));
     }
-    else if (dialogflowResponse.intent.displayName === 'patient_info') { // List of patients for consultation
+    // check if patient with the given name exits and give patients details
+    else if (dialogflowResponse.intent.displayName === 'patFirst.patient_info') {
         responseText = await consultController.patientInfo(dialogflowResponse, id.substring(10));
-    }
-    // Patient Next Workflow Intents
-    else if (dialogflowResponse.intent.displayName === 'n+1 consultation') { // next consultation
-        responseText = await consultController.nextConsultation(dialogflowResponse, id.substring(10), contextClient, formattedParent);
-    }
-    else if (dialogflowResponse.intent.displayName === 'patient_details') { // patient details
-        responseText = await consultController.patientInfo(dialogflowResponse, id.substring(10));
-    }
-    else if (dialogflowResponse.intent.displayName === 'past_consultations') { // previous consultations of user
-        responseText = await consultController.pastConsultations(dialogflowResponse, id.substring(10));
-    }
-    else if (dialogflowResponse.intent.displayName === 'list_of_patients_while_consultation') { // Complete list fo all patients
-        responseText = await userRegController.listUserPatients(dialogflowResponse, id.substring(10));
     }
     // Intents with static response handled from dialogflow console
     else {
