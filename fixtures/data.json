@@ -488,6 +488,14 @@
         }
     },
     {
+        "model": "patientWA",
+        "data": {
+            "first_name": "Phineas",
+            "last_name": "Flynn",
+            "userWAId": 5
+        }
+    },
+    {
         "model": "patientInfoWA",
         "data": {
             "dob": "1988-03-02 00:00:00+00:00",
@@ -539,6 +547,24 @@
             "emergency_contact_name": "Narendra Gandhi",
             "emergency_contact_number": "919933812381",
             "patientWAId": 3
+        }
+    },
+    {
+        "model": "patientInfoWA",
+        "data": {
+            "dob": "1997-01-06 00:00:00+00:00",
+            "sex": "M",
+            "phone_number": "919933146231",
+            "height_cm": 129.54,
+            "weight_kg": 33,
+            "blood_type": "A+",
+            "street_address": "2308 Maple Drive",
+            "city": "Danville",
+            "state": "Indiana",
+            "pinCode": 46231,
+            "emergency_contact_name": "Perry Platypus",
+            "emergency_contact_number": "919933887695",
+            "patientWAId": 4
         }
     },
     {

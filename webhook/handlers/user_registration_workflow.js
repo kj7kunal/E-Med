@@ -85,7 +85,8 @@ class UserRegistrationController {
                                                     last_name: lName
                                                   }});
         if (existingCheck!=null) {
-            return "You have already registered a patient with this name. Please try again with a different name/alias.\n";
+            return ("You have already registered " + fName + " " + lName +
+                ". If you need to register someone else, please try again with a different name/alias.\n");
         }
 
         let fulfillmentText = ('Okay! Thanks for adding ' + fName + '.\n'
@@ -114,11 +115,21 @@ class UserRegistrationController {
 
     async addPatientInfo(agent, id){
         console.log("Storing patient detailed info in DB");
-        let fName = agent.parameters["patient-given-name"];
+
+        let paramContextName = 'userreg_confirm_pdetails';
+        let parameters = agent.outputContexts.filter(d =>
+            d.name.split("/").slice(-1)[0] === paramContextName)[0].parameters["fields"];
+
+        let name = parameters["name"].stringValue.trim().split(" ");
+        if (name.length === 1) name[1] = "";
+        let fName = name.slice(0, -1).join(' ');
+        let lName = name[name.length - 1];
+
         let pUser = await db.userWA.findOne({where: {wa_phone_number: id}});
         let patient = await db.patientWA.findOne({where: {
                                             User_id: pUser.id,
-                                            first_name: fName
+                                            first_name: fName,
+                                            last_name: lName
                                           }});
 
         let fulfillmentText = ('Done! Thanks for updating details for ' + fName + '.\n'
@@ -130,19 +141,21 @@ class UserRegistrationController {
             +'(5) Follow up on existing consultation\n'
             +'(6) More Information about us\n');
 
-        db.patientInfoWA.create({
-                "dob": agent.parameters["dob"] || '',
-                "sex": agent.parameters["sex"] || '',
-                "phone_number": agent.parameters["patient-contact"] || '',
-                "height_cm": agent.parameters["height"] || '',
-                "weight_kg": agent.parameters["weight"] || '',
-                "blood_type": agent.parameters["blood-type"] || '',
-                "street_address": agent.parameters["address"] || '',
-                "city": agent.parameters["city"] || '',
-                "state": agent.parameters["state"] || '',
-                "pincode": agent.parameters["pincode"] || '',
-                "emergency_contact_name": agent.parameters["em_contact"] || '',
-                "emergency_contact_number": agent.parameters["em_contact_num"] || '',
+        // TODO: Update parameter types and processing as per dialogflow object
+        // TODO: Add date processing usin moment.js
+        return await db.patientInfoWA.create({
+                "dob": parameters["dob"].stringValue || '',
+                "sex": parameters["sex"].stringValue || '',
+                "phone_number": parameters["patient-contact"].stringValue || '',
+                "height_cm": parameters["height"].stringValue || '',
+                "weight_kg": parameters["weight"].stringValue || '',
+                "blood_type": parameters["blood-type"].stringValue || '',
+                "street_address": parameters["address"].stringValue || '',
+                "city": parameters["city"].stringValue || '',
+                "state": parameters["state"].stringValue || '',
+                "pincode": parameters["pincode"].stringValue || '',
+                "emergency_contact_name": parameters["em_contact"].stringValue || '',
+                "emergency_contact_number": parameters["em_contact_num"].stringValue || '',
                 "patientWAId": patient.id,
             })
             .then(() => {
@@ -175,23 +188,12 @@ class UserRegistrationController {
         let user = await db.userWA.findOne({where: {wa_phone_number: id}});
         let patients = await db.patientWA.findAll({where: {User_id: user.id}});
 
-        console.log(patients.length); //Remove after testing ***********
-        console.log(patients); //Remove after testing ***********
-        console.log(patients[0]); //Remove after testing ***********
-
         if (patients.length === 0) return "You have 0 patients registered currently.\n";
 
-        let responseText = "You have " + (patients.length).toString() + " patients registered currently:";
+        let responseText = "You have " + (patients.length).toString() + " patient" +
+            ((patients.length === 1) ? 's': '') + " registered currently:";
         for(let i=0; i< patients.length; i++) {
             responseText += "\nPatient " + (i+1).toString() + ": " + patients[i].first_name + " " + patients[i].last_name;
-            /*let pInfo = await db.patientInfoWA.findOne({where: {patientWAId: patients[i].id}}).catch(err => {return err;});
-            responseText += "\ndob: " + pInfo.dob +
-            "\ngender: " + pInfo.sex +
-            "\Contact: " + pInfo.phone_number +
-            "\nheight: " + pInfo.height_cm + " cm" +
-            "\nweight: " + pInfo.weight_kg + " kg" +
-            "\nblood_type: " + pInfo.blood_type;
-            */
         }
         return responseText;
     }
@@ -216,19 +218,31 @@ class UserRegistrationController {
 
     async checkPatientDetails(agent, id) {
         console.log("Single patient details");
-        let user = await db.userWA.findOne({where: {wa_phone_number: id}});
-        let responseText = "Here are the details of your patient: ";
-        let patient = await db.patientWA.findOne({where: { user_id : user.id,
-                                      first_name: agent.parameters["patient-given-name"]}
-                                    }).catch((err) => {return err;});
+
+        let parameters = agent.parameters.fields;
+        let name = parameters["name"].stringValue.trim().split(" ");
+        if (name.length === 1) name[1] = "";
+        let fName = name.slice(0, -1).join(' ');
+        let lName = name[name.length - 1];
+
+        let pUser = await db.userWA.findOne({where: {wa_phone_number: id}});
+        let patient = await db.patientWA.findOne({where: {
+                User_id: pUser.id,
+                first_name: fName,
+                last_name: lName
+            }});
+
+        let responseText = "Here are " + fName + "'s registered details: ";
         if (patient==null){
-            return "Patient with that name does not exist.\nPlease try again with correct spelling or register new patient";
+            return ("We could not find " + fName + " " + lName + " in your patient list.\n"
+                + "Please try again with correct spelling or register them as a new patient");
         }
 
         let patient_profile = await db.patientInfoWA.findOne({where: {patientWAId: patient.id}});
 
-        responseText += ("\nFirst Name: " + patient.first_name +
-            "\nLast Name: " + patient.last_name +
+        // TODO: Add date processing using moment.js
+        responseText += ("\nFirst Name: " + fName +
+            "\nLast Name: " + lName +
             "\nDOB: " + patient_profile.dob +
             "\nSex: " + patient_profile.sex +
             "\nContact Phone Number: " + patient_profile.phone_number +
@@ -241,7 +255,10 @@ class UserRegistrationController {
             "\nPinCode: " + patient_profile.pincode +
             "\nEmergency Contact Name: " + patient_profile.emergency_contact_name +
             "\nEmergency Contact Number: " + patient_profile.emergency_contact_number);
+
+        // // TODO: Setup intents and function for updating profile
         // responseText += "\nWould you like to update " + patient.first_name + "'s profile?"
+
         return responseText;
     }
 }
