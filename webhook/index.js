@@ -64,7 +64,7 @@ router.post('/api/chat/', async function(req, res) {
     }
     // Default Welcome Intent
     else if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') {
-        responseText = await startController.welcome(dialogflowResponse, id.substring(10));
+        responseText = await startController.welcome(sessionClient, dialogflowResponse, id);
     }
     // Confirm and Create New User Intent
     else if (dialogflowResponse.intent.displayName === 'userReg.confirm_new_user') {
