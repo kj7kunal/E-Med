@@ -20,16 +20,21 @@ module.exports = class DialogflowContextClient {
         };
     }
 
+    // https://googleapis.dev/nodejs/dialogflow/1.2.0/v2.ContextsClient.html#createContext
+    // https://github.com/googleapis/nodejs-dialogflow/blob/94e1b7bc7e78b985bc5d03bc0351115a66ce2af1/samples/resource.js#L308-L334
     async createContext(sessionId, contextId, lifespanCount) {
         const sessionPath = this.contextsClient.sessionPath(
             this.projectId, sessionId);
+        // session path is = "projects/<Project ID>/agent/sessions/<Session ID>"
         const contextPath = this.contextsClient.contextPath(
             this.projectId, sessionId, contextId);
+        // context path is "projects/<Project ID>/agent/sessions/<Session ID>/contexts/<Context ID>"
 
         const request = this.constructContextRequest(sessionPath, contextPath, lifespanCount);
 
         const responses = await this.contextsClient.createContext(request);
-        console.log(`Created ${responses[0].name} context`);
+        // console.log(`Created ${responses[0].name} context`);
+        console.log("Created context");
     }
 
     async deleteContexts(sessionId, contexts) {
@@ -44,6 +49,7 @@ module.exports = class DialogflowContextClient {
         });
     }
 
+    // https://googleapis.dev/nodejs/dialogflow/1.2.0/v2.ContextsClient.html#deleteAllContexts
     async deleteAllContexts(sessionId) {
         const sessionPath = this.contextsClient.sessionPath(
             this.projectId, sessionId);

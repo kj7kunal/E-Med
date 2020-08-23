@@ -11,11 +11,10 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const dialogflowSessionClient = require('./dialogflow_session_client.js'),
     sessionClient = new dialogflowSessionClient(projectId),
     dialogflowContextClient = require('./dialogflow_context_client.js'),
-    contextClient = new dialogflowContextClient(projectId),
-    client = require('twilio')(accountSid, authToken),
-    MessagingResponse = require('twilio').twiml.MessagingResponse;
+    contextClient = new dialogflowContextClient(projectId);
 
-// const contextClient = new dialogflow.v2.ContextsClient(projectId);
+const client = require('twilio')(accountSid, authToken),
+    MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 const StartWorkflowController = require('./handlers/start_workflow.js'),
     startController = new StartWorkflowController();
@@ -55,10 +54,6 @@ router.post('/api/chat/', async function(req, res) {
     console.log(dialogflowResponse.parameters); //remove before deploying
 
 
-    /* Setting the Intent for Testing Purposes:
-    if (body.intent)
-        dialogflowResponse.intent.displayName = body.intent;
-    */
     // INTENTS
     // Directly send response if paramenters not complete.
     if(!dialogflowResponse.allRequiredParamsPresent){
