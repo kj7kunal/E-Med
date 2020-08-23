@@ -239,10 +239,10 @@ class UserRegistrationController {
         }
 
         let patient_profile = await db.patientInfoWA.findOne({where: {patientWAId: patient.id}});
-        // if (patient_profile==null){
-        //     return ("We could not find " + fName + " " + lName + "'s details.\n"
-        //         + "Please add details");
-        // }g
+        if (patient_profile==null){
+            return ("We could not find " + fName + " " + lName + "'s details.\n"
+                + "Please add details using our main menu.");
+        }
 
         // TODO: Add date processing using moment.js
         responseText += ("\nFirst Name: " + fName +

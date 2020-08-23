@@ -507,7 +507,7 @@
             "street_address": "12, Rajinder Place",
             "city": "New Delhi",
             "state": "Delhi",
-            "pinCode": 110001,
+            "pincode": 110001,
             "emergency_contact_name": "Rahul Modi",
             "emergency_contact_number": "919933444381",
             "patientWAId": 1
@@ -525,7 +525,7 @@
             "street_address": "17, Nariman Point",
             "city": "Mumbai",
             "state": "Maharashtra",
-            "pinCode": 400025,
+            "pincode": 400025,
             "emergency_contact_name": "Narendra Gandhi",
             "emergency_contact_number": "919933812381",
             "patientWAId": 2
@@ -543,7 +543,7 @@
             "street_address": "13, Andheri West",
             "city": "Mumbai",
             "state": "Maharashtra",
-            "pinCode": 400022,
+            "pincode": 400022,
             "emergency_contact_name": "Narendra Gandhi",
             "emergency_contact_number": "919933812381",
             "patientWAId": 3
@@ -561,7 +561,7 @@
             "street_address": "2308 Maple Drive",
             "city": "Danville",
             "state": "Indiana",
-            "pinCode": 146231,
+            "pincode": 146231,
             "emergency_contact_name": "Perry Platypus",
             "emergency_contact_number": "919933887695",
             "patientWAId": 4
@@ -577,7 +577,7 @@
             "street_address": "15-A, Connaught Place",
             "city": "New Delhi",
             "state": "Delhi",
-            "pinCode": 110001
+            "pincode": 110001
         }
     },
     {
@@ -590,7 +590,7 @@
             "street_address": "10-D, Bandra East",
             "city": "Mumbai",
             "state": "Maharashtra",
-            "pinCode": 400022
+            "pincode": 400022
         }
     },
     {
