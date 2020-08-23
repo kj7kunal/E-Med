@@ -10,9 +10,8 @@ module.exports = function(sequelize, DataTypes) {
         },
         last_name: {
             type: DataTypes.STRING,
-            allowNull: false,
             validate: {
-                len: [1, 45]
+                len: [0, 45]
             }
         }
     });
