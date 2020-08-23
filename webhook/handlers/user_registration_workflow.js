@@ -247,18 +247,18 @@ class UserRegistrationController {
         // TODO: Add date processing using moment.js
         responseText += ("\nFirst Name: " + fName +
             "\nLast Name: " + lName +
-            "\nDOB: " + patient_profile.dob || 'N/A' +
-            "\nSex: " + patient_profile.sex || 'N/A' +
-            "\nContact Phone Number: " + patient_profile.phone_number || 'N/A' +
-            "\nHeight: " + patient_profile.height_cm || '_' + "cm" +
-            "\nWeight: " + patient_profile.weight_kg || '_' + "kg" +
-            "\nBlood_type: " + patient_profile.blood_type || 'N/A' +
-            "\nAddress: " + patient_profile.street_address || 'N/A' +
-            "\nCity: " + patient_profile.city || 'N/A' +
-            ", State: " + patient_profile.state || 'N/A' +
-            "\nPinCode: " + patient_profile.pincode || 'N/A' +
-            "\nEmergency Contact Name: " + patient_profile.emergency_contact_name || 'N/A' +
-            "\nEmergency Contact Number: " + patient_profile.emergency_contact_number || 'N/A');
+            "\nDOB: " + (patient_profile.dob || 'N/A') +
+            "\nSex: " + (patient_profile.sex || 'N/A') +
+            "\nContact Phone Number: " + (patient_profile.phone_number || 'N/A') +
+            "\nHeight: " + (patient_profile.height_cm || '_') + "cm" +
+            "\nWeight: " + (patient_profile.weight_kg || '_') + "kg" +
+            "\nBlood_type: " + (patient_profile.blood_type || 'N/A') +
+            "\nAddress: " + (patient_profile.street_address || 'N/A') +
+            "\nCity: " + (patient_profile.city || 'N/A') +
+            ", State: " + (patient_profile.state || 'N/A') +
+            "\nPinCode: " + (patient_profile.pincode || 'N/A') +
+            "\nEmergency Contact Name: " + (patient_profile.emergency_contact_name || 'N/A') +
+            "\nEmergency Contact Number: " + (patient_profile.emergency_contact_number || 'N/A'));
 
         // // TODO: Setup intents and function for updating profile
         // responseText += "\nWould you like to update " + patient.first_name + "'s profile?"
