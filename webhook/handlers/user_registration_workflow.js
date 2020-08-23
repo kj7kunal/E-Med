@@ -239,22 +239,26 @@ class UserRegistrationController {
         }
 
         let patient_profile = await db.patientInfoWA.findOne({where: {patientWAId: patient.id}});
+        // if (patient_profile==null){
+        //     return ("We could not find " + fName + " " + lName + "'s details.\n"
+        //         + "Please add details");
+        // }g
 
         // TODO: Add date processing using moment.js
         responseText += ("\nFirst Name: " + fName +
             "\nLast Name: " + lName +
-            "\nDOB: " + patient_profile.dob +
-            "\nSex: " + patient_profile.sex +
-            "\nContact Phone Number: " + patient_profile.phone_number +
-            "\nHeight: " + patient_profile.height_cm + "cm" +
-            "\nWeight: " + patient_profile.weight_kg + "kg" +
-            "\nBlood_type: " + patient_profile.blood_type +
-            "\nAddress: " + patient_profile.street_address +
-            "\nCity: " + patient_profile.city +
-            ", State: " + patient_profile.state +
-            "\nPinCode: " + patient_profile.pincode +
-            "\nEmergency Contact Name: " + patient_profile.emergency_contact_name +
-            "\nEmergency Contact Number: " + patient_profile.emergency_contact_number);
+            "\nDOB: " + patient_profile.dob || 'N/A' +
+            "\nSex: " + patient_profile.sex || 'N/A' +
+            "\nContact Phone Number: " + patient_profile.phone_number || 'N/A' +
+            "\nHeight: " + patient_profile.height_cm || '_' + "cm" +
+            "\nWeight: " + patient_profile.weight_kg || '_' + "kg" +
+            "\nBlood_type: " + patient_profile.blood_type || 'N/A' +
+            "\nAddress: " + patient_profile.street_address || 'N/A' +
+            "\nCity: " + patient_profile.city || 'N/A' +
+            ", State: " + patient_profile.state || 'N/A' +
+            "\nPinCode: " + patient_profile.pincode || 'N/A' +
+            "\nEmergency Contact Name: " + patient_profile.emergency_contact_name || 'N/A' +
+            "\nEmergency Contact Number: " + patient_profile.emergency_contact_number || 'N/A');
 
         // // TODO: Setup intents and function for updating profile
         // responseText += "\nWould you like to update " + patient.first_name + "'s profile?"
