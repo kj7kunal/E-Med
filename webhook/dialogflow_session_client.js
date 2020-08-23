@@ -28,11 +28,11 @@ module.exports = class DialogflowSessionClient {
     constructRequestWithStartContext(text, sessionPath, contexts) {
         console.log(contexts);
 
-        contexts.map(context => {context.lifespanCount=0;});
+        contexts.map(context => {context.lifespanCount = 0;});
 
-        let notUserContext = contexts[0];
-        notUserContext.name = notUserContext.name.split("/").slice(0, -1).join('/') + '/userReg_ask_new_user';
-        notUserContext.lifespanCount=2;
+        let notUserContext = Object.assign({}, contexts[0]);
+        notUserContext.name = notUserContext.name.split("/").slice(0, -1).join('/') + '/userreg_ask_new_user';
+        notUserContext.lifespanCount = 5;
 
         contexts.push(notUserContext);
         console.log(contexts);
@@ -46,7 +46,8 @@ module.exports = class DialogflowSessionClient {
                 }
             },
             queryParams: {
-                contexts: contexts
+                contexts: contexts,
+                resetContexts: true
             }
         };
     }
@@ -82,7 +83,7 @@ module.exports = class DialogflowSessionClient {
         const sessionPath = this.sessionClient.sessionPath(
             this.projectId, sessionId);
         const request = this.constructRequestWithStartContext(text, sessionPath, contexts);
-        await this.detectIntentHelper(request);
+        console.log(await this.detectIntentHelper(request));
     }
 
     async detectIntentWithEvent(eventName, sessionId) {

@@ -10,6 +10,8 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 const dialogflowSessionClient = require('./dialogflow_session_client.js'),
     sessionClient = new dialogflowSessionClient(projectId),
+    dialogflowContextClient = require('./dialogflow_context_client.js'),
+    contextClient = new dialogflowContextClient(projectId),
     client = require('twilio')(accountSid, authToken),
     MessagingResponse = require('twilio').twiml.MessagingResponse;
 
@@ -64,7 +66,7 @@ router.post('/api/chat/', async function(req, res) {
     }
     // Default Welcome Intent
     else if (dialogflowResponse.intent.displayName === 'Default Welcome Intent') {
-        responseText = await startController.welcome(sessionClient, dialogflowResponse, id);
+        responseText = await startController.welcome(contextClient, dialogflowResponse, id);
     }
     // Confirm and Create New User Intent
     else if (dialogflowResponse.intent.displayName === 'userReg.confirm_new_user') {
