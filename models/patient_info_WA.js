@@ -44,7 +44,7 @@ module.exports = function(sequelize, DataTypes) {
                 len: [1, 32]
             }
         },
-        pinCode: {
+        pincode: {
             type: DataTypes.INTEGER,
             validate: {
                 min: 100000,
