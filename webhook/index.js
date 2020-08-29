@@ -87,6 +87,15 @@ router.post('/api/chat/', async function(req, res) {
     else if (dialogflowResponse.intent.displayName === 'userReg.check_patient_profile') {
         responseText = await userRegController.checkPatientDetails(dialogflowResponse, id.substring(10));
     }
+    // Patient First Workflow Intents
+    // check if patients are registered and give list of the patients that are already registered
+    else if (dialogflowResponse.intent.displayName === 'patFirst.book_consultation') {
+        responseText = await consultController.bookConsulation(dialogflowResponse, id.substring(10));
+    }
+    // check if a patient with the given name exits and give the patient's details
+    else if (dialogflowResponse.intent.displayName === 'patFirst.patient_info') {
+        responseText = await consultController.patientInfo(dialogflowResponse, id.substring(10));
+    }
     // Intents with static response handled from dialogflow console
     else {
         responseText = dialogflowResponse.fulfillmentText;
