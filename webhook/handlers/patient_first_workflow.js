@@ -23,7 +23,7 @@ class PatientFirstController {
       return fulfillmentText;
   }
 
-  async patientInfo(agent, id){
+  async patientInfo(contextClient, agent, id){
       let user = await db.userWA.findOne({where: {wa_phone_number: id}});
       let fulfillmentText = "";
       let parameters = agent.parameters.fields;

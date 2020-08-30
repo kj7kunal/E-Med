@@ -97,7 +97,7 @@ router.post('/api/chat/', async function(req, res) {
     }
     // check if a patient with the given name exits and give the patient's details
     else if (dialogflowResponse.intent.displayName === 'patFirst.patient_info') {
-        responseText = await patFirstController.patientInfo(dialogflowResponse, id.substring(10));
+        responseText = await patFirstController.patientInfo(contextClient, dialogflowResponse, id.substring(10));
     }
     // Intents with static response handled from dialogflow console
     else {
