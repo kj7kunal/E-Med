@@ -17,7 +17,8 @@ class PatientFirstController {
           for(let i=0; i< patients.length; i++) {
               fulfillmentText += "\nPatient " + (i+1).toString() + ": " + patients[i].first_name + " " + patients[i].last_name;
           }
-          fulfillmentText += ("\nReply back the full name of the patient you wish to book a consult for or add a new patient.");
+          fulfillmentText += ("\nReply back the full name of the patient you wish to book a consultation for." +
+              "\nOr, if they are not present in the list, would you like to register them as a new patient?");
       }
       return fulfillmentText;
   }
@@ -25,10 +26,7 @@ class PatientFirstController {
   async patientInfo(agent, id){
       let user = await db.userWA.findOne({where: {wa_phone_number: id}});
       let fulfillmentText = "";
-      let paramContextName = 'patfirst_choose_patient';
-      let parameters = agent.outputContexts.filter(d =>
-          d.name.split("/").slice(-1)[0] === paramContextName)[0].parameters["fields"];
-
+      let parameters = agent.parameters.fields;
       let name = parameters["name"].stringValue.trim().split(" ");
       if (name.length === 1) name[1] = "";
       let fName = name.slice(0, -1).join(' ');
@@ -41,7 +39,7 @@ class PatientFirstController {
       let patientInfo = await db.patientInfoWA.findOne({where: { patientWAId: patient.id }});
       if((patient) && (patientInfo))
       {
-          fulfillmentText += ("These are the details of your Patient: " + "\nFirst Name: " + fName +
+          fulfillmentText += ("These are the details of your selected patient: " + "\nFirst Name: " + fName +
               "\nLast Name: " + lName +
               "\nDOB: " + (patientInfo.dob || 'N/A') +
               "\nSex: " + (patientInfo.sex || 'N/A') +
@@ -55,19 +53,24 @@ class PatientFirstController {
               "\nPinCode: " + (patientInfo.pincode || 'N/A') +
               "\nEmergency Contact Name: " + (patientInfo.emergency_contact_name || 'N/A') +
               "\nEmergency Contact Number: " + (patientInfo.emergency_contact_number || 'N/A') +
-              "How would you like to proceed?" +
-              "(1) Edit patient details" +
-              "(2) Select another patient" +
-              "(3) Proceed with booking the consultation");
+              "\nHow would you like to proceed?" +
+              "\n(1) Edit patient details" +
+              "\n(2) Select another patient" +
+              "\n(3) Proceed with booking the consultation");
       }
       else if(patient)
       {
-          fulfillmentText += ("These are the details of your Patient: " + "\nFirst Name: " + fName +
+          fulfillmentText += ("These are the details of your selected patient: " + "\nFirst Name: " + fName +
               "\nLast Name: " + lName +
-              "\nPatients details have not been added. Please do add later.");
+              "\nPatients details have not been added. Please do add later." +
+              "\nHow would you like to proceed?" +
+              "\n(1) Edit patient details" +
+              "\n(2) Select another patient" +
+              "\n(3) Proceed with booking the consultation");
       }
       else
       {
+          await contextClient.deleteAllContexts(id);
           fulfillmentText = ("We could not find " + fName + " " + lName + " in your patient list.\n"
               + "Please try again with correct spelling or register them as a new patient");
       }
