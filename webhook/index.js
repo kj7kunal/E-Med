@@ -22,6 +22,9 @@ const StartWorkflowController = require('./handlers/start_workflow.js'),
 const UserRegistrationController = require('./handlers/user_registration_workflow.js'),
     userRegController = new UserRegistrationController();
 
+const PatientFirstController = require('./handlers/patient_first_workflow.js'),
+    patFirstController = new PatientFirstController();
+
 router.post('/api/chat/', async function(req, res) {
     const body = req.body;
     const text = body.Body;
@@ -86,6 +89,15 @@ router.post('/api/chat/', async function(req, res) {
     // Check Single Patient Profile (need to add update patient prompt later)
     else if (dialogflowResponse.intent.displayName === 'userReg.check_patient_profile') {
         responseText = await userRegController.checkPatientDetails(dialogflowResponse, id.substring(10));
+    }
+    // Patient First Workflow Intents
+    // check if patients are registered and give list of the patients that are already registered
+    else if (dialogflowResponse.intent.displayName === 'patFirst.book_consultation') {
+        responseText = await patFirstController.bookConsulation(dialogflowResponse, id.substring(10));
+    }
+    // check if a patient with the given name exits and give the patient's details
+    else if (dialogflowResponse.intent.displayName === 'patFirst.patient_info') {
+        responseText = await patFirstController.patientInfo(contextClient, dialogflowResponse, id.substring(10));
     }
     // Intents with static response handled from dialogflow console
     else {
