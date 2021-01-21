@@ -33,7 +33,7 @@
         "sequelize": "^5.21.7",
         "sequelize-cli": "^5.4.0",
         "sequelize-fixtures": "^1.1.1",
-        "socket.io": "^2.3.0",
+        "socket.io": "^2.4.0",
         "twilio": "^3.43.0"
     }
 }
