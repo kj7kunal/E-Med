@@ -19,7 +19,7 @@
         "chart.js": "^2.9.3",
         "colors": "^1.4.0",
         "dialogflow": "1.2.0",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "express-handlebars": "3.0.0",
         "express-session": "^1.17.1",
         "handlebars": "^4.5.0",
